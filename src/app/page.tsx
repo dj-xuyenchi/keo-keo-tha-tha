@@ -1,95 +1,56 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { Canvas } from "@/component/Canvas";
+import { PropertiesPanel } from "@/component/PropertiesPanel";
+import { Sidebar } from "@/component/Sidebar";
+import React, { useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { v4 as uuidv4 } from "uuid";
 
-export default function Home() {
+const HomePage = () => {
+  const [items, setItems] = useState<any[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const handleDrop = (type: string) => {
+    const newNode = {
+      id: uuidv4(),
+      type,
+      props:
+        type === "Button"
+          ? { text: "Click Me" }
+          : { placeholder: "Enter text" },
+    };
+    setItems([...items, newNode]);
+  };
+
+  const handleSelect = (id: string) => setSelectedId(id);
+
+  const handleChange = (field: string, value: any) => {
+    setItems((prev) =>
+      prev.map((n) =>
+        n.id === selectedId
+          ? { ...n, props: { ...n.props, [field]: value } }
+          : n
+      )
+    );
+  };
+
+  const selected = items.find((n) => n.id === selectedId) || null;
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <DndProvider backend={HTML5Backend}>
+      <div style={{ display: "flex" }}>
+        <Sidebar />
+        <Canvas
+          items={items}
+          onDrop={handleDrop}
+          onSelect={handleSelect}
+          selectedId={selectedId}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <PropertiesPanel selected={selected} onChange={handleChange} />
+      </div>
+    </DndProvider>
   );
-}
+};
+
+export default HomePage;
