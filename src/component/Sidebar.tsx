@@ -1,41 +1,35 @@
+// Sidebar.tsx
 import React from "react";
 import { useDrag } from "react-dnd";
 
-const SidebarItem = ({ type }: { type: string }) => {
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: "COMPONENT",
-    item: { type },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
+import styles from "./sidebar.module.scss";
+import { Tabs } from "antd";
+import { toolBoxOption } from "@/config/toolboxOption";
+import { ToolboxOptionPanel } from "./ToolboxOptionPanel";
 
+
+export const Sidebar = () => {
+  const onChange = (key: string) => {
+    console.log(key);
+  };
   return (
-    <div
-      ref={dragRef}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        border: "1px solid #aaa",
-        padding: "8px",
-        marginBottom: "8px",
-        backgroundColor: "#f9f9f9",
-        cursor: "move",
-      }}
-    >
-      {type}
+    <div className={styles.sideBarContainer}>
+      <div className={styles.toolbox}>
+        <Tabs
+          onChange={onChange}
+          type="card"
+          items={toolBoxOption.map((_, i) => {
+            const id = String(i + 1);
+            return {
+              label: `${_.name}`,
+              key: id,
+              children: <ToolboxOptionPanel listOption={_.option} />,
+            };
+          })}
+        />
+      </div>
+      {/* <SidebarItem type="Button" />
+    <SidebarItem type="Input" /> */}
     </div>
   );
 };
-
-export const Sidebar = () => (
-  <div
-    style={{
-      width: 200,
-      borderRight: "1px solid #ddd",
-      padding: 16,
-    }}
-  >
-    <SidebarItem type="Button" />
-    <SidebarItem type="Input" />
-  </div>
-);

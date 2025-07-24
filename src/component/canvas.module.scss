@@ -1,0 +1,18 @@
+.canvasContainer {
+          width: 880px;
+          height: 90vh;
+          display: flex;
+          justify-content: center;
+          overflow: scroll;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          ::-webkit-scrollbar {
+                    display: none;
+          }
+          .canvasContent {
+                    background-color: white;
+                    border: 1px solid #d1d9e0;
+                    width: 800px;
+                    min-height: 100vh;
+          }
+}

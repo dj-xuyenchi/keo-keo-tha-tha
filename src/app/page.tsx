@@ -1,12 +1,12 @@
-'use client'
+"use client";
+
 import { Canvas } from "@/component/Canvas";
-import { PropertiesPanel } from "@/component/PropertiesPanel";
+import { SolutionPanel } from "@/component/SolutionPanel";
 import { Sidebar } from "@/component/Sidebar";
-import React, { useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import styles from "./main.module.scss";
 const HomePage = () => {
   const [items, setItems] = useState<any[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -38,18 +38,19 @@ const HomePage = () => {
   const selected = items.find((n) => n.id === selectedId) || null;
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
+    <div className={styles.appContainer}>
+      <div className={styles.ruyMenu}>ss</div>
+      <div className={styles.contentContainer}>
+        <SolutionPanel selected={selected} onChange={handleChange} />
         <Canvas
           items={items}
           onDrop={handleDrop}
           onSelect={handleSelect}
           selectedId={selectedId}
         />
-        <PropertiesPanel selected={selected} onChange={handleChange} />
+        <Sidebar />
       </div>
-    </DndProvider>
+    </div>
   );
 };
 
