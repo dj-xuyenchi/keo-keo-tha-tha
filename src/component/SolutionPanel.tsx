@@ -4,10 +4,8 @@ import styles from "./solution.module.scss";
 import clsx from "clsx";
 export const SolutionPanel = ({
   selected,
-  onChange,
 }: {
   selected: any | null;
-  onChange: (field: string, value: any) => void;
 }) => {
   return (
     <div className={styles.solutionContainer}>

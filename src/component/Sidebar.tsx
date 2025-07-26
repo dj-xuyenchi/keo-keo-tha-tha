@@ -6,6 +6,7 @@ import styles from "./sidebar.module.scss";
 import { Tabs } from "antd";
 import { toolBoxOption } from "@/config/toolboxOption";
 import { ToolboxOptionPanel } from "./ToolboxOptionPanel";
+import { propertyOptions } from "@/config/propertyOption";
 
 
 export const Sidebar = () => {
@@ -28,8 +29,20 @@ export const Sidebar = () => {
           })}
         />
       </div>
-      {/* <SidebarItem type="Button" />
-    <SidebarItem type="Input" /> */}
+      <div className={styles.properties}>
+        <Tabs
+          onChange={onChange}
+          type="card"
+          items={propertyOptions.map((_, i) => {
+            const id = String(i + 1);
+            return {
+              label: `${_.name}`,
+              key: id,
+              children: <ToolboxOptionPanel listOption={_.option} />,
+            };
+          })}
+        />
+      </div>
     </div>
   );
 };

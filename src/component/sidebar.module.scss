@@ -1,45 +1,57 @@
 .sideBarContainer {
-          width: 300px;
-          background-color: white;
-          display: flex;
-          flex-direction: column;
-          padding: 4px 4px;
-          border-top: 1px solid #d1d9e0;
-          border-left: 1px solid #d1d9e0;
-          .toolbox {
-                    height: 400px;
-                    overflow: scroll;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                    ::-webkit-scrollbar {
-                              display: none;
+    width: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 4px;
+    border-top: 1px solid #d1d9e0;
+    border-left: 1px solid #d1d9e0;
+
+    .toolbox {
+        height: 240px;
+        overflow: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .optionContainer {
+            padding: 0px 8px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            .option {
+                cursor: grab;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                border-radius: 5px;
+                padding: 4px;
+                margin-right: 4px;
+
+                &:hover {
+                    background-color: #e2e2e2;
+
+                    .name {
+                        color: #3b3b3b;
                     }
-                    .optionContainer {
-                              padding: 0px 8px;
-                              display: flex;
-                              flex-direction: row;
-                              .option {
-                                        cursor: grab;
-                                        display: flex;
-                                        flex-direction: row;
-                                        align-items: center;
-                                        border-radius: 5px;
-                                        padding: 4px;
-                                        margin-right: 4px;
-                                        &:hover {
-                                                  background-color: #e2e2e2;
-                                                  .name {
-                                                            color: #3b3b3b;
-                                                  }
-                                        }
-                                        .icon {
-                                        }
-                                        .name {
-                                                  margin-left: 4px;
-                                                  font-size: 13.5px;
-                                                  font-weight: 550;
-                                        }
-                              }
-                    }
-          }
+                }
+
+                .icon {}
+
+                .name {
+                    margin-left: 4px;
+                    font-size: 13.5px;
+                    font-weight: 550;
+                }
+            }
+        }
+    }
+    .properties{
+
+    }
 }

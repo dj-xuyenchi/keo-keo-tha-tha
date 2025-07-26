@@ -1,18 +1,31 @@
 .canvasContainer {
-          width: 880px;
-          height: 90vh;
-          display: flex;
-          justify-content: center;
-          overflow: scroll;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-          ::-webkit-scrollbar {
-                    display: none;
-          }
-          .canvasContent {
-                    background-color: white;
-                    border: 1px solid #d1d9e0;
-                    width: 800px;
-                    min-height: 100vh;
-          }
+    width: 880px;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .canvasContent {
+        background-color: white;
+        border: 1px solid #d1d9e0;
+        width: 800px;
+        min-height: 100vh;
+    }
+
+    .node {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid transparent;
+    }
+
+    .selectedNode {
+        border: 1px solid blue;
+        background-color: #fff
+    }
 }

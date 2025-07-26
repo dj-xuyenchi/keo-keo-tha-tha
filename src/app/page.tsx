@@ -7,33 +7,25 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import styles from "./main.module.scss";
+import { NodeComponent, NodeProps } from "@/entity/NodeComponent";
+import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
 const HomePage = () => {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const handleDrop = (type: string) => {
+  const handleDrop = (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE) => {
     const newNode = {
       id: uuidv4(),
       type,
-      props:
-        type === "Button"
-          ? { text: "Click Me" }
-          : { placeholder: "Enter text" },
+      props: {} as NodeProps
     };
     setItems([...items, newNode]);
+    console.error(items);
+
   };
 
   const handleSelect = (id: string) => setSelectedId(id);
 
-  const handleChange = (field: string, value: any) => {
-    setItems((prev) =>
-      prev.map((n) =>
-        n.id === selectedId
-          ? { ...n, props: { ...n.props, [field]: value } }
-          : n
-      )
-    );
-  };
 
   const selected = items.find((n) => n.id === selectedId) || null;
 
@@ -41,7 +33,7 @@ const HomePage = () => {
     <div className={styles.appContainer}>
       <div className={styles.ruyMenu}>ss</div>
       <div className={styles.contentContainer}>
-        <SolutionPanel selected={selected} onChange={handleChange} />
+        <SolutionPanel selected={selected} />
         <Canvas
           items={items}
           onDrop={handleDrop}

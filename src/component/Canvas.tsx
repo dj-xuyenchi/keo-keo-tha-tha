@@ -3,12 +3,12 @@ import { useDrop } from "react-dnd";
 
 import styles from "./canvas.module.scss";
 import clsx from "clsx";
+import { NodeComponent } from "@/entity/NodeComponent";
+import { acceptType } from "@/config/acceptType";
+import { MiddlewareConponentRender } from "./MiddlewareConponentRender";
+import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
 
-type Node = {
-  id: string;
-  type: string;
-  props: Record<string, any>;
-};
+
 
 export const Canvas = ({
   items,
@@ -16,14 +16,14 @@ export const Canvas = ({
   onSelect,
   selectedId,
 }: {
-  items: Node[];
-  onDrop: (type: string) => void;
+  items: NodeComponent[];
+  onDrop: (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE) => void;
   onSelect: (id: string) => void;
   selectedId: string | null;
 }) => {
   const [, dropRef] = useDrop(() => ({
-    accept: "COMPONENT",
-    drop: (item: { type: string }) => onDrop(item.type),
+    accept: acceptType,
+    drop: (item: { type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE }) => onDrop(item.type),
   }));
 
   return (
@@ -34,22 +34,10 @@ export const Canvas = ({
             <div
               key={node.id}
               onClick={() => onSelect(node.id)}
-              style={{
-                border:
-                  node.id === selectedId
-                    ? "2px solid blue"
-                    : "1px solid transparent",
-                padding: 8,
-                margin: 4,
-                cursor: "pointer",
-                backgroundColor: "#fff",
-              }}
+              className={clsx(styles.node, selectedId === node.id && styles.selectedNode)}
+
             >
-              {node.type === "Button" ? (
-                <button>{node.props.text}</button>
-              ) : (
-                <input placeholder={node.props.placeholder} />
-              )}
+              <MiddlewareConponentRender node={node} />
             </div>
           ))}
         </div>

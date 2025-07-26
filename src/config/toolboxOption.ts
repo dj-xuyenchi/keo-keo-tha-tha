@@ -1,5 +1,6 @@
 import { Toolbox } from "@/entity/Toolbox";
-import { BUTTON } from "@/entity/ToolboxOption";
+import { DATA_TYPE } from './TypeComponent';
+
 
 export const toolBoxOption: Toolbox[] = [
   {
@@ -8,17 +9,17 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Panel",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Hàng",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Form",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
     ],
   },
@@ -28,17 +29,17 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Button",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Button",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Button",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
     ],
   },
@@ -48,37 +49,37 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Input",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "InputNumber",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "RichText",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Checkbox",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Radio",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "DatePicker",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
       {
         name: "Table",
         icon: "button.webp",
-        type: BUTTON,
+        type: DATA_TYPE.BUTTON,
       },
     ],
   },

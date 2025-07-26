@@ -4,6 +4,7 @@ import styles from "./sidebar.module.scss";
 import { ToolboxOption } from "@/entity/ToolboxOption";
 import Image from "next/image";
 import { useDrag } from "react-dnd";
+import { acceptType } from "@/config/acceptType";
 type ToolboxOptionPanelProps = {
   listOption: ToolboxOption[];
 };
@@ -27,7 +28,7 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
 
 const SidebarItem = ({ type, name, icon }: ToolboxOption) => {
   const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: "COMPONENT",
+    type: acceptType,
     item: { type },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -40,7 +41,7 @@ const SidebarItem = ({ type, name, icon }: ToolboxOption) => {
       ref={dragRef}
       draggable={true}
       onDragStart={(e) => {
-        e.dataTransfer.setData("component-type", "Button");
+        e.dataTransfer.setData("component-type", type as string);
       }}
     >
       <div className={styles.icon}>
