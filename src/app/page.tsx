@@ -7,25 +7,27 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import styles from "./main.module.scss";
-import { NodeComponent, NodeProps } from "@/entity/NodeComponent";
+import { NodeComponent } from "@/entity/NodeComponent";
 import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
+import { XYCoord } from "react-dnd";
 const HomePage = () => {
   const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const handleDrop = (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE) => {
-    const newNode = {
-      id: uuidv4(),
-      type,
-      props: {} as NodeProps
-    };
-    setItems([...items, newNode]);
-    console.error(items);
-
+  const handleDrop = (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE, offset: XYCoord | null) => {
+    setItems((prev) => [
+      ...prev,
+      {
+        id: uuidv4(),
+        type: type,
+        props: {},
+        top: offset?.y || 0,
+        left: offset?.x || 0
+      },
+    ] as NodeComponent[]);
   };
 
   const handleSelect = (id: string) => setSelectedId(id);
-
 
   const selected = items.find((n) => n.id === selectedId) || null;
 

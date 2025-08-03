@@ -16,12 +16,15 @@
         border: 1px solid #d1d9e0;
         width: 800px;
         min-height: 100vh;
+        position: relative;
     }
 
     .node {
         display: inline-block;
         cursor: pointer;
         border: 1px solid transparent;
+        position: absolute;
+        
     }
 
     .selectedNode {
