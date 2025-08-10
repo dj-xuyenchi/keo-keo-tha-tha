@@ -1,8 +1,8 @@
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
+import { TYPE_DROP } from "@/config/TypeComponent";
 
 export interface NodeComponent {
     id: string;
-    type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE;
+    type: TYPE_DROP;
     props: NodeProps;
     top: number;
     left: number;

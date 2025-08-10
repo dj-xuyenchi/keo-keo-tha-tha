@@ -7,10 +7,13 @@ export enum DATA_TYPE {
 
 
 export enum LAYOUT_TYPE {
-   
-    
+
+
 }
 
 export enum CONTROL_TYPE {
     BUTTON = 'BUTTON',
 }
+
+
+export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE

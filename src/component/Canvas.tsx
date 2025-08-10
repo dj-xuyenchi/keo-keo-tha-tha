@@ -6,23 +6,33 @@ import clsx from "clsx";
 import { NodeComponent } from "@/entity/NodeComponent";
 import { acceptType } from "@/config/acceptType";
 import { MiddlewareConponentRender } from "./MiddlewareConponentRender";
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
+import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE, TYPE_DROP } from "@/config/TypeComponent";
+
+export interface CanvasProps {
+  items: NodeComponent[];
+  onDrop: (type: TYPE_DROP, offset: XYCoord | null) => void;
+  onMoveNode: (node: NodeComponent, offset: XYCoord | null) => void;
+  onSelect: (id: string) => void;
+  selectedId: string | null;
+}
+export interface NodeDropData {
+  type: TYPE_DROP;
+  isMoving: boolean;
+  node: NodeComponent
+}
 
 export const Canvas = ({
   items,
   onDrop,
+  onMoveNode,
   onSelect,
   selectedId,
-}: {
-  items: NodeComponent[];
-  onDrop: (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE, offset: XYCoord | null) => void;
-  onSelect: (id: string) => void;
-  selectedId: string | null;
-}) => {
+}: CanvasProps
+) => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [, drop] = useDrop(() => ({
     accept: acceptType,
-    drop: (item: { type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE }, monitor) => {
+    drop: (item: NodeDropData, monitor) => {
       const clientOffset = monitor.getClientOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
 
@@ -30,9 +40,8 @@ export const Canvas = ({
         const relativeX = clientOffset.x - canvasRect.left;
         const relativeY = clientOffset.y - canvasRect.top;
 
-        console.log("📍 Relative drop at:", relativeX, relativeY);
-
         onDrop(item.type, { x: relativeX, y: relativeY });
+
       }
     },
   }));
@@ -58,7 +67,7 @@ export const Canvas = ({
                 left: node.left
               }}
             >
-              <MiddlewareConponentRender node={node} />
+              <MiddlewareConponentRender onMoveNode={onMoveNode} node={node} />
             </div>
           ))}
 

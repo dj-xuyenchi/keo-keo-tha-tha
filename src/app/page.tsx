@@ -27,6 +27,11 @@ const HomePage = () => {
     ] as NodeComponent[]);
   };
 
+  const handleMoveNode = (node: NodeComponent, offset: XYCoord | null) => {
+    node.top = offset?.y || 0;
+    node.left = offset?.x || 0;
+  };
+
   const handleSelect = (id: string) => setSelectedId(id);
 
   const selected = items.find((n) => n.id === selectedId) || null;
@@ -39,6 +44,7 @@ const HomePage = () => {
         <Canvas
           items={items}
           onDrop={handleDrop}
+          onMoveNode={handleMoveNode}
           onSelect={handleSelect}
           selectedId={selectedId}
         />
