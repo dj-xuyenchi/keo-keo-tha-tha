@@ -2,23 +2,18 @@ import React from "react";
 
 import styles from "./solution.module.scss";
 import clsx from "clsx";
+
+export interface SolutionPanelProps {
+  selected: number
+}
+
 export const SolutionPanel = ({
-  selected,
-}: {
-  selected: any | null;
-}) => {
+  selected
+}: SolutionPanelProps) => {
   return (
     <div className={styles.solutionContainer}>
-      {/* {selected.type === "Button" && (
-        <div>
-          Text:
-          <input
-            type="text"
-            value={selected.props.text}
-            onChange={(e) => onChange("text", e.target.value)}
-          />
-        </div>
-      )} */}
+
+      sss
     </div>
   );
 };

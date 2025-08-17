@@ -6,12 +6,12 @@ import clsx from "clsx";
 import { NodeComponent } from "@/entity/NodeComponent";
 import { acceptType } from "@/config/acceptType";
 import { MiddlewareConponentRender } from "./MiddlewareConponentRender";
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE, TYPE_DROP } from "@/config/TypeComponent";
+import { TYPE_DROP } from "@/config/TypeComponent";
 
 export interface CanvasProps {
   items: NodeComponent[];
   onDrop: (type: TYPE_DROP, offset: XYCoord | null) => void;
-  onMoveNode: (node: NodeComponent, offset: XYCoord | null) => void;
+  onMoveNode: (node: NodeComponent) => void;
   onSelect: (id: string) => void;
   selectedId: string | null;
 }
@@ -33,15 +33,20 @@ export const Canvas = ({
   const [, drop] = useDrop(() => ({
     accept: acceptType,
     drop: (item: NodeDropData, monitor) => {
+      const sourceClientOffset = monitor.getSourceClientOffset();
+
       const clientOffset = monitor.getClientOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
 
-      if (clientOffset && canvasRect) {
-        const relativeX = clientOffset.x - canvasRect.left;
-        const relativeY = clientOffset.y - canvasRect.top;
+      if (clientOffset && canvasRect && sourceClientOffset) {
 
+        const relativeX = sourceClientOffset.x - canvasRect.left;
+        const relativeY = sourceClientOffset.y - canvasRect.top;
+
+        if (item.isMoving) {
+          onMoveNode(item.node)
+        }
         onDrop(item.type, { x: relativeX, y: relativeY });
-
       }
     },
   }));

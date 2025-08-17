@@ -4,6 +4,17 @@ import { DATA_TYPE } from "./TypeComponent";
 
 export const propertyOptions: Toolbox[] = [
     {
+        name: "Thuộc tính",
+        option: [
+            {
+                name: "Panel",
+                icon: "button.webp",
+                type: DATA_TYPE.BUTTON,
+            },
+
+        ],
+    },
+    {
         name: "Nội dung",
         option: [
             {

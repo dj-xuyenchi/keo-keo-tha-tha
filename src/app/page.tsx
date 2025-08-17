@@ -27,10 +27,15 @@ const HomePage = () => {
     ] as NodeComponent[]);
   };
 
-  const handleMoveNode = (node: NodeComponent, offset: XYCoord | null) => {
-    node.top = offset?.y || 0;
-    node.left = offset?.x || 0;
+  const handleMoveNode = (node: NodeComponent) => {
+    setItems((prev) =>
+      prev.filter((item) => item.id !== node.id)
+    );
   };
+
+  const handleUpdateNode = (node: NodeComponent) => {
+
+  }
 
   const handleSelect = (id: string) => setSelectedId(id);
 
@@ -48,7 +53,9 @@ const HomePage = () => {
           onSelect={handleSelect}
           selectedId={selectedId}
         />
-        <Sidebar />
+        <Sidebar
+          onUpdateNode={handleUpdateNode}
+        />
       </div>
     </div>
   );

@@ -48,8 +48,8 @@ export const toolBoxOption: Toolbox[] = [
     option: [
       {
         name: "Input",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        icon: "text-input.jpg",
+        type: DATA_TYPE.INPUT,
       },
       {
         name: "InputNumber",

@@ -3,6 +3,7 @@ import { NodeComponent } from "@/entity/NodeComponent";
 import { ButtonDrop } from "./control/ButtonDrop";
 import { useDrag, XYCoord } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
+import { InputDrop } from "./data/InputDrop";
 
 export interface MiddlewareConponentRenderProps {
     node: NodeComponent;
@@ -12,7 +13,11 @@ export interface MiddlewareConponentRenderProps {
 export const MiddlewareConponentRender = ({ node }: MiddlewareConponentRenderProps) => {
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: acceptType,
-        item: { type: "BUTTON" },
+        item: {
+            type: node.type,
+            node: node,
+            isMoving: true
+        },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -22,7 +27,7 @@ export const MiddlewareConponentRender = ({ node }: MiddlewareConponentRenderPro
             ref={dragRef}
             draggable={true}
             onDragStart={(e) => {
-                e.dataTransfer.setData("component-type", "BUTTON");
+                e.dataTransfer.setData("component-type", node.type as string);
                 e.dataTransfer.setData("node-data", JSON.stringify(node));
                 e.dataTransfer.setData("isMoving", JSON.stringify(true));
             }}
@@ -31,6 +36,7 @@ export const MiddlewareConponentRender = ({ node }: MiddlewareConponentRenderPro
             }}
         >
             {node.type === DATA_TYPE.BUTTON && <ButtonDrop />}
+            {node.type === DATA_TYPE.INPUT && <InputDrop />}
         </div>
     </>
         ;

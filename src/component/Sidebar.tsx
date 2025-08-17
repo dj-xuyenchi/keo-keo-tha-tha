@@ -7,9 +7,13 @@ import { Tabs } from "antd";
 import { toolBoxOption } from "@/config/toolboxOption";
 import { ToolboxOptionPanel } from "./ToolboxOptionPanel";
 import { propertyOptions } from "@/config/propertyOption";
+import { NodeComponent } from "@/entity/NodeComponent";
+import { NodePropsSetting } from "./NodePropsSetting";
+export interface SidebarProps {
+  onUpdateNode: (node: NodeComponent) => void;
+}
 
-
-export const Sidebar = () => {
+export const Sidebar = ({ onUpdateNode }: SidebarProps) => {
   const onChange = (key: string) => {
     console.log(key);
   };
@@ -38,7 +42,7 @@ export const Sidebar = () => {
             return {
               label: `${_.name}`,
               key: id,
-              children: <ToolboxOptionPanel listOption={_.option} />,
+              children: <NodePropsSetting />,
             };
           })}
         />
