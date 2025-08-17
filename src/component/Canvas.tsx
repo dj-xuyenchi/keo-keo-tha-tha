@@ -13,12 +13,16 @@ export interface CanvasProps {
   onDrop: (type: TYPE_DROP, offset: XYCoord | null) => void;
   onMoveNode: (node: NodeComponent) => void;
   onSelect: (id: string) => void;
+  onPutNode2Node: (
+    nodeTarget: NodeComponent,
+    nodeSource: NodeComponent
+  ) => void;
   selectedId: string | null;
 }
 export interface NodeDropData {
   type: TYPE_DROP;
   isMoving: boolean;
-  node: NodeComponent
+  node: NodeComponent;
 }
 
 export const Canvas = ({
@@ -26,9 +30,9 @@ export const Canvas = ({
   onDrop,
   onMoveNode,
   onSelect,
+  onPutNode2Node,
   selectedId,
-}: CanvasProps
-) => {
+}: CanvasProps) => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [, drop] = useDrop(() => ({
     accept: acceptType,
@@ -39,12 +43,11 @@ export const Canvas = ({
       const canvasRect = canvasRef.current?.getBoundingClientRect();
 
       if (clientOffset && canvasRect && sourceClientOffset) {
-
         const relativeX = sourceClientOffset.x - canvasRect.left;
         const relativeY = sourceClientOffset.y - canvasRect.top;
 
         if (item.isMoving) {
-          onMoveNode(item.node)
+          onMoveNode(item.node);
         }
         onDrop(item.type, { x: relativeX, y: relativeY });
       }
@@ -57,25 +60,36 @@ export const Canvas = ({
     }
   }, [drop]);
 
-
   return (
-    <div >
-      <div className={styles.canvasContainer} >
-        <div className={clsx(styles.canvasContent, "hide-scrollbar")} ref={canvasRef}>
+    <div>
+      <div className={styles.canvasContainer}>
+        <div
+          className={clsx(styles.canvasContent, "hide-scrollbar")}
+          ref={canvasRef}
+        >
           {items.map((node) => (
             <div
               key={node.id}
               onClick={() => onSelect(node.id)}
-              className={clsx(styles.node, selectedId === node.id && styles.selectedNode)}
+              className={clsx(
+                styles.node,
+                selectedId === node.id && styles.selectedNode
+              )}
               style={{
                 top: node.top,
-                left: node.left
+                left: node.left,
               }}
             >
-              <MiddlewareConponentRender onMoveNode={onMoveNode} node={node} />
+              <MiddlewareConponentRender
+                onDrop={onDrop}
+                onSelect={onSelect}
+                selectedId={selectedId}
+                onPutNode2Node={onPutNode2Node}
+                onMoveNode={onMoveNode}
+                node={node}
+              />
             </div>
           ))}
-
         </div>
       </div>
     </div>

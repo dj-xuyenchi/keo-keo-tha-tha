@@ -8,7 +8,7 @@
     border-left: 1px solid #d1d9e0;
 
     .toolbox {
-        height: 240px;
+        height: 40vh;
         overflow: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -41,7 +41,8 @@
                     }
                 }
 
-                .icon {}
+                .icon {
+                }
 
                 .name {
                     margin-left: 4px;
@@ -51,7 +52,7 @@
             }
         }
     }
-    .properties{
-
+    .properties {
+        height: 40vh;
     }
 }

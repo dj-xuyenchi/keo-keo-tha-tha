@@ -1,19 +1,16 @@
 export enum DATA_TYPE {
-    BUTTON = 'BUTTON',
-    INPUT = 'INPUT',
-    INPUT_NUMBER = 'INPUT_NUMBER',
-    RICH_TEXT = 'RICH_TEXT'
+  BUTTON = "BUTTON",
+  INPUT = "INPUT",
+  INPUT_NUMBER = "INPUT_NUMBER",
+  RICH_TEXT = "RICH_TEXT",
 }
 
-
 export enum LAYOUT_TYPE {
-
-
+  PANEL = "PANEL",
 }
 
 export enum CONTROL_TYPE {
-    BUTTON = 'BUTTON',
+  BUTTON = "BUTTON",
 }
 
-
-export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE
+export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE;

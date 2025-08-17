@@ -14,28 +14,50 @@ const HomePage = () => {
   const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const handleDrop = (type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE, offset: XYCoord | null) => {
-    setItems((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        type: type,
-        props: {},
-        top: offset?.y || 0,
-        left: offset?.x || 0
-      },
-    ] as NodeComponent[]);
-  };
-
-  const handleMoveNode = (node: NodeComponent) => {
-    setItems((prev) =>
-      prev.filter((item) => item.id !== node.id)
+  const handleDrop = (
+    type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE,
+    offset: XYCoord | null
+  ) => {
+    setItems(
+      (prev) =>
+        [
+          ...prev,
+          {
+            id: uuidv4(),
+            type: type,
+            props: {},
+            top: offset?.y || 0,
+            left: offset?.x || 0,
+          },
+        ] as NodeComponent[]
     );
   };
 
-  const handleUpdateNode = (node: NodeComponent) => {
+  const handleMoveNode = (node: NodeComponent) => {
+    setItems((prev) => prev.filter((item) => item.id !== node.id));
+  };
 
-  }
+  const handleUpdateNode = (node: NodeComponent) => {};
+
+  const handlePutNode2Node = (
+    nodeTarget: NodeComponent,
+    nodeSource: NodeComponent
+  ) => {
+    setItems((prev) =>
+      prev.map((node) => {
+        if (node.id === nodeTarget.id) {
+          var children = nodeTarget.props.children;
+          if (!children) {
+            children = [nodeSource];
+          } else {
+            children.push(nodeSource);
+          }
+          nodeTarget.props.children = children;
+        }
+        return node;
+      })
+    );
+  };
 
   const handleSelect = (id: string) => setSelectedId(id);
 
@@ -52,10 +74,9 @@ const HomePage = () => {
           onMoveNode={handleMoveNode}
           onSelect={handleSelect}
           selectedId={selectedId}
+          onPutNode2Node={handlePutNode2Node}
         />
-        <Sidebar
-          onUpdateNode={handleUpdateNode}
-        />
+        <Sidebar onUpdateNode={handleUpdateNode} />
       </div>
     </div>
   );
