@@ -1,5 +1,5 @@
 import { Toolbox } from "@/entity/Toolbox";
-import { DATA_TYPE, LAYOUT_TYPE } from './TypeComponent';
+import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from './TypeComponent';
 
 
 export const toolBoxOption: Toolbox[] = [
@@ -29,7 +29,7 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Button",
         icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        type: CONTROL_TYPE.BUTTON,
       },
       {
         name: "Button",
@@ -78,8 +78,8 @@ export const toolBoxOption: Toolbox[] = [
       },
       {
         name: "Table",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        icon: "table.png",
+        type: DATA_TYPE.TABLE,
       },
     ],
   },

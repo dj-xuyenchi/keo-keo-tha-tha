@@ -1,8 +1,9 @@
 export enum DATA_TYPE {
-  BUTTON = "BUTTON",
+  TABLE = "TABLE",
   INPUT = "INPUT",
   INPUT_NUMBER = "INPUT_NUMBER",
   RICH_TEXT = "RICH_TEXT",
+  BUTTON = "BUTTON",
 }
 
 export enum LAYOUT_TYPE {

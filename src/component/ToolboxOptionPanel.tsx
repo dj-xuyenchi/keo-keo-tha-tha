@@ -5,9 +5,11 @@ import { ToolboxOption } from "@/entity/ToolboxOption";
 import Image from "next/image";
 import { useDrag } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
+
 type ToolboxOptionPanelProps = {
   listOption: ToolboxOption[];
 };
+
 export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
   return (
     <div className={styles.optionContainer}>
@@ -27,7 +29,7 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
 };
 
 const SidebarItem = ({ type, name, icon }: ToolboxOption) => {
-  const [{ isDragging }, dragRef] = useDrag(() => ({
+  const [, dragRef] = useDrag(() => ({
     type: acceptType,
     item: { type },
     collect: (monitor) => ({
@@ -39,7 +41,6 @@ const SidebarItem = ({ type, name, icon }: ToolboxOption) => {
     <div
       className={styles.option}
       ref={dragRef}
-      draggable={true}
       onDragStart={(e) => {
         e.dataTransfer.setData("component-type", type as string);
       }}
