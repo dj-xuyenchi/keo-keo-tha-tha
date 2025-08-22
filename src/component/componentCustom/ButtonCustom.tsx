@@ -6,7 +6,7 @@ export interface ButtonPropsCustom extends ButtonProps {
   height?: number;
 }
 
-export const ButtonDrop = ({
+export const ButtonCustom = ({
   shape,
   style,
   title,

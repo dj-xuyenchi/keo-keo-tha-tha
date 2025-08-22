@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas } from "@/component/Canvas";
+import { Canvas, NodeDropData } from "@/component/Canvas";
 import { SolutionPanel } from "@/component/SolutionPanel";
 import { Sidebar } from "@/component/Sidebar";
 import { useState } from "react";
@@ -14,18 +14,16 @@ const HomePage = () => {
   const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const handleDrop = (
-    type: DATA_TYPE | CONTROL_TYPE | LAYOUT_TYPE,
-    offset: XYCoord | null
-  ) => {
+  const handleDrop = (node: NodeDropData, offset: XYCoord | null) => {
     setItems(
       (prev) =>
         [
           ...prev,
           {
             id: uuidv4(),
-            type: type,
+            type: node.type,
             props: {},
+            showingProps: node.defaultProps,
             top: offset?.y || 0,
             left: offset?.x || 0,
           },

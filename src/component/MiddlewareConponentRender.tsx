@@ -1,13 +1,13 @@
 import { DATA_TYPE, LAYOUT_TYPE, TYPE_DROP } from "@/config/TypeComponent";
 import { NodeComponent } from "@/entity/NodeComponent";
 import { ButtonDrop } from "./control/ButtonDrop";
-import { useDrag, useDrop, XYCoord } from "react-dnd";
+import { useDrag, XYCoord } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
 import { InputDrop } from "./data/InputDrop";
 import { PanelDrop } from "./layout/PanelDrop";
 import { useEffect } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { TableDrop } from "./data/TableDrop";
+import { TableDrop, TablePropsCustom } from "./data/TableDrop";
 
 export interface MiddlewareConponentRenderProps {
   node: NodeComponent;
@@ -29,6 +29,7 @@ export const MiddlewareConponentRender = ({
   selectedId,
   onPutNode2Node,
 }: MiddlewareConponentRenderProps) => {
+  
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: acceptType,
     item: {
@@ -47,17 +48,12 @@ export const MiddlewareConponentRender = ({
     <>
       <div
         ref={dragRef}
-        onDragStart={(e) => {
-          e.dataTransfer.setData("component-type", node.type as string);
-          e.dataTransfer.setData("node-data", JSON.stringify(node));
-          e.dataTransfer.setData("isMoving", JSON.stringify(true));
-        }}
         onDragEnd={() => {}}
         style={{ opacity: isDragging ? 0.35 : 1, transition: "opacity 120ms" }}
       >
         {node.type === DATA_TYPE.BUTTON && <ButtonDrop />}
         {node.type === DATA_TYPE.INPUT && <InputDrop />}
-        {node.type === DATA_TYPE.TABLE && <TableDrop />}
+        {node.type === DATA_TYPE.TABLE && <TableDrop {...node.showingProps} />}
         {node.type === LAYOUT_TYPE.PANEL && (
           <PanelDrop
             onDrop={onDrop}

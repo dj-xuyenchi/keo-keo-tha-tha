@@ -21,6 +21,7 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
               type={option.type}
               name={option.name}
               icon={option.icon}
+              defaultProps={option.defaultProps}
             />
           );
         })}
@@ -28,23 +29,17 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
   );
 };
 
-const SidebarItem = ({ type, name, icon }: ToolboxOption) => {
+const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
   const [, dragRef] = useDrag(() => ({
     type: acceptType,
-    item: { type },
+    item: { type, defaultProps },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   }));
 
   return (
-    <div
-      className={styles.option}
-      ref={dragRef}
-      onDragStart={(e) => {
-        e.dataTransfer.setData("component-type", type as string);
-      }}
-    >
+    <div className={styles.option} ref={dragRef}>
       <div className={styles.icon}>
         <Image alt="option" height={14} width={14} src={`/options/${icon}`} />
       </div>

@@ -7,10 +7,14 @@ import { NodeComponent } from "@/entity/NodeComponent";
 import { acceptType } from "@/config/acceptType";
 import { MiddlewareConponentRender } from "./MiddlewareConponentRender";
 import { TYPE_DROP } from "@/config/TypeComponent";
+import {
+  getDefaultProps,
+  GLOBAL_PROP_CONFIG,
+} from "@/entity/configEntry/GlobalPropConfig";
 
 export interface CanvasProps {
   items: NodeComponent[];
-  onDrop: (type: TYPE_DROP, offset: XYCoord | null) => void;
+  onDrop: (node: NodeDropData, offset: XYCoord | null) => void;
   onMoveNode: (node: NodeComponent) => void;
   onSelect: (id: string) => void;
   onPutNode2Node: (
@@ -23,6 +27,7 @@ export interface NodeDropData {
   type: TYPE_DROP;
   isMoving: boolean;
   node: NodeComponent;
+  defaultProps?: GLOBAL_PROP_CONFIG;
 }
 
 export const Canvas = ({
@@ -38,6 +43,7 @@ export const Canvas = ({
     accept: acceptType,
     drop: (item: NodeDropData, monitor) => {
       const sourceClientOffset = monitor.getSourceClientOffset();
+      console.error(item);
 
       const clientOffset = monitor.getClientOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
@@ -49,7 +55,10 @@ export const Canvas = ({
         if (item.isMoving) {
           onMoveNode(item.node);
         }
-        onDrop(item.type, { x: relativeX, y: relativeY });
+        item.defaultProps = getDefaultProps(item);
+        console.error(item);
+
+        onDrop(item, { x: relativeX, y: relativeY });
       }
     },
   }));
