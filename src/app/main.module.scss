@@ -2,15 +2,17 @@
           display: flex;
           flex-direction: column;
           background: #f0f0f0;
-          max-height: 100vh;
+
           .ruyMenu {
                     height: 100px;
                     margin-bottom: 12px;
                     background: white;
+                    z-index: 10 ;
           }
           .contentContainer {
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
+                    justify-content: center;
           }
 }

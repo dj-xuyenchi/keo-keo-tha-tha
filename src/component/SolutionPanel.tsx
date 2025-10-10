@@ -12,7 +12,6 @@ export const SolutionPanel = ({
 }: SolutionPanelProps) => {
   return (
     <div className={styles.solutionContainer}>
-
       sss
     </div>
   );

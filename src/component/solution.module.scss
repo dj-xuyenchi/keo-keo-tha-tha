@@ -1,4 +1,15 @@
 .solutionContainer {
           width: 300px;
           background-color: white;
+          position: absolute;
+          left: 0;
+          display: flex;
+          height: 100vh;
+
+          flex-direction: column;
+          padding: 4px 4px;
+          border-top: 1px solid #d1d9e0;
+          border-left: 1px solid #d1d9e0;
+          position: absolute;
+          right: 0;
 }

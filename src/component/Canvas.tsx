@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrop, XYCoord } from "react-dnd";
 
 import styles from "./canvas.module.scss";
@@ -38,13 +38,14 @@ export const Canvas = ({
   onPutNode2Node,
   selectedId,
 }: CanvasProps) => {
+  const [scale, setScale] = useState(1);
   const canvasRef = useRef<HTMLDivElement>(null);
+  const zoomWrapperRef = useRef<HTMLDivElement>(null);
+
   const [, drop] = useDrop(() => ({
     accept: acceptType,
     drop: (item: NodeDropData, monitor) => {
       const sourceClientOffset = monitor.getSourceClientOffset();
-      console.error(item);
-
       const clientOffset = monitor.getClientOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
 
@@ -56,7 +57,6 @@ export const Canvas = ({
           onMoveNode(item.node);
         }
         item.defaultProps = getDefaultProps(item);
-        console.error(item);
 
         onDrop(item, { x: relativeX, y: relativeY });
       }
@@ -69,12 +69,51 @@ export const Canvas = ({
     }
   }, [drop]);
 
+  // 🧭 Zoom logic
+  useEffect(() => {
+    const el = zoomWrapperRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+
+      setScale((prev) => {
+        let next = prev + (e.deltaY < 0 ? 0.1 : -0.1);
+        if (next < 0.5) next = 0.5;
+        if (next > 3) next = 3;
+        return next;
+      });
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  // 🧩 Cập nhật transform và kích thước
+  useEffect(() => {
+    const wrapper = zoomWrapperRef.current;
+    const canvas = canvasRef.current;
+    if (!wrapper || !canvas) return;
+
+    // Lấy kích thước thật của canvasContent
+    const rect = canvas.getBoundingClientRect();
+    wrapper.style.transform = `scale(${scale})`;
+    wrapper.style.transformOrigin = "0 0";
+
+    // Tính lại vùng chứa theo scale để có scroll
+    wrapper.style.width = `${rect.width * scale}px`;
+    wrapper.style.height = `${rect.height * scale}px`;
+  }, [scale, items.length]);
+
   return (
-    <div>
-      <div className={styles.canvasContainer}>
+    <div className={styles.canvasContainer} style={{ overflow: "auto" }}>
+      <div
+        ref={zoomWrapperRef}
+        className={clsx(styles.canvasZoomWrapper, "zoom-wrapper")}
+      >
         <div
-          className={clsx(styles.canvasContent, "hide-scrollbar")}
           ref={canvasRef}
+          className={clsx(styles.canvasContent, "hide-scrollbar")}
         >
           {items.map((node) => (
             <div
