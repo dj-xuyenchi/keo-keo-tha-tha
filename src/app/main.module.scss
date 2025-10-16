@@ -1,13 +1,13 @@
 .appContainer {
           display: flex;
           flex-direction: column;
-          background: #f0f0f0;
-
+          background: #f8f9fa;
           .ruyMenu {
                     height: 100px;
                     margin-bottom: 12px;
                     background: white;
-                    z-index: 10 ;
+                    border-bottom: 1px solid #d1d9e0;
+                    z-index: 10;
           }
           .contentContainer {
                     display: flex;
