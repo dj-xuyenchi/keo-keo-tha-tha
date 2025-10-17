@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-
+require('./file');
 try {
           require('electron-reloader')(module); // 🔁 tự reload main process khi sửa
 } catch (_) {
@@ -12,8 +13,9 @@ function createWindow() {
                     height: 1200,
                     autoHideMenuBar: true,
                     webPreferences: {
-                              nodeIntegration: true,
-                              contextIsolation: true,
+                              preload: path.join(__dirname, 'preload.js'),
+                              contextIsolation: true,     // ✅ bắt buộc để expose được API
+                              nodeIntegration: false,     // ✅ an toàn, không xung đột
                               webSecurity: false,
                     },
           });

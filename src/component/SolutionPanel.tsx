@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./solution.module.scss";
 import clsx from "clsx";
@@ -80,7 +80,9 @@ export const SolutionPanel = ({ selected }: SolutionPanelProps) => {
                   showLine={true}
                   showIcon={false}
                   defaultExpandedKeys={["0-0-0"]}
-                  onSelect={() => {}}
+                  onSelect={() => {
+                    handleRead();
+                  }}
                   treeData={treeData}
                 />
               ),
