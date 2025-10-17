@@ -80,9 +80,7 @@ export const SolutionPanel = ({ selected }: SolutionPanelProps) => {
                   showLine={true}
                   showIcon={false}
                   defaultExpandedKeys={["0-0-0"]}
-                  onSelect={() => {
-                    handleRead();
-                  }}
+                  onSelect={() => {}}
                   treeData={treeData}
                 />
               ),
