@@ -13,7 +13,7 @@ export interface SidebarProps {
   onUpdateNode: (node: NodeComponent) => void;
 }
 
-export const Sidebar = ({ onUpdateNode }: SidebarProps) => {
+export const Sidebar = () => {
   const onChange = (key: string) => {
     console.log(key);
   };

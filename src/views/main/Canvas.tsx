@@ -16,7 +16,7 @@ export interface NodeDropData {
   defaultProps?: GLOBAL_PROP_CONFIG;
 }
 
-export const Canvas = ({}: CanvasProps) => {
+export const Canvas = () => {
   return (
     <div className={styles.canvasContainer} style={{ overflow: "auto" }}>
       <div className={clsx(styles.canvasZoomWrapper, "zoom-wrapper")}>

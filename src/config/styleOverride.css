@@ -1,3 +1,35 @@
 .ant-tabs-nav-wrap {
           height: 30px !important;
+
+}
+
+.ant-tabs-nav {
+          margin-bottom: 8px !important;
+}
+
+.icon-btn {
+          padding: 0px !important;
+}
+
+.tree-folder .ant-tree-switcher {
+          margin-inline-end: 0px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+}
+
+.tree-folder .ant-tree-node-content-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-inline: 4px;
+}
+
+.tree-folder .ant-tree-node-content-wrapper .ant-tree-icon__customize {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-inline: 4px;
+          margin-right: 4px;
 }

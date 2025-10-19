@@ -4,6 +4,7 @@ import clsx from "clsx";
 export interface ButtonPropsCustom extends ButtonProps {
   title?: string;
   height?: number;
+  isIconBtn?: boolean;
 }
 
 export const ButtonCustom = ({
@@ -11,6 +12,8 @@ export const ButtonCustom = ({
   style,
   title,
   disabled,
+  children,
+  isIconBtn,
   ...restProps
 }: ButtonPropsCustom) => {
   return (
@@ -20,10 +23,11 @@ export const ButtonCustom = ({
         ...style,
       }}
       disabled={disabled}
-      className={clsx(disabled && "abs-disable")}
+      className={clsx(disabled && "abs-disable", isIconBtn && "icon-btn")}
+      title={title}
       {...restProps}
     >
-      {title}
+      {children}
     </Button>
   );
 };

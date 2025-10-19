@@ -1,0 +1,31 @@
+[
+          {
+                    "type": "folder",
+                    "title": "Giao diện",
+                    "key": "0-0-0",
+                    "isLeaf": false,
+                    "children": []
+          },
+          {
+                    "type": "folder",
+                    "title": "Dùng chung",
+                    "key": "1-0-0",
+                    "isLeaf": false,
+                    "children": [
+                              {
+                                        "type": "folder",
+                                        "title": "sdv",
+                                        "key": "6489ab29-a46e-4a2d-981f-c9aa6aaf97e8",
+                                        "isLeaf": false,
+                                        "children": []
+                              }
+                    ]
+          },
+          {
+                    "type": "folder",
+                    "title": "Cấu hình",
+                    "key": "2-0-0",
+                    "isLeaf": false,
+                    "children": []
+          }
+]

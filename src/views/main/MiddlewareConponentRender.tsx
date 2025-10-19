@@ -1,13 +1,13 @@
 import { DATA_TYPE, LAYOUT_TYPE, TYPE_DROP } from "@/config/TypeComponent";
 import { NodeComponent } from "@/entity/NodeComponent";
-import { ButtonDrop } from "./control/ButtonDrop";
+import { ButtonDrop } from "../../component/control/ButtonDrop";
 import { useDrag, XYCoord } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
-import { InputDrop } from "./data/InputDrop";
-import { PanelDrop } from "./layout/PanelDrop";
+import { InputDrop } from "../../component/data/InputDrop";
+import { PanelDrop } from "../../component/layout/PanelDrop";
 import { useEffect } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { TableDrop, TablePropsCustom } from "./data/TableDrop";
+import { TableDrop, TablePropsCustom } from "../../component/data/TableDrop";
 
 export interface MiddlewareConponentRenderProps {
   node: NodeComponent;
@@ -29,7 +29,6 @@ export const MiddlewareConponentRender = ({
   selectedId,
   onPutNode2Node,
 }: MiddlewareConponentRenderProps) => {
-  
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: acceptType,
     item: {
@@ -44,27 +43,5 @@ export const MiddlewareConponentRender = ({
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
-  return (
-    <>
-      <div
-        ref={dragRef}
-        onDragEnd={() => {}}
-        style={{ opacity: isDragging ? 0.35 : 1, transition: "opacity 120ms" }}
-      >
-        {node.type === DATA_TYPE.BUTTON && <ButtonDrop />}
-        {node.type === DATA_TYPE.INPUT && <InputDrop />}
-        {node.type === DATA_TYPE.TABLE && <TableDrop {...node.showingProps} />}
-        {node.type === LAYOUT_TYPE.PANEL && (
-          <PanelDrop
-            onDrop={onDrop}
-            onMoveNode={onMoveNode}
-            onSelect={onSelect}
-            selectedId={selectedId}
-            node={node}
-            onPutNode2Node={onPutNode2Node}
-          />
-        )}
-      </div>
-    </>
-  );
+  return <></>;
 };

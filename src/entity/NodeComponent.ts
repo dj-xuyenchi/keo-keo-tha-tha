@@ -7,7 +7,7 @@ export interface NodeComponent {
   props: NodeProps;
   top: number;
   left: number;
-  showingProps?: TablePropsCustom<object> | any;
+  showingProps?: TablePropsCustom<object> ;
 }
 
 export interface NodeProps {

@@ -11,7 +11,6 @@ type ToolboxOptionPanelProps = {
 };
 
 export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
- 
   return (
     <div className={styles.optionContainer}>
       {listOption &&
@@ -39,12 +38,5 @@ const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
     }),
   }));
 
-  return (
-    <div className={styles.option} ref={dragRef}>
-      <div className={styles.icon}>
-        <Image alt="option" height={14} width={14} src={`/options/${icon}`} />
-      </div>
-      <div className={styles.name}>{name}</div>
-    </div>
-  );
+  return <></>;
 };

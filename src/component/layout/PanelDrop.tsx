@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import styles from "./style/panel.module.scss";
 import { useDrop, XYCoord } from "react-dnd";
-import { NodeDropData } from "../Canvas";
+import { NodeDropData } from "../../views/main/Canvas";
 import { acceptType } from "@/config/acceptType";
 import { NodeComponent } from "@/entity/NodeComponent";
-import { MiddlewareConponentRender } from "../MiddlewareConponentRender";
+import { MiddlewareConponentRender } from "../../views/main/MiddlewareConponentRender";
 import clsx from "clsx";
 import { TYPE_DROP } from "@/config/TypeComponent";
 
