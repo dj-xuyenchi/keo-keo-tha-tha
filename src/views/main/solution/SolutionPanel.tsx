@@ -177,7 +177,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       const newFile = {
         title: name,
         type: "filecode",
-        icon: "react",
+        icon: typeFile,
         key: uuidv4(),
         isLeaf: false,
       } as FileFolderTree;
@@ -188,11 +188,14 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         contextMenu.node.key,
         newFile
       );
+      console.error(updatedTree);
+
       setSolutionInformation(updatedTree);
       newData = toJSONData(updatedTree);
-      console.error(newData);
     }
-    // await window.electronAPI.writeFile("solution.json", newData);
+    console.error(newData);
+
+    await window.electronAPI.writeFile("solution.json", newData);
 
     setIsOpenModalCreate(false);
   };

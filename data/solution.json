@@ -4,45 +4,14 @@
                     "title": "Giao diện",
                     "key": "0-0-0",
                     "isLeaf": false,
-                    "children": [
-                              {
-                                        "type": "folder",
-                                        "title": "rtgf",
-                                        "key": "32b9fc55-d8a2-4676-905e-f35ae6856df8",
-                                        "isLeaf": false,
-                                        "children": []
-                              },
-                              {
-                                        "type": "filecode",
-                                        "title": "",
-                                        "key": "59bd9b31-6614-4d3e-93e0-cecadd161d49",
-                                        "isLeaf": true,
-                                        "children": []
-                              },
-                              {
-                                        "type": "filecode",
-                                        "title": "dfbdfb",
-                                        "key": "cd480004-f489-4278-a050-8017b2ab7c1e",
-                                        "icon": "react",
-                                        "isLeaf": false,
-                                        "children": []
-                              }
-                    ]
+                    "children": []
           },
           {
                     "type": "folder",
                     "title": "Dùng chung",
                     "key": "1-0-0",
                     "isLeaf": false,
-                    "children": [
-                              {
-                                        "type": "folder",
-                                        "title": "sdv",
-                                        "key": "6489ab29-a46e-4a2d-981f-c9aa6aaf97e8",
-                                        "isLeaf": false,
-                                        "children": []
-                              }
-                    ]
+                    "children": []
           },
           {
                     "type": "folder",
