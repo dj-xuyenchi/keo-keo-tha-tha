@@ -1,7 +1,7 @@
 "use client";
 
 import "./globals.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { DndWrapper } from "@/views/main/DnDWrapper";
 
 export default function RootLayout({

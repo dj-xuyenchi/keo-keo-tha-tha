@@ -1,49 +1,142 @@
 import React, { useState } from "react";
 
-import { Button, Modal } from "antd";
+import { defaultCss } from "@/config/defaultCss";
+import { Button, Col, Form, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { SelectCustom } from "@/component/componentCustom/SelectCustom";
+import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/FileType";
+import { FormCustom } from "@/component/componentCustom/FormCustom";
+import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 export interface ModalCreateProps {
   isModalOpen: boolean;
   isCreateFolder: boolean;
   contextMenu: ContextMenu | null;
-  handleOk: (name: string) => void;
+  handleOk: (name: string, type?: string) => void;
   handleCancel: () => void;
 }
 export const ModalCreate = ({
   isModalOpen,
+
   isCreateFolder,
   contextMenu,
   handleOk,
   handleCancel,
 }: ModalCreateProps) => {
   const [folderName, setFolderName] = useState("");
+  const [fileName, setFileName] = useState("");
+
+  const [fileType, setFileType] = useState(".định dạng");
+  const [form] = Form.useForm();
+  const onFinish = (value) => {
+    handleSave();
+  };
   const handleSetFolderName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);
   };
+  const handleSetFileName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFileName(e.target.value);
+  };
+  const handleSetFileType = (value: string) => {
+    const suffix = getSuffixFileType(value);
+    console.error(suffix);
+
+    setFileType(suffix);
+  };
   const handleSave = () => {
-    handleOk(folderName);
-    setFolderName("");
+    if (isCreateFolder) {
+      handleOk(folderName);
+      setFolderName("");
+    } else {
+      handleOk(fileName, fileType);
+
+      setFileName("");
+      setFileType(".định dạng");
+    }
   };
   return (
     <>
       <Modal
-        title={isCreateFolder ? "Tạo thư mục" : "Tạo file"}
         closable={{ "aria-label": "Custom Close Button" }}
         centered
+        width={320}
         open={isModalOpen}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="ok" type="primary" onClick={handleSave}>
-            OK
-          </Button>,
-        ]}
+        onCancel={() => {
+          form.resetFields();
+          handleCancel();
+        }}
+        footer={null}
       >
-        {isCreateFolder && (
-          <>
-            <InputCustom onChange={handleSetFolderName} />
-          </>
-        )}
+        <>
+          <FormCustom layout="vertical" form={form} onFinish={onFinish}>
+            <Row gutter={16}>
+              <Col span={24} md={24} lg={24} xl={24}>
+                <Form.Item
+                  required
+                  rules={[
+                    {
+                      required: true,
+                      message: isCreateFolder
+                        ? "Tên thư mục là bắt buộc"
+                        : "Tên file là bắt buộc",
+                    },
+                  ]}
+                  label={isCreateFolder ? "Tên thư mục" : "Tên file"}
+                  name="name"
+                  tooltip={
+                    isCreateFolder ? "Tên thư mục cần tạo" : "Tên file cần tạo"
+                  }
+                >
+                  <InputCustom
+                    placeholder={isCreateFolder ? "Tên thư mục" : "Tên file"}
+                    suffix={!isCreateFolder && fileType}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      if (isCreateFolder) {
+                        handleSetFolderName(event);
+                      } else {
+                        handleSetFileName(event);
+                      }
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+              {!isCreateFolder && (
+                <Col span={24} md={24} lg={24} xl={24}>
+                  <Form.Item
+                    required
+                    rules={[
+                      { required: true, message: "Phải chọn định dạng file" },
+                    ]}
+                    label="Định dạng file"
+                    name="filetype"
+                    tooltip="Định dạng file cần tạo"
+                  >
+                    <SelectCustom
+                      style={{
+                        ...defaultCss,
+                        marginTop: "8px",
+                        width: "100%",
+                      }}
+                      options={FILE_TYPE_LIST.map((item) => {
+                        return {
+                          value: item,
+                          label: item,
+                        };
+                      })}
+                      onChange={handleSetFileType}
+                      placeholder="Chọn kiểu file"
+                    />
+                  </Form.Item>
+                </Col>
+              )}
+            </Row>
+            <Form.Item>
+              <Row justify="end">
+                <ButtonCustom type="primary" htmlType="submit" title="Ok" />
+              </Row>
+            </Form.Item>
+          </FormCustom>
+        </>
       </Modal>
     </>
   );

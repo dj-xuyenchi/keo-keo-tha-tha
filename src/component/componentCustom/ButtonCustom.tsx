@@ -27,7 +27,7 @@ export const ButtonCustom = ({
       title={title}
       {...restProps}
     >
-      {children}
+      {title} {children}
     </Button>
   );
 };

@@ -153,10 +153,11 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   const handleCancelCreate = () => {
     setIsOpenModalCreate(false);
   };
-  const handleCreate = async (name: string) => {
+  const handleCreate = async (name: string, typeFile?: string) => {
     if (!contextMenu || !contextMenu.node) {
       return;
     }
+    let newData = null;
     if (isCreateFolder) {
       const newFolder = {
         title: name,
@@ -170,11 +171,29 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         newFolder
       );
       setSolutionInformation(updatedTree);
-      const newData = toJSONData(updatedTree);
+      newData = toJSONData(updatedTree);
       console.error(newData);
+    } else {
+      const newFile = {
+        title: name,
+        type: "filecode",
+        icon: "react",
+        key: uuidv4(),
+        isLeaf: false,
+      } as FileFolderTree;
+      console.error(newFile);
 
-      await window.electronAPI.writeFile("solution.json", newData);
+      const updatedTree = addChildToNode(
+        solutionInfomation,
+        contextMenu.node.key,
+        newFile
+      );
+      setSolutionInformation(updatedTree);
+      newData = toJSONData(updatedTree);
+      console.error(newData);
     }
+    // await window.electronAPI.writeFile("solution.json", newData);
+
     setIsOpenModalCreate(false);
   };
 

@@ -1,6 +1,5 @@
 // Sidebar.tsx
 import React from "react";
-import { useDrag } from "react-dnd";
 
 import styles from "./sidebar.module.scss";
 import { Tabs } from "antd";
