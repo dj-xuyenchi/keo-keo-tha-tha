@@ -44,7 +44,7 @@
     "appId": "com.example.uibuilder",
     "files": [
       "out/**/*",
-      "electron.js"
+      "electron/**/*"
     ],
     "directories": {
       "buildResources": "assets"
