@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const isProd = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -7,6 +8,7 @@ const nextConfig: NextConfig = {
     unoptimized: true, // ✅ Tắt tối ưu ảnh
   },
   reactStrictMode: true,
+  assetPrefix: isProd ? "./" : undefined,
 };
 
 export default nextConfig;

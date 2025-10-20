@@ -44,10 +44,17 @@
     "appId": "com.example.uibuilder",
     "files": [
       "out/**/*",
-      "electron/**/*"
+      "electron/**/*",
+      "data/**/*"
     ],
     "directories": {
       "buildResources": "assets"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "data/",
+        "to": "data/"
+      }
+    ]
   }
 }

@@ -2,3 +2,5 @@ cài visual studio
 cài window SDK 10 or 11
 cài MSVC v143 - VC 2022 C++ x64/x86
 Phục vụ build node native
+
+Build bằng terminal chạy quyền Adminstrator
