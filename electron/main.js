@@ -38,7 +38,6 @@ function createWindow() {
     }
   );
 
-  const startUrl = process.env.ELECTRON_START_URL || `file://${path.join(__dirname, 'out/index.html')}`;
   if (isDev) {
     win.loadURL(process.env.ELECTRON_START_URL);
     win.webContents.openDevTools();
