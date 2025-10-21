@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import { defaultCss } from "@/config/defaultCss";
-import { Button, Col, Form, Modal, Row } from "antd";
+import { Col, Form, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
-import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/FileType";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
+import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/fileType";
 export interface ModalCreateProps {
   isModalOpen: boolean;
   isCreateFolder: boolean;
@@ -26,7 +26,10 @@ export const ModalCreate = ({
   const [folderName, setFolderName] = useState("");
   const [fileName, setFileName] = useState("");
 
-  const [fileType, setFileType] = useState(".định dạng");
+  const [fileType, setFileType] = useState({
+    suffix: ".định dạng",
+    type: "",
+  });
   const [form] = Form.useForm();
   const onFinish = (value) => {
     handleSave();
@@ -39,19 +42,19 @@ export const ModalCreate = ({
   };
   const handleSetFileType = (value: string) => {
     const suffix = getSuffixFileType(value);
-    console.error(suffix);
-
-    setFileType(suffix);
+    setFileType({
+      suffix: suffix,
+      type: value,
+    });
   };
   const handleSave = () => {
     if (isCreateFolder) {
       handleOk(folderName);
       setFolderName("");
     } else {
-      handleOk(fileName, fileType);
-
+      handleOk(fileName, fileType.type);
       setFileName("");
-      setFileType(".định dạng");
+      setFileType({ suffix: ".định dạng", type: "" });
     }
   };
   return (
@@ -89,7 +92,7 @@ export const ModalCreate = ({
                 >
                   <InputCustom
                     placeholder={isCreateFolder ? "Tên thư mục" : "Tên file"}
-                    suffix={!isCreateFolder && fileType}
+                    suffix={!isCreateFolder && fileType.suffix}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       if (isCreateFolder) {
                         handleSetFolderName(event);

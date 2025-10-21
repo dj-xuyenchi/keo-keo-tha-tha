@@ -6,7 +6,7 @@ import React, { ReactNode } from "react";
 export interface FileFolderTree extends TreeDataNode {
   isOpen: boolean;
   isRoot: boolean;
-  type: TypeFileFolder;
+  fileType: TypeFileFolder;
   title: string;
   key: string;
   icon: string | ReactNode;
@@ -14,13 +14,18 @@ export interface FileFolderTree extends TreeDataNode {
   isLeaf: boolean;
 }
 
-export type TypeFileFolder = "folder" | "filecode";
-
+export type TypeFileFolder =
+  | "folder"
+  | "typescript"
+  | "react"
+  | "css"
+  | "sass"
+  | "react";
 // 2️⃣ Hàm đệ quy để duyệt qua toàn bộ cây
 export const transformTreeIcons = (node: FileFolderTree): FileFolderTree => {
   return {
     ...node,
-    isLeaf: node.type != "folder",
+    isLeaf: node.fileType != "folder",
     icon:
       node.icon && typeof node.icon === "string"
         ? mapIcon(node.icon)
@@ -56,11 +61,11 @@ export const getAllKeys = (nodes: FileFolderTree[]): string[] => {
 
 export const toJSONData = (input: FileFolderTree[]): string => {
   const buildTree = (nodes: FileFolderTree[]): any[] =>
-    nodes.map(({ type, title, key, icon, children, isLeaf }) => ({
-      type,
+    nodes.map(({ fileType, title, key, icon, children, isLeaf }) => ({
+      fileType,
       title,
       key,
-      icon,
+      icon: fileType != "folder" ? fileType : null,
       isLeaf,
       children: children ? buildTree(children) : [],
     }));

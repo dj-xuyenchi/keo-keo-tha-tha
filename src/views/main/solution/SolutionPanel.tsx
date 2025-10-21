@@ -53,7 +53,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   }) => {
     info.event.preventDefault(); // Ngăn menu chuột phải mặc định
 
-    if (info.node.type === "filecode") {
+    if (info.node.fileType != "folder") {
       setMenuItems(rightClickFileMenu);
     } else {
       setMenuItems(rightClickFolderMenu);
@@ -71,7 +71,6 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     if (!contextMenu || !contextMenu.node) {
       return;
     }
-    console.error(contextMenu);
 
     switch (key) {
       case ADD_FILE: {
@@ -161,7 +160,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     if (isCreateFolder) {
       const newFolder = {
         title: name,
-        type: "folder",
+        fileType: "folder",
         key: uuidv4(),
         isLeaf: false,
       } as FileFolderTree;
@@ -172,28 +171,23 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       );
       setSolutionInformation(updatedTree);
       newData = toJSONData(updatedTree);
-      console.error(newData);
     } else {
       const newFile = {
         title: name,
-        type: "filecode",
-        icon: typeFile,
+        fileType: typeFile,
         key: uuidv4(),
         isLeaf: false,
       } as FileFolderTree;
-      console.error(newFile);
 
       const updatedTree = addChildToNode(
         solutionInfomation,
         contextMenu.node.key,
         newFile
       );
-      console.error(updatedTree);
 
       setSolutionInformation(updatedTree);
       newData = toJSONData(updatedTree);
     }
-    console.error(newData);
 
     await window.electronAPI.writeFile("solution.json", newData);
 
