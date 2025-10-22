@@ -1,6 +1,8 @@
 import { MenuProps } from "antd";
 export const ADD_FILE = "ADD_FILE";
 export const ADD_FOLDER = "ADD_FOLDER";
+export const RENAME = "RENAME";
+export const DELETE = "DELETE";
 
 // ⚙️ Menu context
 export const rightClickFileMenu: MenuProps["items"] = [
@@ -24,11 +26,11 @@ export const rightClickFolderMenu: MenuProps["items"] = [
     label: "Tạo thư mục mới",
   },
   {
-    key: "rename",
+    key: RENAME,
     label: "Đổi tên",
   },
   {
-    key: "delete",
+    key: DELETE,
     label: "Xóa",
   },
 ];

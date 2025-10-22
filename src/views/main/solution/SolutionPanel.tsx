@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./solution.module.scss";
-import { Dropdown, MenuProps, Tabs, Tree, TreeNodeProps } from "antd";
+import { Dropdown, MenuProps, Tabs, Tree } from "antd";
 
 import { v4 as uuidv4 } from "uuid";
 import "@/config/styleOverride.css";
@@ -17,11 +17,14 @@ import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import {
   ADD_FILE,
   ADD_FOLDER,
+  RENAME,
   rightClickFileMenu,
   rightClickFolderMenu,
 } from "@/config/rightClickMenu";
 import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
+import { getNodeOpenIcon } from "./service";
+import { ModalRename } from "./ModalRename";
 export interface SolutionPanelProps {
   selected: string | null;
   justClick: boolean;
@@ -83,6 +86,11 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         setIsOpenModalCreate(true);
         break;
       }
+      case RENAME: {
+        setIsCreateFolder(true);
+        setIsOpenModalCreate(true);
+        break;
+      }
     }
   };
   const getUIData = async () => {
@@ -116,36 +124,6 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       setExpandedKeys([]);
     } else {
       setExpandedKeys(getAllKeys(solutionInfomation));
-    }
-  };
-
-  const getNodeOpenIcon = (node: TreeNodeProps) => {
-    const open = node.expanded;
-    switch (node.data.key) {
-      case "0-0-0":
-        return open ? (
-          <IconFileFolder icon="uiOpen" height={18} width={18} />
-        ) : (
-          <IconFileFolder icon="ui" height={18} width={18} />
-        );
-      case "1-0-0":
-        return open ? (
-          <IconFileFolder icon="utilOpen" height={18} width={18} />
-        ) : (
-          <IconFileFolder icon="util" height={18} width={18} />
-        );
-      case "2-0-0":
-        return open ? (
-          <IconFileFolder icon="settingOpen" height={18} width={18} />
-        ) : (
-          <IconFileFolder icon="setting" height={18} width={18} />
-        );
-      default:
-        return open ? (
-          <IconFileFolder icon="openFolder" height={18} width={18} />
-        ) : (
-          <IconFileFolder icon="folder1" height={18} width={18} />
-        );
     }
   };
 
@@ -237,6 +215,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
                     onSelect={handleNodeClick}
                     treeData={solutionInfomation}
                     switcherIcon={getNodeOpenIcon}
+                    expandAction="click"
                     onRightClick={handleRightClick}
                   />
                 </div>
@@ -268,6 +247,12 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       <div className={styles.componentList}></div>
       <ModalCreate
         isCreateFolder={isCreateFolder}
+        contextMenu={contextMenu}
+        handleCancel={handleCancelCreate}
+        handleOk={handleCreate}
+        isModalOpen={isOpenModalCreate}
+      />
+      <ModalRename
         contextMenu={contextMenu}
         handleCancel={handleCancelCreate}
         handleOk={handleCreate}
