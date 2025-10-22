@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
-import { defaultCss } from "@/config/defaultCss";
 import { Col, Form, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
-import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/fileType";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 export interface ModalRenameProps {
   isModalOpen: boolean;
@@ -20,29 +17,14 @@ export const ModalRename = ({
   handleOk,
   handleCancel,
 }: ModalRenameProps) => {
-  const [folderName, setFolderName] = useState("");
-  const [fileName, setFileName] = useState("");
+  const [newName, setNewName] = useState("");
 
-  const [fileType, setFileType] = useState({
-    suffix: ".định dạng",
-    type: "",
-  });
   const [form] = Form.useForm();
   const onFinish = (value) => {
     handleSave();
   };
-  const handleSetFolderName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFolderName(e.target.value);
-  };
-  const handleSetFileName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFileName(e.target.value);
-  };
-  const handleSetFileType = (value: string) => {
-    const suffix = getSuffixFileType(value);
-    setFileType({
-      suffix: suffix,
-      type: value,
-    });
+  const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewName(e.target.value);
   };
   const handleSave = () => {};
   return (
@@ -67,9 +49,17 @@ export const ModalRename = ({
                   rules={[
                     { required: true, message: "Phải chọn định dạng file" },
                   ]}
-                  label="Định dạng file"
-                  name="filetype"
-                  tooltip="Định dạng file cần tạo"
+                  label={
+                    contextMenu?.node?.fileType === "folder"
+                      ? "Đổi tên folder"
+                      : "Đổi tên file"
+                  }
+                  name="name"
+                  tooltip={
+                    contextMenu?.node?.fileType === "folder"
+                      ? "Đổi tên folder"
+                      : "Đổi tên file"
+                  }
                 >
                   <InputCustom
                     placeholder={
@@ -77,17 +67,8 @@ export const ModalRename = ({
                         ? "Tên thư mục"
                         : "Tên file"
                     }
-                    suffix={
-                      contextMenu?.node?.fileType === "folder" &&
-                      fileType.suffix
-                    }
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      if (isCreateFolder) {
-                        handleSetFolderName(event);
-                      } else {
-                        handleSetFileName(event);
-                      }
-                    }}
+                    suffix={contextMenu?.node?.fileType === "folder"}
+                    onChange={handleSetName}
                   />
                 </Form.Item>
               </Col>

@@ -7,11 +7,11 @@ export const DELETE = "DELETE";
 // ⚙️ Menu context
 export const rightClickFileMenu: MenuProps["items"] = [
   {
-    key: "rename",
+    key: RENAME,
     label: "Đổi tên",
   },
   {
-    key: "delete",
+    key: DELETE,
     label: "Xóa",
   },
 ];

@@ -30,12 +30,13 @@ export interface SolutionPanelProps {
   justClick: boolean;
 }
 export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
-  const [tabs, setTabs] = useState([
+  const [tabs] = useState([
     {
       label: "Solution",
     },
   ]);
   const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
+  const [isOpenModalRename, setIsOpenModalRename] = useState<boolean>(false);
   const [isCreateFolder, setIsCreateFolder] = useState<boolean>(false);
   const [menuItems, setMenuItems] = useState<MenuProps["items"]>([]);
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
@@ -87,8 +88,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         break;
       }
       case RENAME: {
-        setIsCreateFolder(true);
-        setIsOpenModalCreate(true);
+        setIsOpenModalRename(true);
         break;
       }
     }
@@ -129,6 +129,9 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
 
   const handleCancelCreate = () => {
     setIsOpenModalCreate(false);
+  };
+  const handleCancelRename = () => {
+    setIsOpenModalRename(false);
   };
   const handleCreate = async (name: string, typeFile?: string) => {
     if (!contextMenu || !contextMenu.node) {
@@ -254,9 +257,9 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       />
       <ModalRename
         contextMenu={contextMenu}
-        handleCancel={handleCancelCreate}
+        handleCancel={handleCancelRename}
         handleOk={handleCreate}
-        isModalOpen={isOpenModalCreate}
+        isModalOpen={isOpenModalRename}
       />
     </div>
   );

@@ -14,6 +14,8 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1580,
     height: 1200,
+    title: "Kéo kéo thả thả :3",
+    icon: path.join(__dirname, 'icon.png'),
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
