@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
-import { Col, Form, Modal, Row } from "antd";
+import { Col, Form, FormProps, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { FieldNamesType } from "antd/es/cascader";
 export interface ModalRenameProps {
   isModalOpen: boolean;
   contextMenu: ContextMenu | null;
-  handleOk: (name: string, type?: string) => void;
+  handleOk: (name: string) => void;
   handleCancel: () => void;
 }
 export const ModalRename = ({
@@ -20,13 +21,12 @@ export const ModalRename = ({
   const [newName, setNewName] = useState("");
 
   const [form] = Form.useForm();
-  const onFinish = (value) => {
-    handleSave();
+  const onFinish: FormProps<FieldNamesType>["onFinish"] = (value) => {
+    handleOk(newName);
   };
   const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewName(e.target.value);
   };
-  const handleSave = () => {};
   return (
     <>
       <Modal

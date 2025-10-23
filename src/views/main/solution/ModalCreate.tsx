@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
 import { defaultCss } from "@/config/defaultCss";
-import { Col, Form, Modal, Row } from "antd";
+import { Col, Form, FormProps, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/fileType";
+import { FieldNamesType } from "antd/es/cascader";
 export interface ModalCreateProps {
   isModalOpen: boolean;
   isCreateFolder: boolean;
@@ -31,7 +32,8 @@ export const ModalCreate = ({
     type: "",
   });
   const [form] = Form.useForm();
-  const onFinish = (value) => {
+
+  const onFinish: FormProps<FieldNamesType>["onFinish"] = (value) => {
     handleSave();
   };
   const handleSetFolderName = (e: React.ChangeEvent<HTMLInputElement>) => {

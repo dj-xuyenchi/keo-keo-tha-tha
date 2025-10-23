@@ -133,6 +133,12 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   const handleCancelRename = () => {
     setIsOpenModalRename(false);
   };
+  const handleRename = (name: string) => {
+    console.error(name);
+    console.error(contextMenu.node);
+
+    // setIsOpenModalRename(false);
+  };
   const handleCreate = async (name: string, typeFile?: string) => {
     if (!contextMenu || !contextMenu.node) {
       return;
@@ -258,7 +264,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       <ModalRename
         contextMenu={contextMenu}
         handleCancel={handleCancelRename}
-        handleOk={handleCreate}
+        handleOk={handleRename}
         isModalOpen={isOpenModalRename}
       />
     </div>

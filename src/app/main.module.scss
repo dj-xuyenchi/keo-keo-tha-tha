@@ -8,6 +8,9 @@
                     background: white;
                     border-bottom: 1px solid #d1d9e0;
                     z-index: 10;
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
           }
           .contentContainer {
                     display: flex;
