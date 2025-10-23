@@ -8,6 +8,7 @@ import "@/config/styleOverride.css";
 import {
   addChildToNode,
   FileFolderTree,
+  findNodeFromTreeFileFolder,
   getAllKeys,
   toJSONData,
   transformTreeListIcons,
@@ -25,6 +26,8 @@ import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
 import { getNodeOpenIcon } from "./service";
 import { ModalRename } from "./ModalRename";
+import { ROOT_FOLDER } from "@/config/fileType";
+import message from "@/config/message";
 export interface SolutionPanelProps {
   selected: string | null;
   justClick: boolean;
@@ -133,11 +136,29 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   const handleCancelRename = () => {
     setIsOpenModalRename(false);
   };
-  const handleRename = (name: string) => {
-    console.error(name);
-    console.error(contextMenu.node);
+  const handleRename = async (name: string) => {
+    if (contextMenu?.node) {
+      const file = findNodeFromTreeFileFolder(
+        solutionInfomation,
+        contextMenu.node?.key
+      );
+      console.error(file);
 
-    // setIsOpenModalRename(false);
+      if (!file || ROOT_FOLDER.includes(file.key)) {
+        message.warning("Không được đổi tên folder gốc!");
+        return;
+      }
+      file.title = name;
+
+      setSolutionInformation((prev) =>
+        prev.map((item) =>
+          item.key === contextMenu.node?.key ? { ...item, title: name } : item
+        )
+      );
+      const newData = toJSONData(solutionInfomation);
+      await window.electronAPI.writeFile("solution.json", newData);
+    }
+    setIsOpenModalRename(true);
   };
   const handleCreate = async (name: string, typeFile?: string) => {
     if (!contextMenu || !contextMenu.node) {

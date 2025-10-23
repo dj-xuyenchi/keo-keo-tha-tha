@@ -97,3 +97,27 @@ export const addChildToNode = (
     return node;
   });
 };
+
+/**
+ * Tìm node trong cây file/folder theo key
+ * @param nodes  - danh sách các node gốc
+ * @param key    - key cần tìm
+ * @returns      - node tìm thấy hoặc undefined nếu không có
+ */
+export const findNodeFromTreeFileFolder = (
+  nodes: FileFolderTree[],
+  key: string
+): FileFolderTree | null => {
+  for (const node of nodes) {
+    if (node.key === key) {
+      return node;
+    }
+
+    if (node.children && node.children.length > 0) {
+      const found = findNodeFromTreeFileFolder(node.children, key);
+      if (found) return found;
+    }
+  }
+
+  return null;
+};

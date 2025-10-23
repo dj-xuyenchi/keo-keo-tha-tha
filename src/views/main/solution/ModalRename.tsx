@@ -6,6 +6,7 @@ import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { FieldNamesType } from "antd/es/cascader";
+import { getSuffixFileType } from "@/config/fileType";
 export interface ModalRenameProps {
   isModalOpen: boolean;
   contextMenu: ContextMenu | null;
@@ -47,7 +48,13 @@ export const ModalRename = ({
                 <Form.Item
                   required
                   rules={[
-                    { required: true, message: "Phải chọn định dạng file" },
+                    {
+                      required: true,
+                      message:
+                        contextMenu?.node?.fileType === "folder"
+                          ? "Tên folder không được để trống!"
+                          : "Tên file không được để trống!",
+                    },
                   ]}
                   label={
                     contextMenu?.node?.fileType === "folder"
@@ -67,7 +74,10 @@ export const ModalRename = ({
                         ? "Tên thư mục"
                         : "Tên file"
                     }
-                    suffix={contextMenu?.node?.fileType === "folder"}
+                    suffix={
+                      contextMenu?.node?.fileType != "folder" &&
+                      getSuffixFileType(contextMenu?.node?.fileType as string)
+                    }
                     onChange={handleSetName}
                   />
                 </Form.Item>
