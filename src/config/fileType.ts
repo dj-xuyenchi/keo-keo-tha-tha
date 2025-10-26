@@ -1,3 +1,5 @@
+export const SOLUTION_JSON = "solution.json";
+
 export const TYPE_SCRIPT = "typescript";
 export const REACT = "react";
 export const CSS = "css";

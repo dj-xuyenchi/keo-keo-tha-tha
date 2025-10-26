@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Key, useEffect, useState } from "react";
 
 import styles from "./solution.module.scss";
 import { Dropdown, MenuProps, Tabs, Tree } from "antd";
@@ -7,9 +7,13 @@ import { v4 as uuidv4 } from "uuid";
 import "@/config/styleOverride.css";
 import {
   addChildToNode,
+  deleteNode,
   FileFolderTree,
   findNodeFromTreeFileFolder,
+  folderGoFisrt,
   getAllKeys,
+  onTreeDropService,
+  putNodeToNode,
   toJSONData,
   transformTreeListIcons,
 } from "@/entity/solution/FileFolderTree";
@@ -18,6 +22,9 @@ import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import {
   ADD_FILE,
   ADD_FOLDER,
+  COPY,
+  DELETE,
+  PASTE,
   RENAME,
   rightClickFileMenu,
   rightClickFolderMenu,
@@ -26,8 +33,11 @@ import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
 import { getNodeOpenIcon } from "./service";
 import { ModalRename } from "./ModalRename";
-import { ROOT_FOLDER } from "@/config/fileType";
-import message from "@/config/message";
+import { ROOT_FOLDER, SOLUTION_JSON } from "@/config/fileType";
+import { getMessageInstance } from "@/config/messageContext";
+import { NodeDragEventParams } from "rc-tree/lib/contextTypes";
+import { EventDataNode } from "antd/es/tree";
+import { ModalDelete } from "./ModalDelete";
 export interface SolutionPanelProps {
   selected: string | null;
   justClick: boolean;
@@ -40,18 +50,20 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   ]);
   const [isOpenModalCreate, setIsOpenModalCreate] = useState<boolean>(false);
   const [isOpenModalRename, setIsOpenModalRename] = useState<boolean>(false);
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState<boolean>(false);
   const [isCreateFolder, setIsCreateFolder] = useState<boolean>(false);
   const [menuItems, setMenuItems] = useState<MenuProps["items"]>([]);
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [solutionInfomation, setSolutionInformation] = useState(
     [] as FileFolderTree[]
   );
-
+  const [nodeCopy, setNodeCopy] = useState<FileFolderTree | null>(null);
   const [contextMenu, setContextMenu] = useState<ContextMenu | null>({
     visible: false,
     x: 0,
     y: 0,
   });
+  const messageApi = getMessageInstance();
 
   // ⚙️ Khi chuột phải vào node
   const handleRightClick = (info: {
@@ -63,7 +75,39 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     if (info.node.fileType != "folder") {
       setMenuItems(rightClickFileMenu);
     } else {
-      setMenuItems(rightClickFolderMenu);
+      if (ROOT_FOLDER.includes(info.node.key)) {
+        setMenuItems(
+          rightClickFolderMenu?.map((item) => {
+            if (
+              item &&
+              "disabled" in item &&
+              (item.key === COPY ||
+                item.key === RENAME ||
+                item.key === DELETE ||
+                item.key === PASTE)
+            ) {
+              item.disabled = true;
+            }
+
+            if (item && "disabled" in item && item.key === PASTE && nodeCopy) {
+              item.disabled = false;
+            }
+            return item;
+          })
+        );
+      } else {
+        setMenuItems(
+          rightClickFolderMenu?.map((item) => {
+            if (item && "disabled" in item) {
+              item.disabled = false;
+            }
+            if (item && "disabled" in item && item.key === PASTE && !nodeCopy) {
+              item.disabled = true;
+            }
+            return item;
+          })
+        );
+      }
     }
 
     setContextMenu({
@@ -74,7 +118,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     });
   };
 
-  const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
+  const handleMenuClick: MenuProps["onClick"] = async ({ key }) => {
     if (!contextMenu || !contextMenu.node) {
       return;
     }
@@ -94,16 +138,37 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         setIsOpenModalRename(true);
         break;
       }
+      case DELETE: {
+        setIsOpenModalDelete(true);
+        break;
+      }
+      case COPY: {
+        setNodeCopy(contextMenu.node);
+        break;
+      }
+      case PASTE: {
+        const newData = toJSONData(
+          putNodeToNode(
+            nodeCopy as FileFolderTree,
+            contextMenu.node.key,
+            solutionInfomation
+          )
+        );
+        setNodeCopy(null);
+        await window.electronAPI.writeFile(SOLUTION_JSON, newData);
+        getUIData();
+        break;
+      }
     }
   };
   const getUIData = async () => {
-    const content = await window.electronAPI.readFile("solution.json");
+    const content = await window.electronAPI.readFile(SOLUTION_JSON);
     const data = JSON.parse(content);
 
     const normalizedData = Array.isArray(data) ? data : [data];
     const treeData = transformTreeListIcons(normalizedData);
 
-    setSolutionInformation(treeData);
+    setSolutionInformation(folderGoFisrt(treeData));
   };
   const handleNodeClick = (
     _selectedKeys: React.Key[],
@@ -136,7 +201,10 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   const handleCancelRename = () => {
     setIsOpenModalRename(false);
   };
-  const handleRename = async (name: string) => {
+  const handleCancelDelete = () => {
+    setIsOpenModalDelete(false);
+  };
+  const handleDelete = async () => {
     if (contextMenu?.node) {
       const file = findNodeFromTreeFileFolder(
         solutionInfomation,
@@ -145,7 +213,26 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       console.error(file);
 
       if (!file || ROOT_FOLDER.includes(file.key)) {
-        message.warning("Không được đổi tên folder gốc!");
+        messageApi.error("Không được xóa folder gốc!");
+        return;
+      }
+
+      const res = deleteNode(file.key, solutionInfomation);
+      const newData = toJSONData(res);
+      await window.electronAPI.writeFile(SOLUTION_JSON, newData);
+      getUIData();
+      setIsOpenModalDelete(false);
+    }
+  };
+  const handleRename = async (name: string) => {
+    if (contextMenu?.node) {
+      const file = findNodeFromTreeFileFolder(
+        solutionInfomation,
+        contextMenu.node?.key
+      );
+
+      if (!file || ROOT_FOLDER.includes(file.key)) {
+        messageApi.error("Không được đổi tên folder gốc!");
         return;
       }
       file.title = name;
@@ -156,9 +243,10 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         )
       );
       const newData = toJSONData(solutionInfomation);
-      await window.electronAPI.writeFile("solution.json", newData);
+      await window.electronAPI.writeFile(SOLUTION_JSON, newData);
+      getUIData();
     }
-    setIsOpenModalRename(true);
+    setIsOpenModalRename(false);
   };
   const handleCreate = async (name: string, typeFile?: string) => {
     if (!contextMenu || !contextMenu.node) {
@@ -184,7 +272,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         title: name,
         fileType: typeFile,
         key: uuidv4(),
-        isLeaf: false,
+        isLeaf: true,
       } as FileFolderTree;
 
       const updatedTree = addChildToNode(
@@ -197,11 +285,29 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       newData = toJSONData(updatedTree);
     }
 
-    await window.electronAPI.writeFile("solution.json", newData);
-
+    await window.electronAPI.writeFile(SOLUTION_JSON, newData);
+    getUIData();
     setIsOpenModalCreate(false);
   };
 
+  const onTreeDrop = async (
+    info: NodeDragEventParams<FileFolderTree> & {
+      dragNode: EventDataNode<FileFolderTree>;
+      dragNodesKeys: Key[];
+      dropPosition: number;
+      dropToGap: boolean;
+    }
+  ) => {
+    if (ROOT_FOLDER.includes(info.dragNode.key)) {
+      messageApi.error("Không được di chuyển folder gốc!");
+      return;
+    }
+    onTreeDropService(info, solutionInfomation);
+    setSolutionInformation(solutionInfomation);
+    const newData = toJSONData(solutionInfomation);
+    await window.electronAPI.writeFile(SOLUTION_JSON, newData);
+    getUIData();
+  };
   useEffect(() => {
     getUIData();
   }, []);
@@ -242,11 +348,13 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
                     showLine={true}
                     showIcon={true}
                     expandedKeys={expandedKeys}
-                    onSelect={handleNodeClick}
                     treeData={solutionInfomation}
-                    switcherIcon={getNodeOpenIcon}
                     expandAction="click"
+                    onSelect={handleNodeClick}
+                    switcherIcon={getNodeOpenIcon}
                     onRightClick={handleRightClick}
+                    onDrop={onTreeDrop}
+                    draggable
                   />
                 </div>
               ),
@@ -283,10 +391,17 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         isModalOpen={isOpenModalCreate}
       />
       <ModalRename
+        treeData={solutionInfomation}
         contextMenu={contextMenu}
         handleCancel={handleCancelRename}
         handleOk={handleRename}
         isModalOpen={isOpenModalRename}
+      />
+      <ModalDelete
+        contextMenu={contextMenu}
+        handleCancel={handleCancelDelete}
+        handleOk={handleDelete}
+        isModalOpen={isOpenModalDelete}
       />
     </div>
   );

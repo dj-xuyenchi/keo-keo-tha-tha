@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { defaultCss } from "@/config/defaultCss";
 import { Col, Form, FormProps, Modal, Row } from "antd";
@@ -18,7 +18,6 @@ export interface ModalCreateProps {
 }
 export const ModalCreate = ({
   isModalOpen,
-
   isCreateFolder,
   contextMenu,
   handleOk,
@@ -59,6 +58,29 @@ export const ModalCreate = ({
       setFileType({ suffix: ".định dạng", type: "" });
     }
   };
+  const checkValidExist = (value: string): boolean => {
+    const children = contextMenu?.node?.children || [];
+
+    if (isCreateFolder) {
+      // ✅ kiểm tra trùng tên folder
+      return children.some(
+        (item) => item.fileType === "folder" && item.title === value
+      );
+    } else {
+      // ✅ kiểm tra trùng tên file
+      return children.some(
+        (item) => item.fileType !== "folder" && item.title === value
+      );
+    }
+  };
+  useEffect(() => {
+    if (isModalOpen) {
+      form.resetFields();
+      setFolderName("");
+      setFileName("");
+      setFileType({ suffix: ".định dạng", type: "" });
+    }
+  }, [isModalOpen]);
   return (
     <>
       <Modal
@@ -84,6 +106,17 @@ export const ModalCreate = ({
                       message: isCreateFolder
                         ? "Tên thư mục là bắt buộc"
                         : "Tên file là bắt buộc",
+                    },
+                    {
+                      validator: (_, value) => {
+                        if (!value) return Promise.resolve();
+                        if (checkValidExist(value.trim())) {
+                          return Promise.reject(
+                            new Error("Tên này đã tồn tại")
+                          );
+                        }
+                        return Promise.resolve();
+                      },
                     },
                   ]}
                   label={isCreateFolder ? "Tên thư mục" : "Tên file"}

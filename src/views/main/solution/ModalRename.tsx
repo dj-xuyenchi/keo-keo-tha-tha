@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Col, Form, FormProps, Modal, Row } from "antd";
 import { ContextMenu } from "./ContextMenu";
@@ -7,19 +7,26 @@ import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { FieldNamesType } from "antd/es/cascader";
 import { getSuffixFileType } from "@/config/fileType";
+import {
+  FileFolderTree,
+  getFatherNode,
+} from "@/entity/solution/FileFolderTree";
 export interface ModalRenameProps {
   isModalOpen: boolean;
   contextMenu: ContextMenu | null;
+  treeData: FileFolderTree[];
   handleOk: (name: string) => void;
   handleCancel: () => void;
 }
 export const ModalRename = ({
   isModalOpen,
   contextMenu,
+  treeData,
   handleOk,
   handleCancel,
 }: ModalRenameProps) => {
   const [newName, setNewName] = useState("");
+  const [fatherNode, setFatherNode] = useState<FileFolderTree | null>(null);
 
   const [form] = Form.useForm();
   const onFinish: FormProps<FieldNamesType>["onFinish"] = (value) => {
@@ -28,6 +35,29 @@ export const ModalRename = ({
   const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewName(e.target.value);
   };
+  const checkValidExist = (value: string): boolean => {
+    if (!fatherNode) {
+      setFatherNode(getFatherNode(contextMenu?.node?.key as string, treeData));
+    }
+    const children = fatherNode?.children || [];
+
+    if (contextMenu?.node?.fileType === "folder") {
+      return children.some(
+        (item) => item.fileType === "folder" && item.title === value
+      );
+    } else {
+      return children.some(
+        (item) => item.fileType !== "folder" && item.title === value
+      );
+    }
+  };
+  useEffect(() => {
+    if (isModalOpen) {
+      form.resetFields();
+      setFatherNode(null);
+      setNewName("");
+    }
+  }, [isModalOpen]);
   return (
     <>
       <Modal
@@ -54,6 +84,17 @@ export const ModalRename = ({
                         contextMenu?.node?.fileType === "folder"
                           ? "Tên folder không được để trống!"
                           : "Tên file không được để trống!",
+                    },
+                    {
+                      validator: (_, value) => {
+                        if (!value) return Promise.resolve();
+                        if (checkValidExist(value.trim())) {
+                          return Promise.reject(
+                            new Error("Tên này đã tồn tại")
+                          );
+                        }
+                        return Promise.resolve();
+                      },
                     },
                   ]}
                   label={

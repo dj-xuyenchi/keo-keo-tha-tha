@@ -51,6 +51,11 @@
           margin-right: 4px;
 }
 
+.tree-folder .ant-tree-draggable-icon {
+          display: none !important;
+}
+
+
 /*  */
 
 /* style.css hoặc module CSS nếu bạn dùng CSS Modules */
