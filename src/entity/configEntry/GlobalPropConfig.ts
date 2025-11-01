@@ -1,4 +1,4 @@
-import { NodeDropData } from "@/views/main/Canvas";
+import { NodeDropData } from "@/views/main/canvas/Canvas";
 import { TableDefaultProps } from "./TabbleProps";
 import { DATA_TYPE } from "@/config/TypeComponent";
 import { ExtendFunction, TablePropsCustom } from "@/component/data/TableDrop";

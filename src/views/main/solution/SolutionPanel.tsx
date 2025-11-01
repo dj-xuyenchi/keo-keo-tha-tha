@@ -33,11 +33,25 @@ import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
 import { getNodeOpenIcon } from "./service";
 import { ModalRename } from "./ModalRename";
-import { ROOT_FOLDER, SOLUTION_JSON } from "@/config/fileType";
+import {
+  CSS,
+  FOLDER,
+  REACT,
+  ROOT_FOLDER,
+  SASS,
+  SOLUTION_JSON,
+  SPRING,
+  TYPE_SCRIPT,
+} from "@/config/fileType";
 import { getMessageInstance } from "@/config/messageContext";
 import { NodeDragEventParams } from "rc-tree/lib/contextTypes";
 import { EventDataNode } from "antd/es/tree";
 import { ModalDelete } from "./ModalDelete";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setFileClick } from "../canvas/canvasSlice";
+
 export interface SolutionPanelProps {
   selected: string | null;
   justClick: boolean;
@@ -64,6 +78,8 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     y: 0,
   });
   const messageApi = getMessageInstance();
+  const global = useSelector((state: RootState) => state.global);
+  const dispatch = useDispatch();
 
   // ⚙️ Khi chuột phải vào node
   const handleRightClick = (info: {
@@ -172,10 +188,27 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   };
   const handleNodeClick = (
     _selectedKeys: React.Key[],
-    info: { node: { key: string } }
+    info: { node: { key: string; fileType: string } }
   ) => {
     const key = info.node.key; // lấy key node được click
-
+    if (info.node.fileType != FOLDER) {
+      const file = global.fileList.find((item) => {
+        return item.key === key;
+      });
+      // nếu là file code thì mở giao diện code không thì giao diện UI
+      switch (info.node.fileType) {
+        case TYPE_SCRIPT:
+        case CSS:
+        case SASS:
+        case SPRING: {
+          break;
+        }
+        case REACT: {
+          break;
+        }
+      }
+      dispatch(setFileClick(file));
+    }
     setExpandedKeys((prev) => {
       if (prev.includes(key)) {
         // nếu đã mở rồi thì thu lại
