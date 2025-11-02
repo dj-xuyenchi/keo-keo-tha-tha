@@ -4,7 +4,7 @@ import { useDrop, XYCoord } from "react-dnd";
 import { NodeDropData } from "../../views/main/canvas/Canvas";
 import { acceptType } from "@/config/acceptType";
 import { NodeComponent } from "@/entity/NodeComponent";
-import { MiddlewareConponentRender } from "../../views/main/MiddlewareConponentRender";
+import { MiddlewareConponentRender } from "../../views/main/side-bar/MiddlewareConponentRender";
 import clsx from "clsx";
 import { TYPE_DROP } from "@/config/TypeComponent";
 

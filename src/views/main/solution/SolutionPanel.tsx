@@ -31,7 +31,7 @@ import {
 } from "@/config/rightClickMenu";
 import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
-import { getNodeOpenIcon } from "./service";
+import { createFile, deleteFile, getNodeOpenIcon } from "./service";
 import { ModalRename } from "./ModalRename";
 import {
   CSS,
@@ -195,19 +195,21 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
       const file = global.fileList.find((item) => {
         return item.key === key;
       });
-      // nếu là file code thì mở giao diện code không thì giao diện UI
-      switch (info.node.fileType) {
-        case TYPE_SCRIPT:
-        case CSS:
-        case SASS:
-        case SPRING: {
-          break;
+      if (file) {
+        // nếu là file code thì mở giao diện code không thì giao diện UI
+        switch (info.node.fileType) {
+          case TYPE_SCRIPT:
+          case CSS:
+          case SASS:
+          case SPRING: {
+            break;
+          }
+          case REACT: {
+            break;
+          }
         }
-        case REACT: {
-          break;
-        }
+        dispatch(setFileClick(file));
       }
-      dispatch(setFileClick(file));
     }
     setExpandedKeys((prev) => {
       if (prev.includes(key)) {
@@ -252,6 +254,9 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
 
       const res = deleteNode(file.key, solutionInfomation);
       const newData = toJSONData(res);
+      if (file.fileType != FOLDER) {
+        await deleteFile(file.key, file.fileType);
+      }
       await window.electronAPI.writeFile(SOLUTION_JSON, newData);
       getUIData();
       setIsOpenModalDelete(false);
@@ -281,7 +286,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     }
     setIsOpenModalRename(false);
   };
-  const handleCreate = async (name: string, typeFile?: string) => {
+  const handleCreate = async (name: string, fileType?: string) => {
     if (!contextMenu || !contextMenu.node) {
       return;
     }
@@ -303,7 +308,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     } else {
       const newFile = {
         title: name,
-        fileType: typeFile,
+        fileType: fileType,
         key: uuidv4(),
         isLeaf: true,
       } as FileFolderTree;
@@ -316,6 +321,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
 
       setSolutionInformation(updatedTree);
       newData = toJSONData(updatedTree);
+      createFile(newFile.key, fileType as string, "");
     }
 
     await window.electronAPI.writeFile(SOLUTION_JSON, newData);

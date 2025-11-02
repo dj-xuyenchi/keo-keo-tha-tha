@@ -2,7 +2,7 @@
 
 import "./globals.css";
 import React from "react";
-import { DndWrapper } from "@/views/main/DnDWrapper";
+import { DndWrapper } from "@/views/main/side-bar/DnDWrapper";
 import { setMessageInstance } from "@/config/messageContext";
 import { Provider } from "react-redux";
 import store from "@/store/store";

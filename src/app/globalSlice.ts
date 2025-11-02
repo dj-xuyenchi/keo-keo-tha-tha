@@ -1,8 +1,11 @@
 // store/slices/exampleSlice.js
+import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 export interface GlobalData {
-  fileList: [{ key: string }];
+  fileList: FileInfo[];
 }
 const init = {} as GlobalData;
 const globalSlice = createSlice({

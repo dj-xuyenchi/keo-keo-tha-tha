@@ -8,151 +8,27 @@
                     "children": [
                               {
                                         "fileType": "folder",
-                                        "title": "dfgdfg",
-                                        "key": "a7203670-a123-4cd3-9453-fee8588858ab",
+                                        "title": "hihi",
+                                        "key": "54d3164b-9063-444b-b635-95881161f480",
                                         "icon": null,
                                         "isLeaf": false,
                                         "children": [
                                                   {
-                                                            "fileType": "folder",
-                                                            "title": "dfgdfg",
-                                                            "key": "d19bb505-c0b9-423b-a239-abb5e784ea32",
-                                                            "icon": null,
-                                                            "isLeaf": false,
-                                                            "children": [
-                                                                      {
-                                                                                "fileType": "typescript",
-                                                                                "title": "12321231",
-                                                                                "key": "512356e1-beb2-4d2d-9d39-d12a1f4ed30e",
-                                                                                "icon": "typescript",
-                                                                                "isLeaf": true,
-                                                                                "children": []
-                                                                      },
-                                                                      {
-                                                                                "fileType": "css",
-                                                                                "title": "hjhj (1)",
-                                                                                "key": "e1e063d8-61c1-4d02-a25c-486f550f7b04",
-                                                                                "icon": "css",
-                                                                                "isLeaf": true,
-                                                                                "children": []
-                                                                      }
-                                                            ]
-                                                  },
-                                                  {
-                                                            "fileType": "folder",
-                                                            "title": "dfgdfg (1)",
-                                                            "key": "4e1b60b2-c312-48a0-8150-1a5ebddc3fa2",
-                                                            "icon": null,
-                                                            "isLeaf": false,
-                                                            "children": [
-                                                                      {
-                                                                                "fileType": "typescript",
-                                                                                "title": "12321231",
-                                                                                "key": "dfcf1edc-63fc-4d57-b6ca-42c3e7959c27",
-                                                                                "icon": "typescript",
-                                                                                "isLeaf": true,
-                                                                                "children": []
-                                                                      }
-                                                            ]
-                                                  },
-                                                  {
-                                                            "fileType": "folder",
-                                                            "title": "d",
-                                                            "key": "f7f874b9-144f-4bbe-b784-f874ff6d7136",
-                                                            "icon": null,
-                                                            "isLeaf": false,
-                                                            "children": [
-                                                                      {
-                                                                                "fileType": "typescript",
-                                                                                "title": "ssssd",
-                                                                                "key": "3761a98b-0565-4f4f-a1e4-3b2e7c4acd70",
-                                                                                "icon": "typescript",
-                                                                                "isLeaf": true,
-                                                                                "children": []
-                                                                      },
-                                                                      {
-                                                                                "fileType": "folder",
-                                                                                "title": "dfgdfg",
-                                                                                "key": "5433da4a-4403-4a87-9986-999e1733b406",
-                                                                                "icon": null,
-                                                                                "isLeaf": false,
-                                                                                "children": [
-                                                                                          {
-                                                                                                    "fileType": "typescript",
-                                                                                                    "title": "12321231",
-                                                                                                    "key": "b5eeeeeb-964c-4840-b347-206b663ea2a6",
-                                                                                                    "icon": "typescript",
-                                                                                                    "isLeaf": true,
-                                                                                                    "children": []
-                                                                                          },
-                                                                                          {
-                                                                                                    "fileType": "css",
-                                                                                                    "title": "hjhj (1)",
-                                                                                                    "key": "a48b3c47-3b05-49b5-8af9-fcbc555307c5",
-                                                                                                    "icon": "css",
-                                                                                                    "isLeaf": true,
-                                                                                                    "children": []
-                                                                                          }
-                                                                                ]
-                                                                      }
-                                                            ]
-                                                  },
-                                                  {
-                                                            "fileType": "folder",
-                                                            "title": "dd",
-                                                            "key": "54cc9b5b-8489-494a-a08a-caea327fcbbf",
-                                                            "icon": null,
-                                                            "isLeaf": false,
-                                                            "children": []
-                                                  },
-                                                  {
                                                             "fileType": "typescript",
-                                                            "title": "12321231",
-                                                            "key": "af9161ce-1b3f-40d0-b1a4-eb346ed9a169",
+                                                            "title": "dfgdfg",
+                                                            "key": "6b447e83-ac12-42f3-ba49-8e993e2c2cba",
                                                             "icon": "typescript",
-                                                            "isLeaf": true,
-                                                            "children": []
-                                                  },
-                                                  {
-                                                            "fileType": "react",
-                                                            "title": "dfgdfgvds",
-                                                            "key": "359cf660-a795-485c-9324-5ecdc7f88f73",
-                                                            "icon": "react",
-                                                            "isLeaf": true,
-                                                            "children": []
-                                                  },
-                                                  {
-                                                            "fileType": "react",
-                                                            "title": "dfgdfg (3)",
-                                                            "key": "1e320a60-1f64-4cb7-993e-89e9d12a5319",
-                                                            "icon": "react",
                                                             "isLeaf": true,
                                                             "children": []
                                                   }
                                         ]
                               },
                               {
-                                        "fileType": "react",
-                                        "title": "dfgdfgvds",
-                                        "key": "a46c9f9b-dff5-4a24-a740-bdfb35f51574",
-                                        "icon": "react",
-                                        "isLeaf": true,
-                                        "children": []
-                              },
-                              {
-                                        "fileType": "typescript",
-                                        "title": "dfgdfg",
-                                        "key": "a1168147-1ac6-4f17-97c7-c35b0e2f80e5",
-                                        "icon": "typescript",
-                                        "isLeaf": true,
-                                        "children": []
-                              },
-                              {
-                                        "fileType": "sass",
-                                        "title": "scsc",
-                                        "key": "511c0917-c1c8-4619-99a0-61eb6d48c9bc",
-                                        "icon": "sass",
-                                        "isLeaf": true,
+                                        "fileType": "folder",
+                                        "title": "sdv",
+                                        "key": "659364e2-7694-4ca4-8be6-f6d8ccc04268",
+                                        "icon": null,
+                                        "isLeaf": false,
                                         "children": []
                               }
                     ]
@@ -165,17 +41,9 @@
                     "isLeaf": false,
                     "children": [
                               {
-                                        "fileType": "typescript",
-                                        "title": "12321231",
-                                        "key": "76370d78-5ba0-460b-869b-2872e284226f",
-                                        "icon": "typescript",
-                                        "isLeaf": true,
-                                        "children": []
-                              },
-                              {
                                         "fileType": "css",
-                                        "title": "sdvsdv",
-                                        "key": "fa7a2b9f-7d64-4b38-b5c9-769cb8349274",
+                                        "title": "sdf",
+                                        "key": "9d6e141e-61e3-4dc2-a2f1-8e64af0bcdd7",
                                         "icon": "css",
                                         "isLeaf": true,
                                         "children": []
@@ -190,10 +58,10 @@
                     "isLeaf": false,
                     "children": [
                               {
-                                        "fileType": "css",
-                                        "title": "hjhj",
-                                        "key": "f801f366-7de9-4082-88f8-9cc96524bebe",
-                                        "icon": "css",
+                                        "fileType": "sass",
+                                        "title": "fdghd",
+                                        "key": "f6782ad5-a5dc-4419-8b5f-cdf48c18f058",
+                                        "icon": "sass",
                                         "isLeaf": true,
                                         "children": []
                               }

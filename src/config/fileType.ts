@@ -1,6 +1,7 @@
 export const SOLUTION_JSON = "solution.json";
 
 export const TYPE_SCRIPT = "typescript";
+export const JAVA_SCRIPT = "javascript";
 export const REACT = "react";
 export const CSS = "css";
 export const SASS = "sass";
@@ -16,6 +17,8 @@ export const getSuffixFileType = (type: string): string => {
   switch (type) {
     case TYPE_SCRIPT:
       return ".ts";
+    case JAVA_SCRIPT:
+      return ".js";
     case REACT:
       return ".tsx";
     case CSS:

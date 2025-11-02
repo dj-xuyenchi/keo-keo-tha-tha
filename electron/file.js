@@ -27,3 +27,73 @@ ipcMain.handle('file:write', async (_, relativePath, content) => {
                     return `Lỗi ghi file: ${err.message}`;
           }
 });
+// 🔹 Đọc danh sách file trong thư mục
+ipcMain.handle('file:list', async (_, relativeDir = '') => {
+          try {
+                    const dirPath = path.join(baseDataPath, relativeDir);
+                    const entries = await fs.readdir(dirPath, { withFileTypes: true });
+
+                    const result = await Promise.all(
+                              entries.map(async (entry) => {
+                                        const fullPath = path.join(dirPath, entry.name);
+                                        const stats = await fs.stat(fullPath);
+                                        return {
+                                                  name: entry.name,
+                                                  isDirectory: entry.isDirectory(),
+                                                  size: stats.size,
+                                                  modified: stats.mtime,
+                                        };
+                              })
+                    );
+
+                    return result;
+          } catch (err) {
+                    return `Lỗi đọc thư mục: ${err.message}`;
+          }
+});
+
+// 🔹 Tạo file mới
+ipcMain.handle('file:create', async (_, relativePath, initialContent = '') => {
+          try {
+                    const filePathRes = path.join(baseDataPath, relativePath);
+                    const dir = path.dirname(filePathRes);
+
+                    // Đảm bảo thư mục cha tồn tại
+                    await fs.mkdir(dir, { recursive: true });
+
+                    // Kiểm tra nếu file đã tồn tại
+                    try {
+                              await fs.access(filePathRes);
+                              return false;
+                    } catch {
+                              // File chưa tồn tại → tạo mới
+                              await fs.writeFile(filePathRes, initialContent, 'utf8');
+                              return true;
+                    }
+          } catch (err) {
+                    console.error(err);
+                    return false;
+          }
+});// 🔹 Xóa file hoặc thư mục
+ipcMain.handle('file:delete', async (_, relativePath) => {
+          try {
+                    const filePathRes = path.join(baseDataPath, relativePath);
+
+                    // Kiểm tra xem có tồn tại không
+                    const stat = await fs.stat(filePathRes).catch(() => null);
+                    if (!stat) {
+                              return false;
+                    }
+
+                    if (stat.isDirectory()) {
+                              await fs.rm(filePathRes, { recursive: true, force: true });
+                    } else {
+                              await fs.unlink(filePathRes);
+                    }
+
+                    return true;
+          } catch (err) {
+                    console.error(err);
+                    return false;
+          }
+});

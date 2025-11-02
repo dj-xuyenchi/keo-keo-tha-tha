@@ -1,9 +1,9 @@
 import React from "react";
 import { useDragLayer, XYCoord } from "react-dnd";
 import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
-import { ButtonDrop } from "../../component/control/ButtonDrop";
-import { InputDrop } from "../../component/data/InputDrop";
-import { PanelDrop } from "../../component/layout/PanelDrop";
+import { ButtonDrop } from "../../../component/control/ButtonDrop";
+import { InputDrop } from "../../../component/data/InputDrop";
+import { PanelDrop } from "../../../component/layout/PanelDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(
