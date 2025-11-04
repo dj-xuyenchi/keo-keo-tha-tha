@@ -1,6 +1,5 @@
 import { Toolbox } from "@/entity/Toolbox";
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from './TypeComponent';
-
+import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "./TypeComponent";
 
 export const toolBoxOption: Toolbox[] = [
   {
@@ -8,18 +7,8 @@ export const toolBoxOption: Toolbox[] = [
     option: [
       {
         name: "Panel",
-        icon: "button.webp",
+        icon: "layout/panel.png",
         type: LAYOUT_TYPE.PANEL,
-      },
-      {
-        name: "Hàng",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
-      },
-      {
-        name: "Form",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
       },
     ],
   },
@@ -27,19 +16,14 @@ export const toolBoxOption: Toolbox[] = [
     name: "Điều khiển",
     option: [
       {
-        name: "Button",
-        icon: "button.webp",
+        name: "Nút bấm",
+        icon: "control/button.png",
         type: CONTROL_TYPE.BUTTON,
       },
       {
-        name: "Button",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
-      },
-      {
-        name: "Button",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        name: "Switch",
+        icon: "control/switch.png",
+        type: CONTROL_TYPE.SWITCH,
       },
     ],
   },
@@ -47,39 +31,29 @@ export const toolBoxOption: Toolbox[] = [
     name: "Dữ liệu",
     option: [
       {
+        name: "Table",
+        icon: "data/table.png",
+        type: DATA_TYPE.TABLE,
+      },
+      {
         name: "Input",
-        icon: "text-input.jpg",
+        icon: "data/input.png",
         type: DATA_TYPE.INPUT,
       },
       {
         name: "InputNumber",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        icon: "data/input-number.png",
+        type: DATA_TYPE.INPUT_NUMBER,
       },
       {
-        name: "RichText",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
+        name: "Text area",
+        icon: "data/text.png",
+        type: DATA_TYPE.RICH_TEXT,
       },
       {
-        name: "Checkbox",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
-      },
-      {
-        name: "Radio",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
-      },
-      {
-        name: "DatePicker",
-        icon: "button.webp",
-        type: DATA_TYPE.BUTTON,
-      },
-      {
-        name: "Table",
-        icon: "table.png",
-        type: DATA_TYPE.TABLE,
+        name: "Date picker",
+        icon: "data/date-picker.png",
+        type: DATA_TYPE.DATE_PICKER,
       },
     ],
   },

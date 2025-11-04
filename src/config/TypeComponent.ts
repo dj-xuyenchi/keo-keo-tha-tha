@@ -3,7 +3,7 @@ export enum DATA_TYPE {
   INPUT = "INPUT",
   INPUT_NUMBER = "INPUT_NUMBER",
   RICH_TEXT = "RICH_TEXT",
-  BUTTON = "BUTTON",
+  DATE_PICKER = "DATE_PICKER"
 }
 
 export enum LAYOUT_TYPE {
@@ -12,6 +12,7 @@ export enum LAYOUT_TYPE {
 
 export enum CONTROL_TYPE {
   BUTTON = "BUTTON",
+  SWITCH = "SWITCH",
 }
 
 export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE;

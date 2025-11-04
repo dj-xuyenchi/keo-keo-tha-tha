@@ -3,51 +3,77 @@ import { useDragLayer, XYCoord } from "react-dnd";
 import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
 import { ButtonDrop } from "../../../component/control/ButtonDrop";
 import { InputDrop } from "../../../component/data/InputDrop";
-import { PanelDrop } from "../../../component/layout/PanelDrop";
+import { Image } from "antd";
+import { TableDrop } from "@/component/data/TableDrop";
+import { PanelDrop } from "@/component/data/PanelDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(
   clientOffset?: XYCoord | null,
   sourceClientOffset?: XYCoord | null,
   initialClientOffset?: XYCoord | null,
-  initialSourceClientOffset?: XYCoord | null
+  initialSourceClientOffset?: XYCoord | null,
+  isSidebar?: boolean
 ) {
-  // Ưu tiên dùng sourceClientOffset nếu có (đã bù chính xác)
-  if (sourceClientOffset) {
-    const { x, y } = sourceClientOffset;
+  if (clientOffset) {
+    const { x, y } = clientOffset;
     const transform = `translate(${x}px, ${y}px)`;
-    return { transform, WebkitTransform: transform };
+    return {
+      transform,
+      WebkitTransform: transform,
+      // để icon nằm chính giữa trỏ chuột (tùy kích thước icon)
+      marginLeft: "-12px",
+      marginTop: "-12px",
+    };
   }
+  // // Ưu tiên dùng sourceClientOffset nếu có (đã bù chính xác)
+  // if (sourceClientOffset) {
+  //   const { x, y } = sourceClientOffset;
+  //   const transform = `translate(${x}px, ${y}px)`;
+  //   return { transform, WebkitTransform: transform };
+  // }
 
-  // Fallback: tự bù offset điểm bấm
-  if (!clientOffset || !initialClientOffset || !initialSourceClientOffset)
-    return { display: "none" };
+  // // Fallback: tự bù offset điểm bấm
+  // if (!clientOffset || !initialClientOffset || !initialSourceClientOffset)
+  //   return { display: "none" };
 
-  const dx = initialClientOffset.x - initialSourceClientOffset.x;
-  const dy = initialClientOffset.y - initialSourceClientOffset.y;
+  // const dx = initialClientOffset.x - initialSourceClientOffset.x;
+  // const dy = initialClientOffset.y - initialSourceClientOffset.y;
 
-  const x = clientOffset.x - dx;
-  const y = clientOffset.y - dy;
+  // const x = clientOffset.x - dx;
+  // const y = clientOffset.y - dy;
 
-  const transform = `translate(${x}px, ${y}px)`;
-  return { transform, WebkitTransform: transform };
+  // const transform = `translate(${x}px, ${y}px)`;
+  // return { transform, WebkitTransform: transform };
 }
 
 // Tùy biến cách render node trong preview
-function renderNodePreview(item: { node: { type: string } }) {
-  const n = item?.node;
-  if (!n) return null;
-
-  switch (n.type) {
-    case DATA_TYPE.BUTTON:
-      return <ButtonDrop />;
+function renderNodePreview(item: {
+  type: string;
+  source: string;
+  icon: string;
+  defaultProps: object;
+  node: object;
+}) {
+  // const n = item?.node;
+  // if (!n) return null;
+  // if (item.source == "Sidebar") {
+  //   return (
+  //     <Image src={`/options/${item.icon}`} width={24} height={24} alt="icon" />
+  //   );
+  // }
+  switch (item.type) {
+    case LAYOUT_TYPE.PANEL:
+      return <PanelDrop />;
+    case DATA_TYPE.TABLE:
+      return <TableDrop />;
     case DATA_TYPE.INPUT:
       return <InputDrop />;
-    case LAYOUT_TYPE.PANEL:
+
     default:
       return (
         <div className="rounded border bg-white px-3 py-2 shadow">
-          {String(n.type)}
+          {String(item.type)}
         </div>
       );
   }
@@ -89,7 +115,8 @@ export function CustomDragLayer() {
           clientOffset,
           sourceClientOffset,
           initialClientOffset,
-          initialSourceClientOffset
+          initialSourceClientOffset,
+          item?.source === "Sidebar"
         )}
       >
         <div className="drop-shadow rounded-2xl">{renderNodePreview(item)}</div>

@@ -10,6 +10,7 @@ import { NodeComponent } from "@/entity/NodeComponent";
 import { useDispatch } from "react-redux";
 import { setFileList } from "./globalSlice";
 import { getAllFile } from "./service";
+import { CustomDragLayer } from "@/views/main/side-bar/CustomDragLayer";
 const HomePage = () => {
   const [justClick, setJustClick] = useState(false);
   const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
@@ -32,6 +33,7 @@ const HomePage = () => {
       <SolutionPanel justClick={justClick} selected={selectedId} />
       <Canvas />
       <Sidebar />
+      <CustomDragLayer />
     </div>
   );
 };

@@ -23,20 +23,17 @@
 
         .optionContainer {
             padding: 0px 8px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            display: block;
             gap: 12px;
 
-            .option {
+            .sidebarItem {
                 cursor: grab;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 border-radius: 5px;
-                padding: 4px;
-                margin-right: 4px;
-
+                padding: 4px 10px;
+                margin-bottom: 2px;
                 &:hover {
                     background-color: #e2e2e2;
 
