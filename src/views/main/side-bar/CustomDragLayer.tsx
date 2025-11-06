@@ -6,6 +6,7 @@ import { InputDrop } from "../../../component/data/InputDrop";
 import { Image } from "antd";
 import { TableDrop } from "@/component/data/TableDrop";
 import { PanelDrop } from "@/component/data/PanelDrop";
+import { ComponentData } from "@/entity/canvas/ComponentData";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(
@@ -26,25 +27,6 @@ function getItemStyles(
       marginTop: "-12px",
     };
   }
-  // // Ưu tiên dùng sourceClientOffset nếu có (đã bù chính xác)
-  // if (sourceClientOffset) {
-  //   const { x, y } = sourceClientOffset;
-  //   const transform = `translate(${x}px, ${y}px)`;
-  //   return { transform, WebkitTransform: transform };
-  // }
-
-  // // Fallback: tự bù offset điểm bấm
-  // if (!clientOffset || !initialClientOffset || !initialSourceClientOffset)
-  //   return { display: "none" };
-
-  // const dx = initialClientOffset.x - initialSourceClientOffset.x;
-  // const dy = initialClientOffset.y - initialSourceClientOffset.y;
-
-  // const x = clientOffset.x - dx;
-  // const y = clientOffset.y - dy;
-
-  // const transform = `translate(${x}px, ${y}px)`;
-  // return { transform, WebkitTransform: transform };
 }
 
 // Tùy biến cách render node trong preview
@@ -54,6 +36,7 @@ function renderNodePreview(item: {
   icon: string;
   defaultProps: object;
   node: object;
+  componentChildren: ComponentData[];
 }) {
   // const n = item?.node;
   // if (!n) return null;
@@ -62,9 +45,30 @@ function renderNodePreview(item: {
   //     <Image src={`/options/${item.icon}`} width={24} height={24} alt="icon" />
   //   );
   // }
+  if (item.source === "Canvas") {
+    console.error(item);
+
+    return (
+      <PanelDrop
+        panel={
+          {
+            componentChildren: item.componentChildren,
+          } as ComponentData
+        }
+      />
+    );
+  }
   switch (item.type) {
     case LAYOUT_TYPE.PANEL:
-      return <PanelDrop />;
+      return (
+        <PanelDrop
+          panel={
+            {
+              componentChildren: [] as ComponentData[],
+            } as ComponentData
+          }
+        />
+      );
     case DATA_TYPE.TABLE:
       return <TableDrop />;
     case DATA_TYPE.INPUT:

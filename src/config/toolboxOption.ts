@@ -20,11 +20,6 @@ export const toolBoxOption: Toolbox[] = [
         icon: "control/button.png",
         type: CONTROL_TYPE.BUTTON,
       },
-      {
-        name: "Switch",
-        icon: "control/switch.png",
-        type: CONTROL_TYPE.SWITCH,
-      },
     ],
   },
   {
@@ -34,6 +29,21 @@ export const toolBoxOption: Toolbox[] = [
         name: "Table",
         icon: "data/table.png",
         type: DATA_TYPE.TABLE,
+      },
+      {
+        name: "Checkbox",
+        icon: "data/checkbox.png",
+        type: DATA_TYPE.RICH_TEXT,
+      },
+      {
+        name: "Radio",
+        icon: "data/radio.png",
+        type: DATA_TYPE.RICH_TEXT,
+      },
+      {
+        name: "Switch",
+        icon: "data/switch.png",
+        type: DATA_TYPE.SWITCH,
       },
       {
         name: "Input",
@@ -51,9 +61,44 @@ export const toolBoxOption: Toolbox[] = [
         type: DATA_TYPE.RICH_TEXT,
       },
       {
+        name: "Dropdown",
+        icon: "data/dropdown.png",
+        type: DATA_TYPE.DROP_DOWN,
+      },
+      {
+        name: "Tree",
+        icon: "data/tree.png",
+        type: DATA_TYPE.TREE,
+      },
+      {
         name: "Date picker",
         icon: "data/date-picker.png",
         type: DATA_TYPE.DATE_PICKER,
+      },
+      {
+        name: "Range picker",
+        icon: "data/range-picker.png",
+        type: DATA_TYPE.RANGE_PICKER,
+      },
+      {
+        name: "Color picker",
+        icon: "data/color-picker.png",
+        type: DATA_TYPE.DATE_PICKER,
+      },
+      {
+        name: "Image",
+        icon: "data/image.png",
+        type: DATA_TYPE.IMAGE,
+      },
+      {
+        name: "Rate",
+        icon: "data/rate.png",
+        type: DATA_TYPE.RATE,
+      },
+      {
+        name: "Upload",
+        icon: "data/upload.png",
+        type: DATA_TYPE.UPLOAD,
       },
     ],
   },

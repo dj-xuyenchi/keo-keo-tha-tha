@@ -50,7 +50,7 @@ import { ModalDelete } from "./ModalDelete";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setFileClick } from "../canvas/canvasSlice";
+import { setData2Work, setFileClick } from "../canvas/canvasSlice";
 
 export interface SolutionPanelProps {
   selected: string | null;
@@ -209,6 +209,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
           }
         }
         dispatch(setFileClick(file));
+        dispatch(setData2Work([{ id: 1 }]));
       }
     }
     setExpandedKeys((prev) => {
@@ -245,7 +246,6 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         solutionInfomation,
         contextMenu.node?.key
       );
-      console.error(file);
 
       if (!file || ROOT_FOLDER.includes(file.key)) {
         messageApi.error("Không được xóa folder gốc!");
