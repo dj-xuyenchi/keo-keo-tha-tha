@@ -11,6 +11,7 @@
     position: fixed;
     right: 0;
     top: 112px;
+
     .toolbox {
         height: 40vh;
         overflow: scroll;
@@ -34,6 +35,7 @@
                 border-radius: 5px;
                 padding: 4px 10px;
                 margin-bottom: 2px;
+
                 &:hover {
                     background-color: #e2e2e2;
 
@@ -42,8 +44,7 @@
                     }
                 }
 
-                .icon {
-                }
+                .icon {}
 
                 .name {
                     margin-left: 4px;
@@ -53,6 +54,7 @@
             }
         }
     }
+
     .properties {
         height: 40vh;
     }

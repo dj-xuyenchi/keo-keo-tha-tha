@@ -51,6 +51,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { setData2Work, setFileClick } from "../canvas/canvasSlice";
+import { FileInfo } from "@/entity/fileHandler/FileInfo";
 
 export interface SolutionPanelProps {
   selected: string | null;
@@ -191,10 +192,12 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     info: { node: { key: string; fileType: string } }
   ) => {
     const key = info.node.key; // lấy key node được click
+
     if (info.node.fileType != FOLDER) {
-      const file = global.fileList.find((item) => {
+      const file = global.fileList.find((item: FileInfo) => {
         return item.key === key;
       });
+
       if (file) {
         // nếu là file code thì mở giao diện code không thì giao diện UI
         switch (info.node.fileType) {
@@ -209,7 +212,11 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
           }
         }
         dispatch(setFileClick(file));
-        dispatch(setData2Work([{ id: 1 }]));
+        if (file.content) {
+          dispatch(setData2Work(JSON.parse(file.content)));
+        } else {
+          dispatch(setData2Work([]));
+        }
       }
     }
     setExpandedKeys((prev) => {

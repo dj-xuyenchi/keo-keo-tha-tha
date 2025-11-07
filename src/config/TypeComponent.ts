@@ -18,10 +18,12 @@ export enum DATA_TYPE {
 
 export enum LAYOUT_TYPE {
   PANEL = "PANEL",
+  ROW = "ROW",
 }
 
 export enum CONTROL_TYPE {
   BUTTON = "BUTTON",
+  TAB = "TAB",
 }
 
 export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE;

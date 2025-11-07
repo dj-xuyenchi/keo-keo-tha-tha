@@ -1,17 +1,32 @@
-// store/store.js
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import globalReducer from "@/app/globalSlice";
-import { combineReducers } from "redux";
 import canvasSlice from "@/views/main/canvas/canvasSlice";
 
 const rootReducer = combineReducers({
-  global: globalReducer, // thêm nhiều reducer nếu có
-  canvas: canvasSlice, 
+  global: globalReducer,
+  canvas: canvasSlice,
 });
 
-const store = configureStore({
-  reducer: rootReducer,
-});
+// ⚡ Chỉ tạo store 1 lần, giữ lại giữa các lần hot reload
+const createStore = () =>
+  configureStore({
+    reducer: rootReducer,
+  });
+
+let store;
+
+// Nếu đang trong môi trường dev và có window
+if (process.env.NODE_ENV === "development") {
+  if (!window.__REDUX_STORE__) {
+    window.__REDUX_STORE__ = createStore();
+  }
+  store = window.__REDUX_STORE__;
+} else {
+  // Production: luôn tạo mới
+  store = createStore();
+}
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
 export default store;

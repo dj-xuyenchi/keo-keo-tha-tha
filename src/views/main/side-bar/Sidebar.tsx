@@ -1,5 +1,4 @@
 // Sidebar.tsx
-import React from "react";
 
 import styles from "./sidebar.module.scss";
 import { Tabs } from "antd";

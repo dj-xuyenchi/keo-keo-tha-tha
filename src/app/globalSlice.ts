@@ -7,7 +7,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface GlobalData {
   fileList: FileInfo[];
 }
-const init = {} as GlobalData;
+const init = {
+} as GlobalData;
 const globalSlice = createSlice({
   name: "global",
   initialState: init,

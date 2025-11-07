@@ -11,16 +11,19 @@ import { useDispatch } from "react-redux";
 import { setFileList } from "./globalSlice";
 import { getAllFile } from "./service";
 import { CustomDragLayer } from "@/views/main/side-bar/CustomDragLayer";
+import { RibbonMenu } from "@/views/main/ribbon-menu/RibbonMenu";
 const HomePage = () => {
   const [justClick, setJustClick] = useState(false);
   const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
   const dispatch = useDispatch();
   const handleClickGlobal = () => {
     setJustClick(!justClick);
   };
   const initData = async () => {
     const files = await getAllFile();
+    console.error(files);
 
     dispatch(setFileList(files));
   };
@@ -29,7 +32,9 @@ const HomePage = () => {
   }, []);
   return (
     <div className={styles.appContainer} onClick={handleClickGlobal}>
-      <div className={styles.ruyMenu}>ss</div>
+      <div className={styles.ruyMenu}>
+        <RibbonMenu />
+      </div>
       <SolutionPanel justClick={justClick} selected={selectedId} />
       <Canvas />
       <Sidebar />

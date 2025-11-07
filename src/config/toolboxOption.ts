@@ -10,6 +10,11 @@ export const toolBoxOption: Toolbox[] = [
         icon: "layout/panel.png",
         type: LAYOUT_TYPE.PANEL,
       },
+      {
+        name: "Row",
+        icon: "layout/row.png",
+        type: LAYOUT_TYPE.ROW,
+      },
     ],
   },
   {
@@ -19,6 +24,11 @@ export const toolBoxOption: Toolbox[] = [
         name: "Nút bấm",
         icon: "control/button.png",
         type: CONTROL_TYPE.BUTTON,
+      },
+      {
+        name: "Tab",
+        icon: "control/tab2.png",
+        type: CONTROL_TYPE.TAB,
       },
     ],
   },

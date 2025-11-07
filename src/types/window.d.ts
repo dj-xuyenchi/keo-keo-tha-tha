@@ -12,5 +12,6 @@ declare global {
         content: string
       ) => Promise<boolean | string>;
     };
+    __REDUX_STORE__?: ReturnType<typeof createStore>;
   }
 }
