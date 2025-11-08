@@ -18,11 +18,9 @@ export const PanelDrop = ({ panel, ...restProps }: PanelDropProps) => {
   // 1️⃣ DROP - nhận item thả vào
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: acceptType,
-    drop: (item: any, monitor) => {
-
-    },
+    drop: (item: any, monitor) => {},
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
   }));

@@ -33,11 +33,14 @@ export const Canvas = () => {
       return item?.type === LAYOUT_TYPE.PANEL;
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
       item: monitor.getItem(), // 👈 lấy dữ liệu item hiện đang kéo
     }),
     drop: (item, monitor) => {
+      if (monitor.didDrop()) {
+        return;
+      }
       if (!monitor.canDrop()) {
         return;
       }
