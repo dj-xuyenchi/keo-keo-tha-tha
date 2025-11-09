@@ -1,6 +1,38 @@
 [
     {
+        "id": "1",
         "type": "PANEL",
-        "componentChidlren": []
+        "componentChildren": [
+            {
+                "type": "INPUT"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "type": "PANEL",
+        "componentChildren": [
+            {
+                "type": "INPUT"
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "type": "PANEL",
+        "componentChildren": [
+            {
+                "type": "INPUT"
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "type": "PANEL",
+        "componentChildren": [
+            {
+                "type": "Input"
+            }
+        ]
     }
 ]

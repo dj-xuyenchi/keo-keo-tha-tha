@@ -26,6 +26,8 @@ export interface NodeDropData {
 
 export const Canvas = () => {
   const dispatch = useDispatch();
+  const canvas = useSelector((state: RootState) => state.canvas);
+
   const [{ isOver, canDrop, item }, dropRef] = useDrop(() => ({
     accept: acceptType, // 👈 trùng với type của useDrag
     canDrop: (item: { type: string }) => {
@@ -47,8 +49,19 @@ export const Canvas = () => {
       dispatch(pushPanel(defaultPanelDropObject()));
     },
   }));
+
+  const movePanel = (fromIndex: number, toIndex: number) => {
+    const updated = [...canvas.dataWork];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+
+    dispatch({
+      type: "canvas/setDataWork",
+      payload: updated,
+    });
+  };
+
   const isActive = isOver && canDrop;
-  const canvas = useSelector((state: RootState) => state.canvas);
   return (
     <div className={styles.canvasContainer} style={{ overflow: "auto" }}>
       <div className={clsx(styles.canvasZoomWrapper, "zoom-wrapper")}>
@@ -67,10 +80,15 @@ export const Canvas = () => {
             padding: "10px",
           }}
         >
-          {canvas.dataWork.map((component: ComponentData) => {
+          {canvas.dataWork.map((panel: ComponentData, index) => {
             return (
               <>
-                <PanelDrop panel={component} />
+                <PanelDrop
+                  key={panel.id}
+                  index={index}
+                  panel={panel}
+                  movePanel={movePanel}
+                />
               </>
             );
           })}
