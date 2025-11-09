@@ -79,7 +79,6 @@ export const TableDrop = <T extends BaseDataTable>({
   isSupportMultiSelect,
   ...restProps
 }: TablePropsCustom<T>) => {
-  console.error(columns);
 
   const [isShowSetting, setIsShowSetting] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState(columns || []);

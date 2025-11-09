@@ -12,7 +12,7 @@ import { acceptType } from "@/config/acceptType";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { defaultPanelDropObject, PanelDrop } from "@/component/data/PanelDrop";
 import { useDispatch } from "react-redux";
-import { pushPanel } from "./canvasSlice";
+import { pushPanel, setData2Work } from "./canvasSlice";
 
 export interface CanvasProps {
   items: NodeComponent[];
@@ -50,15 +50,24 @@ export const Canvas = () => {
     },
   }));
 
-  const movePanel = (fromIndex: number, toIndex: number) => {
+  const movePanel = (fromId: string, toId: string) => {
     const updated = [...canvas.dataWork];
-    const [moved] = updated.splice(fromIndex, 1);
-    updated.splice(toIndex, 0, moved);
+    console.error(updated);
 
-    dispatch({
-      type: "canvas/setDataWork",
-      payload: updated,
-    });
+    // 🔍 Tìm index dựa theo id
+    const fromIndex = updated.findIndex((p) => p.id === fromId);
+    const toIndex = updated.findIndex((p) => p.id === toId);
+
+    // Nếu không tìm thấy thì bỏ qua
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    const fromOb = updated[fromIndex];
+    const toOb = updated[toIndex];
+    updated[fromIndex] = toOb;
+    updated[toIndex] = fromOb;
+    console.log("From:", fromIndex, "To:", toIndex);
+
+    dispatch(setData2Work(updated));
   };
 
   const isActive = isOver && canDrop;

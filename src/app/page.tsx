@@ -23,7 +23,6 @@ const HomePage = () => {
   };
   const initData = async () => {
     const files = await getAllFile();
-    console.error(files);
 
     dispatch(setFileList(files));
   };

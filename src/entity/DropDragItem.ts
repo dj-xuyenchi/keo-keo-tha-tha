@@ -1,1 +1,4 @@
-export interface DropDragItem {}
+export interface DropDragItem {
+  index: number;
+  id: string;
+}

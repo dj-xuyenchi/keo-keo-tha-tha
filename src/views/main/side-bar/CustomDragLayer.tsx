@@ -46,7 +46,6 @@ function renderNodePreview(item: {
   //   );
   // }
   if (item.source === "Canvas") {
-    console.error(item);
 
     return (
       <PanelDrop

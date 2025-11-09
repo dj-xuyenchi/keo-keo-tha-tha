@@ -8,7 +8,6 @@ import { FileTab } from "./FileTab";
 export const RibbonMenu = () => {
   const [tab, setTab] = useState("1");
   const onChange = (value: string) => {
-    console.error(value);
 
     setTab(value);
   };

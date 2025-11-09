@@ -2,6 +2,8 @@ import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
 import { Row } from "antd";
 import { InputDrop } from "./InputDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";
+import { SelectDrop } from "./SelectDrop";
+import { TableDrop } from "./TableDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -9,7 +11,6 @@ export const GenComponent = ({
   component,
   ...restProps
 }: GenComponentProps) => {
-  console.error(component);
 
   switch (component.type) {
     case LAYOUT_TYPE.ROW: {
@@ -20,15 +21,26 @@ export const GenComponent = ({
       );
     }
     case DATA_TYPE.INPUT: {
-      console.error(123);
-
       return (
         <>
           <InputDrop />
         </>
       );
     }
-
+    case DATA_TYPE.DROP_DOWN: {
+      return (
+        <>
+          <SelectDrop />
+        </>
+      );
+    }
+    case DATA_TYPE.TABLE: {
+      return (
+        <>
+          <TableDrop />
+        </>
+      );
+    }
     default: {
       return <></>;
     }

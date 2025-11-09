@@ -214,7 +214,6 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
         dispatch(setFileClick(file));
         if (file.content) {
           const content = JSON.parse(file.content);
-          console.error(content);
 
           dispatch(setData2Work(content));
         } else {

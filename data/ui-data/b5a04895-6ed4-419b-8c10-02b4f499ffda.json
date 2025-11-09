@@ -13,7 +13,7 @@
         "type": "PANEL",
         "componentChildren": [
             {
-                "type": "INPUT"
+                "type": "TABLE"
             }
         ]
     },
@@ -22,7 +22,7 @@
         "type": "PANEL",
         "componentChildren": [
             {
-                "type": "INPUT"
+                "type": "DROP_DOWN"
             }
         ]
     },
@@ -31,7 +31,7 @@
         "type": "PANEL",
         "componentChildren": [
             {
-                "type": "Input"
+                "type": "INPUT"
             }
         ]
     }

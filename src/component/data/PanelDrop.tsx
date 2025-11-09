@@ -15,7 +15,7 @@ import { margrinBottomKey } from "@/config/defineStyle/styles/margin";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
 export interface PanelDropProps {
   index: number;
-  movePanel: (fromIndex: number, toIndex: number) => void;
+  movePanel: (fromIndex: string, toIndex: string) => void;
   panel: ComponentData;
 }
 
@@ -31,26 +31,10 @@ export const PanelDrop = ({
   const ref = useRef<HTMLDivElement>(null);
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: acceptType,
-    hover(item: { index: number }, monitor) {
-      if (!ref.current) return;
-      const dragIndex = item.index;
-      const hoverIndex = index;
-
-      if (dragIndex === hoverIndex) return;
-
-      const rect = ref.current.getBoundingClientRect();
-      const middleY = (rect.bottom - rect.top) / 2;
-      const clientY = monitor.getClientOffset()?.y ?? 0;
-
-      // Nếu kéo qua nửa trên hoặc nửa dưới panel khác thì swap
-      if (dragIndex < hoverIndex && clientY < rect.top + middleY) return;
-      if (dragIndex > hoverIndex && clientY > rect.top + middleY) return;
-
-      movePanel(dragIndex, hoverIndex);
-      item.index = hoverIndex;
-    },
+    hover(item: { index: number; id: string }, monitor) {},
     drop: (item: DropDragItem, monitor) => {
-      console.error(item);
+      if (!ref.current) return;
+      movePanel(item.id, panel.id);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -65,6 +49,8 @@ export const PanelDrop = ({
       source: "Canvas",
       icon: "",
       componentChildren: panel.componentChildren,
+      index: index,
+      id: panel.id,
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -74,8 +60,7 @@ export const PanelDrop = ({
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
-  console.error(panel);
-  
+
   return (
     <div
       ref={ref}
@@ -87,7 +72,6 @@ export const PanelDrop = ({
       }}
       {...restProps}
     >
-      
       {panel.componentChildren &&
         panel.componentChildren.map((component: ComponentData) => {
           return (
