@@ -4,13 +4,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const init = {
   fileData: {} as CanvasUI,
-  dataWork: [{ id: "1", componentChildren: [{}] }] as ComponentData[],
+  dataWork: [] as ComponentData[],
   typeCanvas: "UI" as TypeCanvas,
 } as FileChossing;
 
 export interface FileChossing {
   fileData: CanvasUI;
   dataWork: ComponentData[];
+  undoDataWork?: ChangeDataWork[],
+  copyData?: ComponentData,
+  selectedComponentId?: string
+}
+export interface ChangeDataWork {
+  index: number
+  dataWork: ComponentData[]
 }
 export type TypeCanvas = "CODE" | "UI";
 
@@ -27,9 +34,12 @@ const canvasSlice = createSlice({
     pushPanel: (state, action) => {
       state.dataWork.push(action.payload);
     },
+    setSelectComponent: (state, action) => {
+      state.selectedComponentId = action.payload;
+    },
   },
 });
 
-export const { setFileClick, setData2Work, pushPanel } = canvasSlice.actions;
+export const { setFileClick, setData2Work, pushPanel, setSelectComponent } = canvasSlice.actions;
 
 export default canvasSlice.reducer;

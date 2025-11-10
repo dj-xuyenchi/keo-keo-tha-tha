@@ -13,6 +13,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { defaultPanelDropObject, PanelDrop } from "@/component/data/PanelDrop";
 import { useDispatch } from "react-redux";
 import { pushPanel, setData2Work } from "./canvasSlice";
+import { DropDragItem } from "@/entity/DropDragItem";
 
 export interface CanvasProps {
   items: NodeComponent[];
@@ -30,7 +31,7 @@ export const Canvas = () => {
 
   const [{ isOver, canDrop, item }, dropRef] = useDrop(() => ({
     accept: acceptType, // 👈 trùng với type của useDrag
-    canDrop: (item: { type: string }) => {
+    canDrop: (item: DropDragItem) => {
       // Main dữ liệu canvas chính chỉ cho thả panel
       return item?.type === LAYOUT_TYPE.PANEL;
     },
@@ -39,14 +40,14 @@ export const Canvas = () => {
       canDrop: monitor.canDrop(),
       item: monitor.getItem(), // 👈 lấy dữ liệu item hiện đang kéo
     }),
-    drop: (item, monitor) => {
+    drop: (item: DropDragItem, monitor) => {
       if (monitor.didDrop()) {
         return;
       }
       if (!monitor.canDrop()) {
         return;
       }
-      dispatch(pushPanel(defaultPanelDropObject()));
+      dispatch(pushPanel(defaultPanelDropObject(item.id as string)));
     },
   }));
 
@@ -83,8 +84,8 @@ export const Canvas = () => {
             backgroundColor: isActive
               ? "#e8f5e9"
               : isOver
-              ? "#f0f0f0"
-              : "white",
+                ? "#f0f0f0"
+                : "white",
             transition: "background-color 0.2s",
             padding: "10px",
           }}

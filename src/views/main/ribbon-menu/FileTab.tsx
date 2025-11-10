@@ -6,19 +6,38 @@ import { useState } from "react";
 
 import { SearchOutlined } from "@ant-design/icons";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { saveData2File } from "./service";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { FileInfo } from "@/entity/fileHandler/FileInfo";
+import { getMessageInstance } from "@/config/messageContext";
 export const FileTab = () => {
   const [mode, setMode] = useState("run");
   const fullSize = 56;
   const miniSize = 20;
-  const handlePaste = () => {};
+  const canvas = useSelector((state: RootState) => state.canvas);
+  const global = useSelector((state: RootState) => state.global);
+
+  const messageApi = getMessageInstance();
+  const handlePaste = () => { };
   const handleSetMode = (value: string) => {
     setMode(value);
   };
+  const handleSaveData2File = () => {
+    const file = global.fileList.find((item: FileInfo) => {
+      return item.key === canvas.fileData.key;
+    });
+    if (!file) {
+      messageApi.error("Không xác định được file đang làm việc!");
+      return
+    }
+    saveData2File(file?.folderName + "/" + file?.name, JSON.stringify(canvas.dataWork))
+  }
   return (
     <div className={styles.menuList}>
       <div
         onClick={handlePaste}
-        className={clsx(styles.fullSizeIcon, styles.feature, styles.disabled)}
+        className={clsx(styles.fullSizeIcon, styles.feature, !canvas.copyData && styles.disabled)}
       >
         <Image
           src={`/options/ribbon/paste.png`}
@@ -123,7 +142,6 @@ export const FileTab = () => {
           className={clsx(styles.comboMiniIconRow)}
           style={{
             marginBottom: "4px",
-            marginLeft: "8px",
           }}
         >
           <Tooltip title={"Hoàn tác"}>
@@ -151,7 +169,7 @@ export const FileTab = () => {
             </div>
           </Tooltip>
           <Tooltip title={"Lưu thay đổi"}>
-            <div className={clsx(styles.miniSizeIcon, styles.feature)}>
+            <div className={clsx(styles.miniSizeIcon, styles.feature)} onClick={handleSaveData2File}>
               <Image
                 src={`/options/ribbon/save.png`}
                 width={miniSize}

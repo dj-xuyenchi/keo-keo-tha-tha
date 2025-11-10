@@ -1,10 +1,13 @@
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
-import { margrin, margrinBottom } from "./styles/margin";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
+import { marginGroupStyle } from "./styles/margin";
+import { widthGroupStyle } from "./styles/width";
+import { heightGroupStyle } from "./styles/height";
+import { ComponentData } from "@/entity/canvas/ComponentData";
 
-export const styleHTML = [margrin, margrinBottom] as StyleHTML[];
+export const styleHTML = [...marginGroupStyle, ...widthGroupStyle, ...heightGroupStyle] as StyleHTML[];
 
-export const buildStyle = (styles: InlineStyle[]) => {
+export const buildStyle = (component: ComponentData) => {
+  const styles = component.inlineStyle
   if (!styles) {
     return {};
   }
@@ -17,7 +20,7 @@ export const buildStyle = (styles: InlineStyle[]) => {
     }
     return {
       ...pre,
-      [style?.reactObjectName]: next.value,
+      [style?.reactObjectName]: next.value + `${next.isImportant ? ' !important' : ''}`,
     };
   }, {} as React.CSSProperties);
 };

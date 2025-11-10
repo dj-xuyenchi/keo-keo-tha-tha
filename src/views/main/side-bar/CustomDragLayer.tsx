@@ -7,6 +7,9 @@ import { Image } from "antd";
 import { TableDrop } from "@/component/data/TableDrop";
 import { PanelDrop } from "@/component/data/PanelDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";
+import { RowDrop } from "@/component/data/RowDrop";
+import { widthKey } from "@/config/defineStyle/styles/width";
+import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(
@@ -31,6 +34,7 @@ function getItemStyles(
 
 // Tùy biến cách render node trong preview
 function renderNodePreview(item: {
+  id: string,
   type: string;
   source: string;
   icon: string;
@@ -54,24 +58,50 @@ function renderNodePreview(item: {
             componentChildren: item.componentChildren,
           } as ComponentData
         }
+        movePanel={() => { }}
+        index={0}
       />
     );
   }
   switch (item.type) {
+    case LAYOUT_TYPE.ROW:
+      return (
+        <RowDrop
+          row={
+            {
+              componentChildren: item.componentChildren,
+              inlineStyle: [{
+                styleKey: widthKey,
+                value: "400px",
+              }, {
+                styleKey: heightKey,
+                value: "100px",
+              },]
+            } as ComponentData}
+          moveRow={() => { }}
+          index={0}
+        />
+      );
     case LAYOUT_TYPE.PANEL:
       return (
         <PanelDrop
           panel={
             {
               componentChildren: [] as ComponentData[],
+              inlineStyle: [{
+                styleKey: minHeightKey,
+                value: "40px",
+              }]
             } as ComponentData
           }
+          movePanel={() => { }}
+          index={0}
         />
       );
     case DATA_TYPE.TABLE:
       return <TableDrop />;
     case DATA_TYPE.INPUT:
-      return <InputDrop />;
+      return <InputDrop input={{ id: item.id } as ComponentData} />;
 
     default:
       return (

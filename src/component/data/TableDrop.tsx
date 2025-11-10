@@ -31,6 +31,7 @@ import { ButtonDrop } from "../control/ButtonDrop";
 import { ButtonCustom } from "../componentCustom/ButtonCustom";
 import { CollapseCustom } from "../componentCustom/CollapseCustom";
 import styles from "./style/table.module.scss";
+import { WrapperDropComponent } from "./WrapperDropComponent";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   buttonAddTitle?: string;
@@ -214,245 +215,226 @@ export const TableDrop = <T extends BaseDataTable>({
     setVisibleColumns(viewMode ? columns : columnsEdit);
   }, [viewMode, columns]);
   return (
-    <div
-      className={clsx(
-        "table-custom-container",
-        styles.tableDrop,
-        viewMode && "view-mode"
-      )}
-     
-    >
-      {contextHolder}
-      <CollapseCustom
-        activeKey={activeCollap}
-        onChange={handleChangeCollap}
-        items={[
-          {
-            key: "1",
-            label: "Kết quả",
-            children: (
-              <>
-                <Table<T>
-                  rowKey="rowUUID"
-                  className="table-custom"
-                  loading={loading}
-                  style={{ ...style }}
-                  rowSelection={isSupportMultiSelect ? rowSelection : undefined}
-                  bordered
-                  columns={visibleColumns}
-                  dataSource={dataSource?.filter((row: T) => {
-                    if (row.isDeleted) {
-                      return false;
-                    }
-                    if (!row.rowUUID) {
-                      row.rowUUID = crypto.randomUUID();
-                    }
-                    return true;
-                  })}
-                  scroll={{ x: "100%" }}
-                  {...restProps}
-                />
-              </>
-            ),
-            extra: (
-              <>
-                {extendFunction && activeCollap.length !== 0 && (
-                  <Row align="middle">
-                    <Col>
-                      <InputDrop
-                        style={{
-                          width: "200px",
-                        }}
-                        prefix={<IoSearchSharp />}
-                        placeholder="Tìm kiếm nhanh..."
-                      />
+    <WrapperDropComponent >
+      <div
+        className={clsx(
+          "table-custom-container",
+          styles.tableDrop,
+          viewMode && "view-mode"
+        )}
 
-                      {isEditAddBtn && (
-                        <>
-                          <Modal
-                            title={
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 8,
-                                }}
-                              >
-                                <WarningOutlined
-                                  style={{ color: "#faad14", fontSize: 26 }}
-                                />
-                                <span>Dữ liệu thay đổi chưa được lưu!</span>
-                              </div>
-                            }
-                            open={isModalOpen}
-                            centered
-                            width={400}
-                            footer={
-                              <>
-                                <div>
-                                  <ButtonDrop
-                                    title={"Giữ và ở lại"}
-                                    onClick={handleCancel}
-                                    type="primary"
-                                    style={{
-                                      marginLeft: "8px",
-                                    }}
-                                  />
-                                  <ButtonCustom
-                                    title={"Thoát và bỏ thay đổi"}
-                                    style={{
-                                      marginLeft: "8px",
-                                    }}
-                                    onClick={() => {
-                                      handleClose(true);
-                                    }}
-                                    danger
-                                  />
-                                </div>
-                              </>
-                            }
-                          >
-                            <p>
-                              Các thay đổi ở bảng {tableName} chưa được lưu. Bạn
-                              muốn bỏ những thay đổi này
-                            </p>
-                          </Modal>
-                          <ButtonCustom
-                            icon={<CgClose />}
-                            size={extendFunction.size || "middle"}
-                            title={"Huỷ"}
-                            style={{
-                              marginLeft: "8px",
-                            }}
-                            onClick={handleCloseEditAddTable}
-                            danger
-                          />
-                          {extendFunction.andOn === "table" && (
-                            <ButtonCustom
-                              icon={<FaPlus />}
-                              size={extendFunction.size || "middle"}
+      >
+        {contextHolder}
+        <CollapseCustom
+          activeKey={activeCollap}
+          onChange={handleChangeCollap}
+          items={[
+            {
+              key: "1",
+              label: "Kết quả",
+              children: (
+                <>
+                  <Table<T>
+                    rowKey="rowUUID"
+                    className="table-custom"
+                    loading={loading}
+                    style={{ ...style }}
+                    rowSelection={isSupportMultiSelect ? rowSelection : undefined}
+                    bordered
+                    columns={visibleColumns}
+                    dataSource={dataSource?.filter((row: T) => {
+                      if (row.isDeleted) {
+                        return false;
+                      }
+                      if (!row.rowUUID) {
+                        row.rowUUID = crypto.randomUUID();
+                      }
+                      return true;
+                    })}
+                    scroll={{ x: "100%" }}
+                    {...restProps}
+                  />
+                </>
+              ),
+              extra: (
+                <>
+                  {extendFunction && activeCollap.length !== 0 && (
+                    <Row align="middle">
+                      <Col>
+                        <InputDrop
+                          style={{
+                            width: "200px",
+                          }}
+                          prefix={<IoSearchSharp />}
+                          placeholder="Tìm kiếm nhanh..."
+                        />
+
+                        {isEditAddBtn && (
+                          <>
+                            <Modal
                               title={
-                                extendFunction.buttonAddTitle || "Thêm dòng"
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                  }}
+                                >
+                                  <WarningOutlined
+                                    style={{ color: "#faad14", fontSize: 26 }}
+                                  />
+                                  <span>Dữ liệu thay đổi chưa được lưu!</span>
+                                </div>
                               }
-                              onClick={addRowData}
-                              disabled={extendFunction.disableAddData}
-                              type="primary"
+                              open={isModalOpen}
+                              centered
+                              width={400}
+                              footer={
+                                <>
+                                  <div>
+                                    <ButtonDrop
+                                      title={"Giữ và ở lại"}
+                                      onClick={handleCancel}
+                                      type="primary"
+                                      style={{
+                                        marginLeft: "8px",
+                                      }}
+                                    />
+                                    <ButtonCustom
+                                      title={"Thoát và bỏ thay đổi"}
+                                      style={{
+                                        marginLeft: "8px",
+                                      }}
+                                      onClick={() => {
+                                        handleClose(true);
+                                      }}
+                                      danger
+                                    />
+                                  </div>
+                                </>
+                              }
+                            >
+                              <p>
+                                Các thay đổi ở bảng {tableName} chưa được lưu. Bạn
+                                muốn bỏ những thay đổi này
+                              </p>
+                            </Modal>
+                            <ButtonCustom
+                              icon={<CgClose />}
+                              size={extendFunction.size || "middle"}
+                              title={"Huỷ"}
                               style={{
                                 marginLeft: "8px",
                               }}
+                              onClick={handleCloseEditAddTable}
+                              danger
                             />
-                          )}
-                          <Modal
-                            title={
-                              <div
+                            {extendFunction.andOn === "table" && (
+                              <ButtonCustom
+                                icon={<FaPlus />}
+                                size={extendFunction.size || "middle"}
+                                title={
+                                  extendFunction.buttonAddTitle || "Thêm dòng"
+                                }
+                                onClick={addRowData}
+                                disabled={extendFunction.disableAddData}
+                                type="primary"
                                 style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 8,
+                                  marginLeft: "8px",
                                 }}
-                              >
-                                <InfoCircleOutlined
-                                  style={{ color: "#05428c", fontSize: 26 }}
-                                />
-                                <span>Lưu các thay đổi!</span>
-                              </div>
-                            }
-                            open={isBeforeConfirmModalOpen}
-                            centered
-                            width={400}
-                            footer={
-                              <>
-                                <div>
-                                  <ButtonCustom
-                                    title={"Chỉnh sửa tiếp"}
-                                    style={{
-                                      marginLeft: "8px",
-                                    }}
-                                    onClick={handleCloseBeforeConfirm}
+                              />
+                            )}
+                            <Modal
+                              title={
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                  }}
+                                >
+                                  <InfoCircleOutlined
+                                    style={{ color: "#05428c", fontSize: 26 }}
                                   />
-                                  <ButtonCustom
-                                    title={"Lưu thay đổi"}
-                                    onClick={handleConfirm}
-                                    type="primary"
-                                    style={{
-                                      marginLeft: "8px",
-                                    }}
-                                  />
+                                  <span>Lưu các thay đổi!</span>
                                 </div>
-                              </>
-                            }
-                          >
-                            <p>
-                              Bạn muốn lưu những thay đổi ở bảng {tableName}?
-                            </p>
-                          </Modal>
+                              }
+                              open={isBeforeConfirmModalOpen}
+                              centered
+                              width={400}
+                              footer={
+                                <>
+                                  <div>
+                                    <ButtonCustom
+                                      title={"Chỉnh sửa tiếp"}
+                                      style={{
+                                        marginLeft: "8px",
+                                      }}
+                                      onClick={handleCloseBeforeConfirm}
+                                    />
+                                    <ButtonCustom
+                                      title={"Lưu thay đổi"}
+                                      onClick={handleConfirm}
+                                      type="primary"
+                                      style={{
+                                        marginLeft: "8px",
+                                      }}
+                                    />
+                                  </div>
+                                </>
+                              }
+                            >
+                              <p>
+                                Bạn muốn lưu những thay đổi ở bảng {tableName}?
+                              </p>
+                            </Modal>
+                            <ButtonCustom
+                              icon={<SiTicktick />}
+                              size={extendFunction.size || "middle"}
+                              title={"Xác nhận"}
+                              style={{
+                                marginLeft: "8px",
+                              }}
+                              onClick={handleBeforeConfirm}
+                              type="primary"
+                            />
+                          </>
+                        )}
+
+                        {!isEditAddBtn && (
                           <ButtonCustom
-                            icon={<SiTicktick />}
+                            icon={<FaPlus />}
                             size={extendFunction.size || "middle"}
-                            title={"Xác nhận"}
+                            title={
+                              extendFunction.buttonAddTitle || "Chỉnh sửa tạo mới"
+                            }
+                            onClick={handleEditAddDataTable}
+                            type="primary"
                             style={{
                               marginLeft: "8px",
                             }}
-                            onClick={handleBeforeConfirm}
-                            type="primary"
                           />
-                        </>
-                      )}
-
-                      {!isEditAddBtn && (
-                        <ButtonCustom
-                          icon={<FaPlus />}
-                          size={extendFunction.size || "middle"}
-                          title={
-                            extendFunction.buttonAddTitle || "Chỉnh sửa tạo mới"
-                          }
-                          onClick={handleEditAddDataTable}
-                          type="primary"
-                          style={{
-                            marginLeft: "8px",
-                          }}
-                        />
-                      )}
-                      {extendFunction.isSupportExport && !isEditAddBtn && (
-                        <ButtonCustom
-                          size={extendFunction.size || "middle"}
-                          title="Export"
-                          onClick={extendFunction.handleExportData}
-                          style={{
-                            marginLeft: "8px",
-                          }}
-                          disabled={
-                            extendFunction.disableExportData ||
-                            !extendFunction.handleExportData
-                          }
-                          icon={<FaFileArrowDown />}
-                        />
-                      )}
-                      <Tooltip
-                        title={
-                          isEditAddBtn
-                            ? "Đang ở chế độ tạo sửa không cho phép reload dữ liệu!"
-                            : "Reload dữ liệu"
-                        }
-                      >
-                        <ButtonCustom
-                          style={{
-                            marginLeft: "8px",
-                          }}
-                          disabled={isEditAddBtn}
-                          onClick={extendFunction.buttonReloadFunction}
-                          size={extendFunction.size || "middle"}
-                          type="link"
-                          shape="circle"
-                          icon={<SyncOutlined />}
-                        />
-                      </Tooltip>
-                      {extendFunction.isSupportZoom && (
+                        )}
+                        {extendFunction.isSupportExport && !isEditAddBtn && (
+                          <ButtonCustom
+                            size={extendFunction.size || "middle"}
+                            title="Export"
+                            onClick={extendFunction.handleExportData}
+                            style={{
+                              marginLeft: "8px",
+                            }}
+                            disabled={
+                              extendFunction.disableExportData ||
+                              !extendFunction.handleExportData
+                            }
+                            icon={<FaFileArrowDown />}
+                          />
+                        )}
                         <Tooltip
                           title={
                             isEditAddBtn
-                              ? "Đang ở chế độ tạo sửa không cho phép zoom!"
-                              : "Zoom toàn màn hình!"
+                              ? "Đang ở chế độ tạo sửa không cho phép reload dữ liệu!"
+                              : "Reload dữ liệu"
                           }
                         >
                           <ButtonCustom
@@ -460,54 +442,75 @@ export const TableDrop = <T extends BaseDataTable>({
                               marginLeft: "8px",
                             }}
                             disabled={isEditAddBtn}
-                            onClick={() => {
-                              handleZoom(true);
-                            }}
+                            onClick={extendFunction.buttonReloadFunction}
                             size={extendFunction.size || "middle"}
                             type="link"
                             shape="circle"
-                            icon={<MdOutlineZoomOutMap />}
+                            icon={<SyncOutlined />}
                           />
                         </Tooltip>
-                      )}
-                      <Tooltip
-                        title={
-                          isEditAddBtn
-                            ? "Đang ở chế độ tạo sửa không cho phép cài đặt!"
-                            : "Cài đặt bảng dữ liệu!"
-                        }
-                      >
-                        <ButtonCustom
-                          style={{
-                            marginLeft: "8px",
-                          }}
-                          disabled={isEditAddBtn}
-                          onClick={handleShowSetting}
-                          size={extendFunction.size || "middle"}
-                          type="link"
-                          shape="circle"
-                          icon={<IoSettingsSharp />}
-                        />
-                      </Tooltip>
-                    </Col>
-                  </Row>
-                )}
-              </>
-            ),
-          },
-        ]}
-        noBorder={true}
-      />
+                        {extendFunction.isSupportZoom && (
+                          <Tooltip
+                            title={
+                              isEditAddBtn
+                                ? "Đang ở chế độ tạo sửa không cho phép zoom!"
+                                : "Zoom toàn màn hình!"
+                            }
+                          >
+                            <ButtonCustom
+                              style={{
+                                marginLeft: "8px",
+                              }}
+                              disabled={isEditAddBtn}
+                              onClick={() => {
+                                handleZoom(true);
+                              }}
+                              size={extendFunction.size || "middle"}
+                              type="link"
+                              shape="circle"
+                              icon={<MdOutlineZoomOutMap />}
+                            />
+                          </Tooltip>
+                        )}
+                        <Tooltip
+                          title={
+                            isEditAddBtn
+                              ? "Đang ở chế độ tạo sửa không cho phép cài đặt!"
+                              : "Cài đặt bảng dữ liệu!"
+                          }
+                        >
+                          <ButtonCustom
+                            style={{
+                              marginLeft: "8px",
+                            }}
+                            disabled={isEditAddBtn}
+                            onClick={handleShowSetting}
+                            size={extendFunction.size || "middle"}
+                            type="link"
+                            shape="circle"
+                            icon={<IoSettingsSharp />}
+                          />
+                        </Tooltip>
+                      </Col>
+                    </Row>
+                  )}
+                </>
+              ),
+            },
+          ]}
+          noBorder={true}
+        />
 
-      {extendFunction?.andOn === "drawer" && (
-        <Drawer
-          title="Basic Drawer"
-          closable={{ "aria-label": "Close Button" }}
-          open={true}
-        >
-          {extendFunction.formOnDrawer}
-        </Drawer>
-      )}
-    </div>
+        {extendFunction?.andOn === "drawer" && (
+          <Drawer
+            title="Basic Drawer"
+            closable={{ "aria-label": "Close Button" }}
+            open={true}
+          >
+            {extendFunction.formOnDrawer}
+          </Drawer>
+        )}
+      </div>
+    </WrapperDropComponent>
   );
 };

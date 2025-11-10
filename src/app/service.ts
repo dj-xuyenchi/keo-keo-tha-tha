@@ -1,5 +1,9 @@
 import { FOLDER_LIST } from "@/config/folderDataLocation";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
+import { saveData2File } from "@/views/main/ribbon-menu/service";
+import { GlobalData } from "./globalSlice";
+import { FileChossing } from "@/views/main/canvas/canvasSlice";
+import { getMessageInstance } from "@/config/messageContext";
 
 export const getAllFile = async () => {
   let res = [] as FileInfo[];
@@ -24,3 +28,22 @@ export const getAllFile = async () => {
 
   return res;
 };
+
+
+export const handleCommandCtrlS = (event: KeyboardEvent, global: GlobalData, canvas: FileChossing) => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+
+    event.preventDefault();
+    const messageApi = getMessageInstance();
+    const file = global.fileList?.find((item: FileInfo) => {
+      return item.key === canvas.fileData.key;
+    });
+    if (!file) {
+      messageApi.error("Không xác định được file đang làm việc!");
+      return
+    }
+    saveData2File(file.folderName + "/" + file.name, JSON.stringify(canvas.dataWork))
+  }
+}
+
+

@@ -2,16 +2,19 @@
 
 import "./globals.css";
 import React from "react";
-import { DndWrapper } from "@/views/main/side-bar/DnDWrapper";
+import { DndWrapper } from "@/app/DnDWrapper";
 import { setMessageInstance } from "@/config/messageContext";
 import { Provider } from "react-redux";
 import store from "@/store/store";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   const messageContextHolder = setMessageInstance();
+
   return (
     <html lang="en">
       <body className={`hide-scrollbar`}>

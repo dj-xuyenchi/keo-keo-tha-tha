@@ -498,3 +498,11 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+.selectedComponent {
+    border: 1px solid rgb(40, 86, 251) !important;
+}
+
+.dashUnselect {
+    border: 1px dashed rgb(199, 199, 199) !important;
+}

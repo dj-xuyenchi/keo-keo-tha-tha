@@ -26,3 +26,6 @@ export const margrinBottom = {
     return true;
   },
 } as StyleHTML;
+
+
+export const marginGroupStyle = [margrin, margrinBottom]

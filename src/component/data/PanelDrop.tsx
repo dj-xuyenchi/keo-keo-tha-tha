@@ -2,7 +2,7 @@ import { defaultCss } from "@/config/defaultCss";
 import styles from "./style/pannel.module.scss";
 import { useDrag, useDrop } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
-import { LAYOUT_TYPE } from "@/config/TypeComponent";
+import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
 import { useEffect, useRef } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { ComponentData } from "@/entity/canvas/ComponentData";
@@ -13,6 +13,14 @@ import { DropDragItem } from "@/entity/DropDragItem";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { margrinBottomKey } from "@/config/defineStyle/styles/margin";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { addChildren2Component } from "@/views/main/canvas/service";
+import { useDispatch } from "react-redux";
+import { setData2Work } from "@/views/main/canvas/canvasSlice";
+import { widthKey } from "@/config/defineStyle/styles/width";
+import { minHeightKey } from "@/config/defineStyle/styles/height";
+import { defaultInputDropObject } from "./InputDrop";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -25,22 +33,35 @@ export const PanelDrop = ({
   movePanel,
   ...restProps
 }: PanelDropProps) => {
-  const inlineStyle = buildStyle(panel.inlineStyle);
+  const inlineStyle = buildStyle(panel);
   console.info(inlineStyle);
 
+  const canvas = useSelector((state: RootState) => state.canvas);
+  const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: acceptType,
-    hover(item: { index: number; id: string }, monitor) {},
+    // canDrop: (item: DropDragItem) => {
+    //   // Main dữ liệu canvas chính chỉ cho thả panel
+    //   return item?.type !== LAYOUT_TYPE.PANEL;
+    // },
+    hover(item: DropDragItem, monitor) { },
     drop: (item: DropDragItem, monitor) => {
-      if (!ref.current) return;
-      movePanel(item.id, panel.id);
+      if (!ref.current) {
+        return
+      };
+      if (item.type === LAYOUT_TYPE.PANEL) {
+        movePanel(item.id as string, panel.id);
+        return
+      }
+      const res = addChildren2Component(panel.id, buildChildren(item), canvas.dataWork)
+      dispatch(setData2Work(res))
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
-  }));
+  }), [canvas, panel.id]);
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: acceptType,
     item: {
@@ -55,8 +76,10 @@ export const PanelDrop = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }));
+  }), [canvas, panel.id]);
   dragRef(dropRef(ref));
+
+  const isActive = isOver && canDrop;
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
@@ -69,6 +92,13 @@ export const PanelDrop = ({
         ...inlineStyle,
         ...defaultCss,
         opacity: isDragging ? 0 : 1, // 👈 Ẩn phần tử gốc khi đang kéo
+        border: isActive ? "1px dashed #4caf50" : "",
+        backgroundColor: isActive
+          ? "#e8f5e9"
+          : isOver
+            ? "#f0f0f0"
+            : "white",
+        transition: "background-color 0.2s",
       }}
       {...restProps}
     >
@@ -84,14 +114,35 @@ export const PanelDrop = ({
   );
 };
 
-export const defaultPanelDropObject = () => {
+
+const buildChildren = (item: DropDragItem) => {
+  switch (item.type) {
+    case DATA_TYPE.INPUT: {
+      return defaultInputDropObject(item.id as string)
+    }
+  }
   return {
-    id: uuidv4(),
+    type: item.type,
+    componentChildren: [] as ComponentData[]
+  } as ComponentData
+}
+
+export const defaultPanelDropObject = (id: string) => {
+  return {
+    id: id,
+    type: LAYOUT_TYPE.PANEL,
     inlineStyle: [
       {
         styleKey: margrinBottomKey,
         value: "12px",
-      },
+      }
+      ,
+      {
+        styleKey: minHeightKey,
+        value: "40px",
+      }
     ] as InlineStyle[],
   } as ComponentData;
 };
+
+export const panelIgnoreStyle = [widthKey]

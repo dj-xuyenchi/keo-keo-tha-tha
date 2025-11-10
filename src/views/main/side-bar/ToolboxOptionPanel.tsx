@@ -1,11 +1,13 @@
 import React, { Ref, useEffect, useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
 import styles from "./sidebar.module.scss";
 import { ToolboxOption } from "@/entity/ToolboxOption";
 import Image from "next/image";
 import { useDrag, useDragLayer } from "react-dnd";
 import { acceptType } from "@/config/acceptType";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { DropDragItem } from "@/entity/DropDragItem";
 
 type ToolboxOptionPanelProps = {
   listOption: ToolboxOption[];
@@ -33,7 +35,7 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
 const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: acceptType, // hoặc acceptType của bạn
-    item: { type, defaultProps, source: "Sidebar", icon },
+    item: { type, defaultProps, source: "Sidebar", icon, id: uuidv4() } as DropDragItem,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
