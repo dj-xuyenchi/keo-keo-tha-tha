@@ -39,7 +39,6 @@ const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
       type,
       defaultProps,
       source: "Sidebar",
-      icon,
       id: uuidv4(), // 👉 mỗi lần kéo sẽ sinh mới
     }),
     collect: (monitor) => ({
