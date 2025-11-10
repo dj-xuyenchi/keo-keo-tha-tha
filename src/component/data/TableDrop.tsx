@@ -32,6 +32,7 @@ import { ButtonCustom } from "../componentCustom/ButtonCustom";
 import { CollapseCustom } from "../componentCustom/CollapseCustom";
 import styles from "./style/table.module.scss";
 import { WrapperDropComponent } from "./WrapperDropComponent";
+import { ComponentData } from "@/entity/canvas/ComponentData";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   buttonAddTitle?: string;
@@ -80,7 +81,6 @@ export const TableDrop = <T extends BaseDataTable>({
   isSupportMultiSelect,
   ...restProps
 }: TablePropsCustom<T>) => {
-
   const [isShowSetting, setIsShowSetting] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState(columns || []);
   const [activeCollap, setActiveCollap] = useState(["1"]);
@@ -215,14 +215,13 @@ export const TableDrop = <T extends BaseDataTable>({
     setVisibleColumns(viewMode ? columns : columnsEdit);
   }, [viewMode, columns]);
   return (
-    <WrapperDropComponent >
+    <WrapperDropComponent id="">
       <div
         className={clsx(
           "table-custom-container",
           styles.tableDrop,
           viewMode && "view-mode"
         )}
-
       >
         {contextHolder}
         <CollapseCustom
@@ -239,7 +238,9 @@ export const TableDrop = <T extends BaseDataTable>({
                     className="table-custom"
                     loading={loading}
                     style={{ ...style }}
-                    rowSelection={isSupportMultiSelect ? rowSelection : undefined}
+                    rowSelection={
+                      isSupportMultiSelect ? rowSelection : undefined
+                    }
                     bordered
                     columns={visibleColumns}
                     dataSource={dataSource?.filter((row: T) => {
@@ -262,6 +263,7 @@ export const TableDrop = <T extends BaseDataTable>({
                     <Row align="middle">
                       <Col>
                         <InputDrop
+                          input={{} as ComponentData}
                           style={{
                             width: "200px",
                           }}
@@ -315,8 +317,8 @@ export const TableDrop = <T extends BaseDataTable>({
                               }
                             >
                               <p>
-                                Các thay đổi ở bảng {tableName} chưa được lưu. Bạn
-                                muốn bỏ những thay đổi này
+                                Các thay đổi ở bảng {tableName} chưa được lưu.
+                                Bạn muốn bỏ những thay đổi này
                               </p>
                             </Modal>
                             <ButtonCustom
@@ -406,7 +408,8 @@ export const TableDrop = <T extends BaseDataTable>({
                             icon={<FaPlus />}
                             size={extendFunction.size || "middle"}
                             title={
-                              extendFunction.buttonAddTitle || "Chỉnh sửa tạo mới"
+                              extendFunction.buttonAddTitle ||
+                              "Chỉnh sửa tạo mới"
                             }
                             onClick={handleEditAddDataTable}
                             type="primary"

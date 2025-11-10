@@ -50,7 +50,7 @@ import { ModalDelete } from "./ModalDelete";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setData2Work, setFileClick } from "../canvas/canvasSlice";
+import {  setFileClick } from "../canvas/canvasSlice";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 
 export interface SolutionPanelProps {

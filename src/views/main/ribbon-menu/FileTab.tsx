@@ -1,4 +1,4 @@
-import { Image, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import styles from "./ribbon.module.scss";
 import clsx from "clsx";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
@@ -12,6 +12,21 @@ import { RootState } from "@/store/store";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { getMessageInstance } from "@/config/messageContext";
 import { DataWork } from "../canvas/canvasSlice";
+import Image from "next/image";
+
+import pasteIcon from "../../../../public/options/ribbon/paste.png";
+import cutIcon from "../../../../public/options/ribbon/cut.png";
+import copyIcon from "../../../../public/options/ribbon/copy.png";
+import cleanIcon from "../../../../public/options/ribbon/clean.png";
+import flowIcon from "../../../../public/options/ribbon/flow.png";
+import docIcon from "../../../../public/options/ribbon/doc.png";
+import noteIcon from "../../../../public/options/ribbon/note.png";
+import undoIcon from "../../../../public/options/ribbon/undo.png";
+import saveIcon from "../../../../public/options/ribbon/save.png";
+import cmtIcon from "../../../../public/options/ribbon/cmt.png";
+import unCmtIcon from "../../../../public/options/ribbon/un-cmt.png";
+import runIcon from "../../../../public/options/ribbon/run.png";
+import debugIcon from "../../../../public/options/ribbon/debug.png";
 export const FileTab = () => {
   const [mode, setMode] = useState("run");
   const fullSize = 56;
@@ -67,13 +82,7 @@ export const FileTab = () => {
           !canvas.copyData && styles.disabled
         )}
       >
-        <Image
-          src={`/options/ribbon/paste.png`}
-          width={fullSize}
-          height={fullSize}
-          alt="icon"
-          preview={false}
-        />
+        <Image src={pasteIcon} width={fullSize} height={fullSize} alt="icon" />
         <span>Dán</span>
       </div>
       <div
@@ -86,11 +95,10 @@ export const FileTab = () => {
           className={clsx(styles.miniSizeIcon, styles.feature, styles.disabled)}
         >
           <Image
-            src={`/options/ribbon/cut.png`}
+            src={cutIcon}
             width={miniSize}
             height={miniSize}
             alt="icon"
-            preview={false}
             style={{
               rotate: "-90deg",
             }}
@@ -98,21 +106,15 @@ export const FileTab = () => {
           <span>Cut</span>
         </div>
         <div className={clsx(styles.miniSizeIcon, styles.feature)}>
-          <Image
-            src={`/options/ribbon/copy.png`}
-            width={miniSize}
-            alt="icon"
-            preview={false}
-          />
+          <Image src={copyIcon} height={miniSize} width={miniSize} alt="icon" />
           <span>Sao chép</span>
         </div>
         <div className={clsx(styles.miniSizeIcon, styles.feature)}>
           <Image
-            src={`/options/ribbon/clean.png`}
+            src={cleanIcon}
             width={miniSize}
             height={miniSize}
             alt="icon"
-            preview={false}
           />
           <span>Format code</span>
         </div>
@@ -124,13 +126,7 @@ export const FileTab = () => {
         onClick={handlePaste}
         className={clsx(styles.fullSizeIcon, styles.feature)}
       >
-        <Image
-          src={`/options/ribbon/flow.png`}
-          width={fullSize}
-          height={fullSize}
-          alt="icon"
-          preview={false}
-        />
+        <Image src={flowIcon} width={fullSize} height={fullSize} alt="icon" />
         <span>Luồng</span>
       </div>
       <div
@@ -140,23 +136,11 @@ export const FileTab = () => {
         }}
       >
         <div className={clsx(styles.miniSizeIcon, styles.feature)}>
-          <Image
-            src={`/options/ribbon/doc.png`}
-            width={miniSize}
-            height={miniSize}
-            alt="icon"
-            preview={false}
-          />
+          <Image src={docIcon} width={miniSize} height={miniSize} alt="icon" />
           <span>Tài liệu</span>
         </div>
         <div className={clsx(styles.miniSizeIcon, styles.feature)}>
-          <Image
-            src={`/options/ribbon/note.png`}
-            width={miniSize}
-            height={miniSize}
-            alt="icon"
-            preview={false}
-          />
+          <Image src={noteIcon} width={miniSize} height={miniSize} alt="icon" />
           <span>Ghi chú</span>
         </div>
       </div>
@@ -175,21 +159,20 @@ export const FileTab = () => {
           <Tooltip title={"Hoàn tác"}>
             <div className={clsx(styles.miniSizeIcon, styles.feature)}>
               <Image
-                src={`/options/ribbon/undo.png`}
+                src={undoIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"
-                preview={false}
               />
             </div>
           </Tooltip>
           <Tooltip title={"Làm lại"}>
             <div className={clsx(styles.miniSizeIcon, styles.feature)}>
               <Image
-                src={`/options/ribbon/undo.png`}
+                src={undoIcon}
                 width={miniSize}
+                height={miniSize}
                 alt="icon"
-                preview={false}
                 style={{
                   transform: "scaleX(-1)",
                 }}
@@ -202,11 +185,10 @@ export const FileTab = () => {
               onClick={handleSaveData2File}
             >
               <Image
-                src={`/options/ribbon/save.png`}
+                src={saveIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"
-                preview={false}
               />
             </div>
           </Tooltip>
@@ -234,11 +216,10 @@ export const FileTab = () => {
               }}
             >
               <Image
-                src={`/options/ribbon/${mode === "run" ? "run" : "debug"}.png`}
+                src={mode === "run" ? runIcon : debugIcon}
                 width={30}
                 height={30}
                 alt="icon"
-                preview={false}
               />
             </div>
           </Tooltip>
@@ -260,22 +241,20 @@ export const FileTab = () => {
           <Tooltip title={"Comment code"}>
             <div className={clsx(styles.miniSizeIcon, styles.feature)}>
               <Image
-                src={`/options/ribbon/cmt.png`}
+                src={cmtIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"
-                preview={false}
               />
             </div>
           </Tooltip>
           <Tooltip title={"Bỏ comment"}>
             <div className={clsx(styles.miniSizeIcon, styles.feature)}>
               <Image
-                src={`/options/ribbon/un-cmt.png`}
+                src={unCmtIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"
-                preview={false}
               />
             </div>
           </Tooltip>

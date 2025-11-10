@@ -1,4 +1,4 @@
-import Input from "antd/es/input/Input";
+import Input, { InputProps } from "antd/es/input/Input";
 import { defaultCss } from "@/config/defaultCss";
 import { WrapperDropComponent } from "./WrapperDropComponent";
 import styles from "./style/input.module.scss";
@@ -6,7 +6,7 @@ import styles from "./style/input.module.scss";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { DATA_TYPE } from "@/config/TypeComponent";
-export interface InputDropProps {
+export interface InputDropProps extends InputProps{
   input: ComponentData;
 }
 export const InputDrop = ({ input, ...restProps }: InputDropProps) => {

@@ -98,8 +98,8 @@ function renderNodePreview(item: {
           index={0}
         />
       );
-    case DATA_TYPE.TABLE:
-      return <TableDrop />;
+    // case DATA_TYPE.TABLE:
+    //   return <TableDrop />;
     case DATA_TYPE.INPUT:
       return <InputDrop input={{ id: item.id } as ComponentData} />;
 
