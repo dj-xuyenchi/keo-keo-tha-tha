@@ -35,7 +35,13 @@ export const ToolboxOptionPanel = ({ listOption }: ToolboxOptionPanelProps) => {
 const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: acceptType, // hoặc acceptType của bạn
-    item: { type, defaultProps, source: "Sidebar", icon, id: uuidv4() } as DropDragItem,
+    item: () => ({
+      type,
+      defaultProps,
+      source: "Sidebar",
+      icon,
+      id: uuidv4(), // 👉 mỗi lần kéo sẽ sinh mới
+    }),
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

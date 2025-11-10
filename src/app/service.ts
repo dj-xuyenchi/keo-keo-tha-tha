@@ -2,9 +2,10 @@ import { FOLDER_LIST } from "@/config/folderDataLocation";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { saveData2File } from "@/views/main/ribbon-menu/service";
 import { GlobalData } from "./globalSlice";
-import { FileChossing } from "@/views/main/canvas/canvasSlice";
+import { DataWork, FileChossing } from "@/views/main/canvas/canvasSlice";
 import { getMessageInstance } from "@/config/messageContext";
 
+import cloneDeep from "lodash/cloneDeep";
 export const getAllFile = async () => {
   let res = [] as FileInfo[];
   for (const folder of FOLDER_LIST) {
@@ -12,7 +13,9 @@ export const getAllFile = async () => {
 
     const fileInfos = await Promise.all(
       files.map(async (item) => {
-        const fileData = await window.electronAPI.readFile(folder + "/" + item.name);
+        const fileData = await window.electronAPI.readFile(
+          folder + "/" + item.name
+        );
         return {
           name: item.name,
           size: item.size,
@@ -29,21 +32,43 @@ export const getAllFile = async () => {
   return res;
 };
 
-
-export const handleCommandCtrlS = (event: KeyboardEvent, global: GlobalData, canvas: FileChossing) => {
+export const handleCommandCtrlS = (
+  event: KeyboardEvent,
+  global: GlobalData,
+  canvas: FileChossing
+) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
-
     event.preventDefault();
-    const messageApi = getMessageInstance();
-    const file = global.fileList?.find((item: FileInfo) => {
+    const saveList = cloneDeep(canvas.dataWorkList) as DataWork[];
+    const file = global.fileList.find((item: FileInfo) => {
       return item.key === canvas.fileData.key;
     });
-    if (!file) {
-      messageApi.error("Không xác định được file đang làm việc!");
-      return
+    const thisFile = {
+      key: file?.key as string,
+      data: canvas.dataWork,
+    };
+    const check = saveList.find((item) => {
+      return item.key === thisFile.key;
+    });
+    if (check) {
+      check.data = thisFile.data;
+    } else {
+      saveList.push(thisFile);
     }
-    saveData2File(file.folderName + "/" + file.name, JSON.stringify(canvas.dataWork))
+    for (const work of saveList) {
+      try {
+        const file = global.fileList.find((item) => {
+          return item.key == work.key;
+        });
+        if (file) {
+          saveData2File(
+            file.folderName + "/" + file.name,
+            JSON.stringify(work.data)
+          );
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
-}
-
-
+};

@@ -20,9 +20,6 @@ export const WrapperDropComponent = ({
     const { select } = useSelectComponent(); //
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault()
-        console.error(id);
-        console.error(123);
-
         select(id);
     }
     return (

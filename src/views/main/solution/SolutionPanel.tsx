@@ -212,13 +212,6 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
           }
         }
         dispatch(setFileClick(file));
-        if (file.content) {
-          const content = JSON.parse(file.content);
-
-          dispatch(setData2Work(content));
-        } else {
-          dispatch(setData2Work([]));
-        }
       }
     }
     setExpandedKeys((prev) => {

@@ -3,7 +3,7 @@ import styles from "./ribbon.module.scss";
 import clsx from "clsx";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { useState } from "react";
-
+import cloneDeep from "lodash/cloneDeep";
 import { SearchOutlined } from "@ant-design/icons";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { saveData2File } from "./service";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { getMessageInstance } from "@/config/messageContext";
+import { DataWork } from "../canvas/canvasSlice";
 export const FileTab = () => {
   const [mode, setMode] = useState("run");
   const fullSize = 56;
@@ -19,25 +20,52 @@ export const FileTab = () => {
   const global = useSelector((state: RootState) => state.global);
 
   const messageApi = getMessageInstance();
-  const handlePaste = () => { };
+  const handlePaste = () => {};
   const handleSetMode = (value: string) => {
     setMode(value);
   };
   const handleSaveData2File = () => {
+    const saveList = cloneDeep(canvas.dataWorkList) as DataWork[];
     const file = global.fileList.find((item: FileInfo) => {
       return item.key === canvas.fileData.key;
     });
-    if (!file) {
-      messageApi.error("Không xác định được file đang làm việc!");
-      return
+    const thisFile = {
+      key: file?.key as string,
+      data: canvas.dataWork,
+    };
+    const check = saveList.find((item) => {
+      return item.key === thisFile.key;
+    });
+    if (check) {
+      check.data = thisFile.data;
+    } else {
+      saveList.push(thisFile);
     }
-    saveData2File(file?.folderName + "/" + file?.name, JSON.stringify(canvas.dataWork))
-  }
+    for (const work of saveList) {
+      try {
+        const file = global.fileList.find((item) => {
+          return item.key == work.key;
+        });
+        if (file) {
+          saveData2File(
+            file.folderName + "/" + file.name,
+            JSON.stringify(work.data)
+          );
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
   return (
     <div className={styles.menuList}>
       <div
         onClick={handlePaste}
-        className={clsx(styles.fullSizeIcon, styles.feature, !canvas.copyData && styles.disabled)}
+        className={clsx(
+          styles.fullSizeIcon,
+          styles.feature,
+          !canvas.copyData && styles.disabled
+        )}
       >
         <Image
           src={`/options/ribbon/paste.png`}
@@ -169,7 +197,10 @@ export const FileTab = () => {
             </div>
           </Tooltip>
           <Tooltip title={"Lưu thay đổi"}>
-            <div className={clsx(styles.miniSizeIcon, styles.feature)} onClick={handleSaveData2File}>
+            <div
+              className={clsx(styles.miniSizeIcon, styles.feature)}
+              onClick={handleSaveData2File}
+            >
               <Image
                 src={`/options/ribbon/save.png`}
                 width={miniSize}
