@@ -31,7 +31,12 @@ import {
 } from "@/config/folder-data/rightClickMenu";
 import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
-import { createFile, deleteFile, getLastOpenKey, getNodeOpenIcon } from "./service";
+import {
+  createFile,
+  deleteFile,
+  getLastOpenKey,
+  getNodeOpenIcon,
+} from "./service";
 import { ModalRename } from "./ModalRename";
 import {
   CSS,
@@ -72,7 +77,7 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   const [solutionInfomation, setSolutionInformation] = useState(
     [] as FileFolderTree[]
   );
-  const [defaultKey, setDefaultKey] = useState<string>('');
+  const [defaultKey, setDefaultKey] = useState<string>("");
   const [nodeCopy, setNodeCopy] = useState<FileFolderTree | null>(null);
   const [contextMenu, setContextMenu] = useState<ContextMenu | null>({
     visible: false,
@@ -81,7 +86,9 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   });
   const messageApi = getMessageInstance();
   const global = useSelector((state: RootState) => state.global);
-  const sessionCaching = useSelector((state: RootState) => state.global.sessionCaching);
+  const sessionCaching = useSelector(
+    (state: RootState) => state.global.sessionCaching
+  );
   const dispatch = useDispatch();
 
   // ⚙️ Khi chuột phải vào node
@@ -195,7 +202,7 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
     info: { node: { key: string; fileType: string } }
   ) => {
     const key = info.node.key; // lấy key node được click
-    setDefaultKey(key)
+    setDefaultKey(key);
     if (info.node.fileType != FOLDER) {
       const file = global.fileList.find((item: FileInfo) => {
         return item.key === key;
@@ -358,8 +365,8 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   useEffect(() => {
     if (sessionCaching.length > 0) {
       setExpandedKeys(getAllKeys(solutionInfomation));
-      const key = getLastOpenKey(sessionCaching)
-      setDefaultKey(key)
+      const key = getLastOpenKey(sessionCaching);
+      setDefaultKey(key);
     }
   }, [sessionCaching, solutionInfomation]);
   useEffect(() => {

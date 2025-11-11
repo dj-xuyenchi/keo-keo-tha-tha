@@ -1,53 +1,50 @@
 import { Toolbox } from "@/entity/Toolbox";
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "./TypeComponent";
-import pannelIcon from '../../../public/options/layout/panel.png'
-import rowIcon from '../../../public/options/layout/row.png'
-import buttonIcon from '../../../public/options/control/button.png'
-import tab2Icon from '../../../public/options/control/tab2.png'
-import tableIcon from '../../../public/options/data/table.png'
-import checkboxIcon from '../../../public/options/data/checkbox.png'
-import radioIcon from '../../../public/options/data/radio.png'
-import switchIcon from '../../../public/options/data/switch.png'
-import inputIcon from '../../../public/options/data/input.png'
-import inputNumberIcon from '../../../public/options/data/input-number.png'
-import textIcon from '../../../public/options/data/text.png'
-import dropdownIcon from '../../../public/options/data/dropdown.png'
-import treeIcon from '../../../public/options/data/tree.png'
-import datePickerIcon from '../../../public/options/data/date-picker.png'
-import rangePickerIcon from '../../../public/options/data/range-picker.png'
-import colorPickerIcon from '../../../public/options/data/color-picker.png'
-import imageIcon from '../../../public/options/data/image.png'
-import rateIcon from '../../../public/options/data/rate.png'
-import uploadIcon from '../../../public/options/data/upload.png'
+import { DATA_TYPE, GENERAL_TYPE } from "./TypeComponent";
+import pannelIcon from "../../../public/options/layout/panel.png";
+import rowIcon from "../../../public/options/layout/row.png";
+import buttonIcon from "../../../public/options/control/button.png";
+import tab2Icon from "../../../public/options/control/tab2.png";
+import tableIcon from "../../../public/options/data/table.png";
+import checkboxIcon from "../../../public/options/data/checkbox.png";
+import radioIcon from "../../../public/options/data/radio.png";
+import switchIcon from "../../../public/options/data/switch.png";
+import inputIcon from "../../../public/options/data/input.png";
+import inputNumberIcon from "../../../public/options/data/input-number.png";
+import textIcon from "../../../public/options/data/text.png";
+import dropdownIcon from "../../../public/options/data/dropdown.png";
+import treeIcon from "../../../public/options/data/tree.png";
+import datePickerIcon from "../../../public/options/data/date-picker.png";
+import rangePickerIcon from "../../../public/options/data/range-picker.png";
+import colorPickerIcon from "../../../public/options/data/color-picker.png";
+import imageIcon from "../../../public/options/data/image.png";
+import rateIcon from "../../../public/options/data/rate.png";
+import uploadIcon from "../../../public/options/data/upload.png";
+import qrIcon from "../../../public/options/data/qr.png";
+import chartIcon from "../../../public/options/data/chart.png";
 
 export const toolBoxOption: Toolbox[] = [
   {
-    name: "Layout",
+    name: "Data entry",
     option: [
       {
         name: "Panel",
         icon: pannelIcon,
-        type: LAYOUT_TYPE.PANEL,
+        type: GENERAL_TYPE.PANEL,
       },
       {
         name: "Row",
         icon: rowIcon,
-        type: LAYOUT_TYPE.ROW,
+        type: GENERAL_TYPE.ROW,
       },
-    ],
-  },
-  {
-    name: "Điều khiển",
-    option: [
       {
         name: "Nút bấm",
         icon: buttonIcon,
-        type: CONTROL_TYPE.BUTTON,
+        type: GENERAL_TYPE.BUTTON,
       },
       {
         name: "Tab",
         icon: tab2Icon,
-        type: CONTROL_TYPE.TAB,
+        type: GENERAL_TYPE.TAB,
       },
     ],
   },
@@ -128,6 +125,16 @@ export const toolBoxOption: Toolbox[] = [
         name: "Upload",
         icon: uploadIcon,
         type: DATA_TYPE.UPLOAD,
+      },
+      {
+        name: "QR",
+        icon: qrIcon,
+        type: DATA_TYPE.QR,
+      },
+      {
+        name: "Chart",
+        icon: chartIcon,
+        type: DATA_TYPE.CHART,
       },
     ],
   },

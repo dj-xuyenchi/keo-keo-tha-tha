@@ -4,7 +4,7 @@ import styles from "./sidebar.module.scss";
 import { Tabs } from "antd";
 import { toolBoxOption } from "@/config/sidebar/toolboxOption";
 import { ToolboxOptionPanel } from "./ToolboxOptionPanel";
-import { propertyOptions } from "@/config/sidebar/propertyOption";
+import { settingOption } from "@/config/sidebar/propertyOption";
 import { NodeComponent } from "@/entity/NodeComponent";
 import { NodePropsSetting } from "./NodePropsSetting";
 export interface SidebarProps {
@@ -15,6 +15,7 @@ export const Sidebar = () => {
   const onChange = (key: string) => {
     console.log(key);
   };
+
   return (
     <div className={styles.sideBarContainer}>
       <div className={styles.toolbox}>
@@ -33,14 +34,13 @@ export const Sidebar = () => {
       </div>
       <div className={styles.properties}>
         <Tabs
-          onChange={onChange}
           type="card"
-          items={propertyOptions.map((_, i) => {
+          items={settingOption.map((_, i) => {
             const id = String(i + 1);
             return {
               label: `${_.name}`,
               key: id,
-              children: <NodePropsSetting />,
+              children: <NodePropsSetting option={_} />,
             };
           })}
         />

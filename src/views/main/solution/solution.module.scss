@@ -13,7 +13,9 @@
           z-index: 10;
           padding: 4px;
           gap: 4px;
-
+          ::-webkit-scrollbar {
+                    display: none;
+          }
           .fileTree {
                     height: 60%;
                     border: 1px solid #d1d9e0;

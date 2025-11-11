@@ -1,5 +1,5 @@
 .sideBarContainer {
-    width: 300px;
+    width: 400px;
     background-color: white;
     height: calc(100vh - 100px);
     display: flex;
@@ -25,6 +25,8 @@
             padding: 0px 8px;
             display: block;
             gap: 12px;
+            overflow: scroll;
+            height: 470px;
 
             .sidebarItem {
                 cursor: grab;
@@ -43,7 +45,8 @@
                     }
                 }
 
-                .icon {}
+                .icon {
+                }
 
                 .name {
                     margin-left: 4px;
@@ -56,5 +59,8 @@
 
     .properties {
         height: 40vh;
+        .optionContainer{
+
+        }
     }
 }

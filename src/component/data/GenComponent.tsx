@@ -1,4 +1,4 @@
-import { DATA_TYPE, LAYOUT_TYPE } from "@/config/sidebar/TypeComponent";
+import { GENERAL_TYPE, DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { InputDrop } from "./InputDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { SelectDrop } from "./SelectDrop";
@@ -11,12 +11,11 @@ export const GenComponent = ({
   component,
   ...restProps
 }: GenComponentProps) => {
-
   switch (component.type) {
-    case LAYOUT_TYPE.ROW: {
+    case GENERAL_TYPE.ROW: {
       return (
         <>
-          <RowDrop row={component} index={1} moveRow={() => { }} />
+          <RowDrop row={component} index={1} moveRow={() => {}} />
         </>
       );
     }
@@ -35,11 +34,7 @@ export const GenComponent = ({
       );
     }
     case DATA_TYPE.TABLE: {
-      return (
-        <>
-          {/* <TableDrop /> */}
-        </>
-      );
+      return <>{/* <TableDrop /> */}</>;
     }
     default: {
       return <></>;

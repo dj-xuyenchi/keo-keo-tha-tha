@@ -3,7 +3,7 @@ import React, { Ref } from "react";
 import styles from "./canvas.module.scss";
 import clsx from "clsx";
 import { NodeComponent } from "@/entity/NodeComponent";
-import { LAYOUT_TYPE, TYPE_DROP } from "@/config/sidebar/TypeComponent";
+import { TYPE_DROP, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { GLOBAL_PROP_CONFIG } from "@/entity/configEntry/GlobalPropConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -33,7 +33,7 @@ export const Canvas = () => {
     accept: acceptType, // 👈 trùng với type của useDrag
     canDrop: (item: DropDragItem) => {
       // Main dữ liệu canvas chính chỉ cho thả panel
-      return item?.type === LAYOUT_TYPE.PANEL;
+      return item?.type === GENERAL_TYPE.PANEL;
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -84,8 +84,8 @@ export const Canvas = () => {
             backgroundColor: isActive
               ? "#e8f5e9"
               : isOver
-                ? "#f0f0f0"
-                : "white",
+              ? "#f0f0f0"
+              : "white",
             transition: "background-color 0.2s",
             padding: "10px",
           }}

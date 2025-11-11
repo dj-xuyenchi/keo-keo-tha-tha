@@ -506,3 +506,53 @@ body {
 .dashUnselect {
     border: 1px dashed rgb(199, 199, 199) !important;
 }
+
+
+.node-setting .ant-table-tbody .ant-table-row-expand-icon-cell {
+    background-color: #D4D0C8;
+}
+
+.node-setting .ant-table-tbody .ant-table-row-expand-icon-cell:hover {
+    background-color: #D4D0C8 !important;
+}
+
+.node-setting .ant-table-tbody .ant-table-cell {
+    background-color: #D4D0C8 !important;
+}
+
+.node-setting .ant-table tr {
+    height: 36px;
+}
+
+.node-setting .ant-table .ant-table-tbody .ant-table-cell {
+    padding: 0px !important;
+}
+
+.node-setting .ant-table .tbl-expand-setting .ant-table {
+    margin-inline: unset !important;
+    margin-block: unset !important;
+}
+
+.node-setting .ant-table .tbl-expand-setting .ant-table .ant-table-cell {
+    background-color: #ffffff !important;
+}
+
+
+.node-setting .ant-table .tbl-expand-setting .ant-table .ant-table-container {
+    margin-inline: unset !important;
+    margin-block: unset !important;
+    border-radius: unset !important;
+}
+
+
+.node-setting .ant-table .tbl-expand-setting .ant-table-tbody>tr>td:nth-child(2) {
+    border-inline-end: none !important;
+}
+
+.node-setting .ant-table .tbl-expand-setting .ant-table-container {
+    border-inline-start: unset !important
+}
+
+.node-setting .ant-table-container {
+    border-radius: unset !important;
+}

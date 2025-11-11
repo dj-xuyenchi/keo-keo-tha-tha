@@ -1,7 +1,12 @@
-import React from "react";
-
+import clsx from "clsx";
+import { PropertyTab } from "./property/PropertyTab";
 import styles from "./sidebar.module.scss";
+import { PROPERTY, SettingOption } from "@/config/sidebar/propertyOption";
 
-export const NodePropsSetting = () => {
-  return <div className={styles.optionContainer}></div>;
+export const NodePropsSetting = ({ option }: { option: SettingOption }) => {
+  return (
+    <div className={clsx(styles.optionContainer,'node-setting')}>
+      {option.type === PROPERTY && <PropertyTab />}
+    </div>
+  );
 };

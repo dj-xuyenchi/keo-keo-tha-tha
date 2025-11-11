@@ -1,6 +1,6 @@
 import React from "react";
 import { useDragLayer, XYCoord } from "react-dnd";
-import { DATA_TYPE, LAYOUT_TYPE } from "@/config/sidebar/TypeComponent";
+import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { ButtonDrop } from "../../../component/control/ButtonDrop";
 import { InputDrop } from "../../../component/data/InputDrop";
 import { Image } from "antd";
@@ -34,7 +34,7 @@ function getItemStyles(
 
 // Tùy biến cách render node trong preview
 function renderNodePreview(item: {
-  id: string,
+  id: string;
   type: string;
   source: string;
   icon: string;
@@ -49,52 +49,45 @@ function renderNodePreview(item: {
   //     <Image src={`/options/${item.icon}`} width={24} height={24} alt="icon" />
   //   );
   // }
-  if (item.source === "Canvas") {
 
-    return (
-      <PanelDrop
-        panel={
-          {
-            componentChildren: item.componentChildren,
-          } as ComponentData
-        }
-        movePanel={() => { }}
-        index={0}
-      />
-    );
-  }
   switch (item.type) {
-    case LAYOUT_TYPE.ROW:
+    case GENERAL_TYPE.ROW:
       return (
         <RowDrop
           row={
             {
               componentChildren: item.componentChildren,
-              inlineStyle: [{
-                styleKey: widthKey,
-                value: "400px",
-              }, {
-                styleKey: heightKey,
-                value: "100px",
-              },]
-            } as ComponentData}
-          moveRow={() => { }}
+              inlineStyle: [
+                {
+                  styleKey: widthKey,
+                  value: "400px",
+                },
+                {
+                  styleKey: heightKey,
+                  value: "100px",
+                },
+              ],
+            } as ComponentData
+          }
+          moveRow={() => {}}
           index={0}
         />
       );
-    case LAYOUT_TYPE.PANEL:
+    case GENERAL_TYPE.PANEL:
       return (
         <PanelDrop
           panel={
             {
-              componentChildren: [] as ComponentData[],
-              inlineStyle: [{
-                styleKey: minHeightKey,
-                value: "40px",
-              }]
+              componentChildren: item.componentChildren,
+              inlineStyle: [
+                {
+                  styleKey: minHeightKey,
+                  value: "40px",
+                },
+              ],
             } as ComponentData
           }
-          movePanel={() => { }}
+          movePanel={() => {}}
           index={0}
         />
       );

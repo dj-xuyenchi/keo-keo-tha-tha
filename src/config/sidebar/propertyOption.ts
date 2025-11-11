@@ -1,45 +1,23 @@
-import { Toolbox } from "@/entity/Toolbox";
-import { CONTROL_TYPE, DATA_TYPE, LAYOUT_TYPE } from "./TypeComponent";
+export const PROPERTY = "PROPERTY";
+export const OVERRIDE = "OVERRIDE";
+export const EVENT = "EVENT";
+type SettingType = "PROPERTY" | "OVERRIDE" | "EVENT";
+export interface SettingOption {
+  name: string;
+  type: SettingType;
+}
 
-export const propertyOptions: Toolbox[] = [
+export const settingOption: SettingOption[] = [
   {
     name: "Thuộc tính",
-    option: [
-      {
-        name: "Panel",
-        icon: "button.webp",
-        type: LAYOUT_TYPE.PANEL,
-      },
-    ],
-  },
-  {
-    name: "Nội dung",
-    option: [
-      {
-        name: "Panel",
-        icon: "button.webp",
-        type: DATA_TYPE.INPUT,
-      },
-    ],
+    type: PROPERTY,
   },
   {
     name: "Sự kiện",
-    option: [
-      {
-        name: "Button",
-        icon: "button.webp",
-        type: DATA_TYPE.INPUT,
-      },
-      {
-        name: "Button",
-        icon: "button.webp",
-        type: DATA_TYPE.INPUT,
-      },
-      {
-        name: "Button",
-        icon: "button.webp",
-        type: DATA_TYPE.INPUT,
-      },
-    ],
+    type: EVENT,
+  },
+  {
+    name: "Can thiệp sâu",
+    type: OVERRIDE,
   },
 ];

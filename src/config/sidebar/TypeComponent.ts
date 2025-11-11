@@ -14,16 +14,15 @@ export enum DATA_TYPE {
   UPLOAD = "UPLOAD",
   IMAGE = "IMAGE",
   TREE = "TREE",
+  QR = "QR",
+  CHART = "CHART",
 }
 
-export enum LAYOUT_TYPE {
+export enum GENERAL_TYPE {
   PANEL = "PANEL",
   ROW = "ROW",
-}
-
-export enum CONTROL_TYPE {
   BUTTON = "BUTTON",
   TAB = "TAB",
 }
 
-export type TYPE_DROP = CONTROL_TYPE | LAYOUT_TYPE | DATA_TYPE;
+export type TYPE_DROP = GENERAL_TYPE | DATA_TYPE;
