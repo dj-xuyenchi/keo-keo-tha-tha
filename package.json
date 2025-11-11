@@ -8,7 +8,7 @@
     "next": "next dev",
     "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./electron/main.js",
     "build": "next build",
-    "package": "yarn build && electron-builder"
+    "go": "yarn build && electron-builder"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
