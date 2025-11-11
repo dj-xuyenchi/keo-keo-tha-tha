@@ -12,7 +12,7 @@ function createWindow() {
   const isDev = !app.isPackaged;
 
   const win = new BrowserWindow({
-    width: 1580,
+    width: 1780,
     height: 1200,
     title: "Kéo kéo thả thả :3",
     icon: path.join(__dirname, 'icon.png'),
