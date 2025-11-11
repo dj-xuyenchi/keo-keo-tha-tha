@@ -1,3 +1,6 @@
+import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { SelectCustom } from "@/component/componentCustom/SelectCustom";
+import { SettingOutlined } from "@ant-design/icons";
 export const propertySettingColumns = [
   {
     title: "",
@@ -24,8 +27,11 @@ export const propertyDetailColumns = [
     dataIndex: "value",
     key: "value",
     width: "50%",
-    render: (value: string) => (
-      <span style={{ marginLeft: "12px" }}>{value}</span>
+    render: (value: string, o: object, index: number) => (
+      <>
+        {index % 2 == 0 && <InputCustom placeholder="Giá trị" />}
+        {index % 2 == 1 && <SelectCustom placeholder="Giá trị" />}
+      </>
     ),
   },
 ];

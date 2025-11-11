@@ -24,31 +24,6 @@ import chartIcon from "../../../public/options/data/chart.png";
 
 export const toolBoxOption: Toolbox[] = [
   {
-    name: "Data entry",
-    option: [
-      {
-        name: "Panel",
-        icon: pannelIcon,
-        type: GENERAL_TYPE.PANEL,
-      },
-      {
-        name: "Row",
-        icon: rowIcon,
-        type: GENERAL_TYPE.ROW,
-      },
-      {
-        name: "Nút bấm",
-        icon: buttonIcon,
-        type: GENERAL_TYPE.BUTTON,
-      },
-      {
-        name: "Tab",
-        icon: tab2Icon,
-        type: GENERAL_TYPE.TAB,
-      },
-    ],
-  },
-  {
     name: "Dữ liệu",
     option: [
       {
@@ -135,6 +110,31 @@ export const toolBoxOption: Toolbox[] = [
         name: "Chart",
         icon: chartIcon,
         type: DATA_TYPE.CHART,
+      },
+    ],
+  },
+  {
+    name: "Khung & điều khiển",
+    option: [
+      {
+        name: "Panel",
+        icon: pannelIcon,
+        type: GENERAL_TYPE.PANEL,
+      },
+      {
+        name: "Row",
+        icon: rowIcon,
+        type: GENERAL_TYPE.ROW,
+      },
+      {
+        name: "Nút bấm",
+        icon: buttonIcon,
+        type: GENERAL_TYPE.BUTTON,
+      },
+      {
+        name: "Tab",
+        icon: tab2Icon,
+        type: GENERAL_TYPE.TAB,
       },
     ],
   },

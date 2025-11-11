@@ -7,7 +7,7 @@ export const options = [
     key: BINDING_KEY,
   },
   {
-    name: "Mở rộng",
+    name: "Thuộc tính đặc thù",
     key: EXTANDS_KEY,
   },
   {

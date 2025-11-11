@@ -1,4 +1,4 @@
-import {  Table } from "antd";
+import { Table } from "antd";
 import styles from "./sidebar.module.scss";
 import {
   propertyDetailColumns,
@@ -22,7 +22,7 @@ export const PropertyTab = () => {
   return (
     <>
       <InputCustom
-      placeholder="Tìm kiếm thuộc tính"
+        placeholder="Tìm kiếm thuộc tính"
         prefix={<SearchOutlined />}
         style={{ marginBottom: "8px" }}
       />
@@ -36,6 +36,7 @@ export const PropertyTab = () => {
         dataSource={options}
         bordered
         pagination={false}
+        scroll={{ y: 10000 }} // bây giờ 100% sẽ dựa vào div cha
       />
     </>
   );
