@@ -1,4 +1,4 @@
-import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
+import { DATA_TYPE, LAYOUT_TYPE } from "@/config/sidebar/TypeComponent";
 import { InputDrop } from "./InputDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { SelectDrop } from "./SelectDrop";

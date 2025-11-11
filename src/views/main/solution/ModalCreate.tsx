@@ -7,7 +7,7 @@ import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/fileType";
+import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/folder-data/fileType";
 import { FieldNamesType } from "antd/es/cascader";
 export interface ModalCreateProps {
   isModalOpen: boolean;

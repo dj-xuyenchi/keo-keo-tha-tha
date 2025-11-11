@@ -1,4 +1,4 @@
-import { TYPE_DROP } from "@/config/TypeComponent";
+import { TYPE_DROP } from "@/config/sidebar/TypeComponent";
 
 export interface DropDragItem {
   id: string;

@@ -1,4 +1,5 @@
 export const SOLUTION_JSON = "solution.json";
+export const SESSION_CACHING_JSON = "sessionCaching.json";
 
 export const TYPE_SCRIPT = "typescript";
 export const JAVA_SCRIPT = "javascript";

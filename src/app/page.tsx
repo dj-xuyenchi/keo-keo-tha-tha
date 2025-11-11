@@ -6,16 +6,17 @@ import { Sidebar } from "@/views/main/side-bar/Sidebar";
 import { useEffect, useState } from "react";
 import "../config/styleOverride.css";
 import styles from "./main.module.scss";
-import { NodeComponent } from "@/entity/NodeComponent";
 import { useDispatch } from "react-redux";
-import { setFileList } from "./globalSlice";
-import { getAllFile } from "./service";
+import { setFileList, setSessionCaching } from "./globalSlice";
+import { getAllFile, getSessionCachingData } from "./service";
 import { CustomDragLayer } from "@/views/main/side-bar/CustomDragLayer";
 import { RibbonMenu } from "@/views/main/ribbon-menu/RibbonMenu";
+import { FileInfo } from "@/entity/fileHandler/FileInfo";
+import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
+import { LAST_OPEN_FILE } from "@/config/folder-data/sessionCachingKey";
+import { setFileClick } from "@/views/main/canvas/canvasSlice";
 const HomePage = () => {
   const [justClick, setJustClick] = useState(false);
-  const [items, setItems] = useState<NodeComponent[]>([] as NodeComponent[]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const handleClickGlobal = () => {
@@ -23,9 +24,22 @@ const HomePage = () => {
   };
   const initData = async () => {
     const files = await getAllFile();
-
+    const sessionCaching = await getSessionCachingData()
     dispatch(setFileList(files));
+    dispatch(setSessionCaching(sessionCaching));
+    openLastOpenFile(sessionCaching as SessionCaching[], files)
   };
+  const openLastOpenFile = (sessionCaching: SessionCaching[], files: FileInfo[]) => {
+    const lastOpenFile = sessionCaching.find((item) => {
+      return item.key === LAST_OPEN_FILE
+    })
+    if (lastOpenFile) {
+      const file = files.find((item: FileInfo) => {
+        return item.key === lastOpenFile.value;
+      });
+      dispatch(setFileClick(file));
+    }
+  }
   useEffect(() => {
     initData();
   }, []);
@@ -34,7 +48,7 @@ const HomePage = () => {
       <div className={styles.ruyMenu}>
         <RibbonMenu />
       </div>
-      <SolutionPanel justClick={justClick} selected={selectedId} />
+      <SolutionPanel justClick={justClick} />
       <Canvas />
       <Sidebar />
       <CustomDragLayer />

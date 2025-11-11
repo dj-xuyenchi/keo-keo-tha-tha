@@ -1,13 +1,12 @@
-import React, { Ref, useEffect, useState } from "react";
+import React, { Ref, useEffect } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 import styles from "./sidebar.module.scss";
 import { ToolboxOption } from "@/entity/ToolboxOption";
 import Image from "next/image";
-import { useDrag, useDragLayer } from "react-dnd";
-import { acceptType } from "@/config/acceptType";
+import { useDrag } from "react-dnd";
+import { acceptType } from "@/config/sidebar/acceptType";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { DropDragItem } from "@/entity/DropDragItem";
 
 type ToolboxOptionPanelProps = {
   listOption: ToolboxOption[];
@@ -57,7 +56,7 @@ const SidebarItem = ({ type, name, icon, defaultProps }: ToolboxOption) => {
         ref={dragRef as unknown as Ref<HTMLDivElement> | undefined}
         className={styles.sidebarItem}
       >
-        <Image src={`/options/${icon}`} width={24} height={24} alt="icon" />
+        <Image src={icon} width={24} height={24} alt="icon" />
         <span
           style={{
             marginLeft: "8px",

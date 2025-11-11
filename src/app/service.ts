@@ -1,4 +1,4 @@
-import { FOLDER_LIST } from "@/config/folderDataLocation";
+import { FOLDER_LIST } from "@/config/folder-data/folderDataLocation";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { saveData2File } from "@/views/main/ribbon-menu/service";
 import { GlobalData } from "./globalSlice";
@@ -6,6 +6,8 @@ import { DataWork, FileChossing } from "@/views/main/canvas/canvasSlice";
 import { getMessageInstance } from "@/config/messageContext";
 
 import cloneDeep from "lodash/cloneDeep";
+import { SESSION_CACHING_JSON } from "@/config/folder-data/fileType";
+import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 export const getAllFile = async () => {
   let res = [] as FileInfo[];
   for (const folder of FOLDER_LIST) {
@@ -31,6 +33,13 @@ export const getAllFile = async () => {
 
   return res;
 };
+
+export const getSessionCachingData = async () => {
+  const sessionCachingData = await window.electronAPI.readFile(
+    SESSION_CACHING_JSON
+  );
+  return JSON.parse(sessionCachingData)
+}
 
 export const handleCommandCtrlS = (
   event: KeyboardEvent,

@@ -8,11 +8,11 @@ import { WrapperDropComponent } from "./WrapperDropComponent";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useSelectComponent } from "@/hook/useSelectComponent";
-import { acceptType } from "@/config/acceptType";
+import { acceptType } from "@/config/sidebar/acceptType";
 import { useDrop } from "react-dnd";
 import { DropDragItem } from "@/entity/DropDragItem";
 import { Ref } from "react";
-import { LAYOUT_TYPE } from "@/config/TypeComponent";
+import { LAYOUT_TYPE } from "@/config/sidebar/TypeComponent";
 
 export interface RowDropProps {
     index: number;

@@ -1,8 +1,8 @@
 import { defaultCss } from "@/config/defaultCss";
 import styles from "./style/pannel.module.scss";
 import { useDrag, useDrop } from "react-dnd";
-import { acceptType } from "@/config/acceptType";
-import { DATA_TYPE, LAYOUT_TYPE } from "@/config/TypeComponent";
+import { acceptType } from "@/config/sidebar/acceptType";
+import { DATA_TYPE, LAYOUT_TYPE } from "@/config/sidebar/TypeComponent";
 import { useEffect, useRef } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { ComponentData } from "@/entity/canvas/ComponentData";

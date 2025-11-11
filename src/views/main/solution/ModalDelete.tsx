@@ -5,7 +5,7 @@ import { ContextMenu } from "./ContextMenu";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { FieldNamesType } from "antd/es/cascader";
-import { getSuffixFileType } from "@/config/fileType";
+import { getSuffixFileType } from "@/config/folder-data/fileType";
 export interface ModalDeleteProps {
   isModalOpen: boolean;
   contextMenu: ContextMenu | null;
@@ -56,8 +56,8 @@ export const ModalDelete = ({
                 {contextMenu?.node?.fileType == "folder"
                   ? `folder ${contextMenu?.node?.title}`
                   : `file ${contextMenu?.node?.title}${getSuffixFileType(
-                      contextMenu?.node?.fileType as string
-                    )}`}
+                    contextMenu?.node?.fileType as string
+                  )}`}
               </Col>
             </Row>
             <Form.Item>

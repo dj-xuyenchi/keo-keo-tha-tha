@@ -2,9 +2,9 @@
 
 import styles from "./sidebar.module.scss";
 import { Tabs } from "antd";
-import { toolBoxOption } from "@/config/toolboxOption";
+import { toolBoxOption } from "@/config/sidebar/toolboxOption";
 import { ToolboxOptionPanel } from "./ToolboxOptionPanel";
-import { propertyOptions } from "@/config/propertyOption";
+import { propertyOptions } from "@/config/sidebar/propertyOption";
 import { NodeComponent } from "@/entity/NodeComponent";
 import { NodePropsSetting } from "./NodePropsSetting";
 export interface SidebarProps {

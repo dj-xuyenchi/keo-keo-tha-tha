@@ -1,1 +1,78 @@
-[{"fileType":"folder","title":"Giao diện","key":"0-0-0","icon":null,"isLeaf":false,"children":[{"fileType":"folder","title":"hihi","key":"54d3164b-9063-444b-b635-95881161f480","icon":null,"isLeaf":false,"children":[{"fileType":"typescript","title":"dfgdfg","key":"6b447e83-ac12-42f3-ba49-8e993e2c2cba","icon":"typescript","isLeaf":true,"children":[]},{"fileType":"react","title":"hihi","key":"087aa9d9-ed88-4184-81eb-53567853edc1","icon":"react","isLeaf":true,"children":[]}]},{"fileType":"folder","title":"sdv","key":"659364e2-7694-4ca4-8be6-f6d8ccc04268","icon":null,"isLeaf":false,"children":[]}]},{"fileType":"folder","title":"Dùng chung","key":"1-0-0","icon":null,"isLeaf":false,"children":[{"fileType":"css","title":"sdf","key":"9d6e141e-61e3-4dc2-a2f1-8e64af0bcdd7","icon":"css","isLeaf":true,"children":[]}]},{"fileType":"folder","title":"Cấu hình","key":"2-0-0","icon":null,"isLeaf":false,"children":[{"fileType":"sass","title":"fdghd","key":"f6782ad5-a5dc-4419-8b5f-cdf48c18f058","icon":"sass","isLeaf":true,"children":[]}]}]
+[
+    {
+        "fileType": "folder",
+        "title": "Giao diện",
+        "key": "0-0-0",
+        "icon": null,
+        "isLeaf": false,
+        "children": [
+            {
+                "fileType": "folder",
+                "title": "hihi",
+                "key": "54d3164b-9063-444b-b635-95881161f480",
+                "icon": null,
+                "isLeaf": false,
+                "children": [
+                    {
+                        "fileType": "typescript",
+                        "title": "dfgdfg",
+                        "key": "6b447e83-ac12-42f3-ba49-8e993e2c2cba",
+                        "icon": "typescript",
+                        "isLeaf": true,
+                        "children": []
+                    },
+                    {
+                        "fileType": "react",
+                        "title": "hihi",
+                        "key": "087aa9d9-ed88-4184-81eb-53567853edc1",
+                        "icon": "react",
+                        "isLeaf": true,
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "fileType": "folder",
+                "title": "sdv",
+                "key": "659364e2-7694-4ca4-8be6-f6d8ccc04268",
+                "icon": null,
+                "isLeaf": false,
+                "children": []
+            }
+        ]
+    },
+    {
+        "fileType": "folder",
+        "title": "Dùng chung",
+        "key": "1-0-0",
+        "icon": null,
+        "isLeaf": false,
+        "children": [
+            {
+                "fileType": "css",
+                "title": "sdf",
+                "key": "9d6e141e-61e3-4dc2-a2f1-8e64af0bcdd7",
+                "icon": "css",
+                "isLeaf": true,
+                "children": []
+            }
+        ]
+    },
+    {
+        "fileType": "folder",
+        "title": "Cấu hình",
+        "key": "2-0-0",
+        "icon": null,
+        "isLeaf": false,
+        "children": [
+            {
+                "fileType": "sass",
+                "title": "fdghd",
+                "key": "f6782ad5-a5dc-4419-8b5f-cdf48c18f058",
+                "icon": "sass",
+                "isLeaf": true,
+                "children": []
+            }
+        ]
+    }
+]

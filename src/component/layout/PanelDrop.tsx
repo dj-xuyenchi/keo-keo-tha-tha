@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 import styles from "./style/panel.module.scss";
 import { useDrop, XYCoord } from "react-dnd";
 import { NodeDropData } from "../../views/main/canvas/Canvas";
-import { acceptType } from "@/config/acceptType";
+import { acceptType } from "@/config/sidebar/acceptType";
 import { NodeComponent } from "@/entity/NodeComponent";
 import clsx from "clsx";
-import { TYPE_DROP } from "@/config/TypeComponent";
+import { TYPE_DROP } from "@/config/sidebar/TypeComponent";
 
 export interface PanelDropProps {
   node: NodeComponent;

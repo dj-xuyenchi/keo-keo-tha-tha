@@ -1,6 +1,6 @@
 import { NodeDropData } from "@/views/main/canvas/Canvas";
 import { TableDefaultProps } from "./TabbleProps";
-import { DATA_TYPE } from "@/config/TypeComponent";
+import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { ExtendFunction, TablePropsCustom } from "@/component/data/TableDrop";
 
 export type GLOBAL_PROP_CONFIG = TableDefaultProps;
@@ -11,9 +11,9 @@ export const getDefaultProps = (item: NodeDropData) => {
       const config = {} as TablePropsCustom<object>;
       const btn = {
         buttonAddTitle: "Thêm mới",
-        buttonAddFunction() {},
+        buttonAddFunction() { },
         isSupportExport: true,
-        handleExportData() {},
+        handleExportData() { },
       } as ExtendFunction<object>;
       config.columns = [
         {

@@ -28,10 +28,10 @@ import {
   RENAME,
   rightClickFileMenu,
   rightClickFolderMenu,
-} from "@/config/rightClickMenu";
+} from "@/config/folder-data/rightClickMenu";
 import { ModalCreate } from "./ModalCreate";
 import { ContextMenu } from "./ContextMenu";
-import { createFile, deleteFile, getNodeOpenIcon } from "./service";
+import { createFile, deleteFile, getLastOpenKey, getNodeOpenIcon } from "./service";
 import { ModalRename } from "./ModalRename";
 import {
   CSS,
@@ -42,7 +42,7 @@ import {
   SOLUTION_JSON,
   SPRING,
   TYPE_SCRIPT,
-} from "@/config/fileType";
+} from "@/config/folder-data/fileType";
 import { getMessageInstance } from "@/config/messageContext";
 import { NodeDragEventParams } from "rc-tree/lib/contextTypes";
 import { EventDataNode } from "antd/es/tree";
@@ -50,14 +50,14 @@ import { ModalDelete } from "./ModalDelete";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import {  setFileClick } from "../canvas/canvasSlice";
+import { setFileClick } from "../canvas/canvasSlice";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
+import { LAST_OPEN_FILE } from "@/config/folder-data/sessionCachingKey";
 
 export interface SolutionPanelProps {
-  selected: string | null;
   justClick: boolean;
 }
-export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
+export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   const [tabs] = useState([
     {
       label: "Solution",
@@ -72,6 +72,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   const [solutionInfomation, setSolutionInformation] = useState(
     [] as FileFolderTree[]
   );
+  const [defaultKey, setDefaultKey] = useState<string>('');
   const [nodeCopy, setNodeCopy] = useState<FileFolderTree | null>(null);
   const [contextMenu, setContextMenu] = useState<ContextMenu | null>({
     visible: false,
@@ -80,6 +81,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
   });
   const messageApi = getMessageInstance();
   const global = useSelector((state: RootState) => state.global);
+  const sessionCaching = useSelector((state: RootState) => state.global.sessionCaching);
   const dispatch = useDispatch();
 
   // ⚙️ Khi chuột phải vào node
@@ -187,12 +189,13 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
 
     setSolutionInformation(folderGoFisrt(treeData));
   };
+
   const handleNodeClick = (
     _selectedKeys: React.Key[],
     info: { node: { key: string; fileType: string } }
   ) => {
     const key = info.node.key; // lấy key node được click
-
+    setDefaultKey(key)
     if (info.node.fileType != FOLDER) {
       const file = global.fileList.find((item: FileInfo) => {
         return item.key === key;
@@ -353,6 +356,13 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
     getUIData();
   }, []);
   useEffect(() => {
+    if (sessionCaching.length > 0) {
+      setExpandedKeys(getAllKeys(solutionInfomation));
+      const key = getLastOpenKey(sessionCaching)
+      setDefaultKey(key)
+    }
+  }, [sessionCaching, solutionInfomation]);
+  useEffect(() => {
     setContextMenu({
       node: contextMenu?.node,
     } as ContextMenu);
@@ -389,6 +399,7 @@ export const SolutionPanel = ({ justClick, selected }: SolutionPanelProps) => {
                     showLine={true}
                     showIcon={true}
                     expandedKeys={expandedKeys}
+                    selectedKeys={[defaultKey]}
                     treeData={solutionInfomation}
                     expandAction="click"
                     onSelect={handleNodeClick}

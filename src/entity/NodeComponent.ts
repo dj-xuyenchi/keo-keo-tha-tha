@@ -1,5 +1,5 @@
 import { TablePropsCustom } from "@/component/data/TableDrop";
-import { TYPE_DROP } from "@/config/TypeComponent";
+import { TYPE_DROP } from "@/config/sidebar/TypeComponent";
 
 export interface NodeComponent {
   id: string;
@@ -7,7 +7,7 @@ export interface NodeComponent {
   props: NodeProps;
   top: number;
   left: number;
-  showingProps?: TablePropsCustom<object> ;
+  showingProps?: TablePropsCustom<object>;
 }
 
 export interface NodeProps {

@@ -6,7 +6,7 @@ import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { FieldNamesType } from "antd/es/cascader";
-import { getSuffixFileType } from "@/config/fileType";
+import { getSuffixFileType } from "@/config/folder-data/fileType";
 import {
   FileFolderTree,
   getFatherNode,
