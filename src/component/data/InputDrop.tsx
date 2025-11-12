@@ -11,7 +11,7 @@ export interface InputDropProps extends InputProps {
 }
 export const InputDrop = ({ input, ...restProps }: InputDropProps) => {
   return (
-    <WrapperDropComponent id={input.id}>
+    <WrapperDropComponent component={input}>
       <Input
         style={{
           ...defaultCss,

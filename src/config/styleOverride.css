@@ -544,6 +544,10 @@ body {
     border-radius: unset !important;
 }
 
+.node-setting .ant-table .tbl-expand-setting .ant-table-container::-webkit-scrollbar {
+    display: none;
+}
+
 
 .node-setting .ant-table .tbl-expand-setting .ant-table-tbody>tr>td:nth-child(2) {
     border-inline-end: none !important;

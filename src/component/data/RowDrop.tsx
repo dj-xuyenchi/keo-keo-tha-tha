@@ -13,7 +13,10 @@ import { useDrop } from "react-dnd";
 import { DropDragItem } from "@/entity/DropDragItem";
 import { Ref } from "react";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
-
+import { InlineStyle } from "@/entity/canvas/InlineStyle";
+import { PropComponent } from "@/entity/sidebar/PropComponent";
+import { form } from "@/config/defineSpecialProps/define/form";
+import { colForRow } from "@/config/defineSpecialProps/define/colForRow";
 
 export interface RowDropProps {
   index: number;
@@ -43,7 +46,7 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
   }));
 
   return (
-    <WrapperDropComponent id={row.id} className="dashUnselect">
+    <WrapperDropComponent component={row} className="dashUnselect">
       <Row
         ref={dropRef as unknown as Ref<HTMLDivElement> | undefined}
         className={styles.rowContainer}
@@ -64,4 +67,13 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
       </Row>
     </WrapperDropComponent>
   );
+};
+
+export const defaultRowDropObject = (id: string) => {
+  return {
+    id: id,
+    type: GENERAL_TYPE.ROW,
+    inlineStyle: [] as InlineStyle[],
+    specialProps: [form, colForRow] as PropComponent[],
+  } as ComponentData;
 };

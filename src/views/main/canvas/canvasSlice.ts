@@ -15,7 +15,7 @@ export interface FileChossing {
   dataWork: ComponentData[];
   undoDataWork?: ChangeDataWork[];
   copyData?: ComponentData;
-  selectedComponentId?: string;
+  selectedComponent?: ComponentData;
 }
 
 export interface DataWork {
@@ -75,7 +75,7 @@ const canvasSlice = createSlice({
       state.dataWork.push(action.payload);
     },
     setSelectComponent: (state, action) => {
-      state.selectedComponentId = action.payload;
+      state.selectedComponent = action.payload;
     },
   },
 });

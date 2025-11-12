@@ -23,6 +23,8 @@ import { minHeightKey } from "@/config/defineStyle/styles/height";
 import { defaultInputDropObject } from "./InputDrop";
 import { useSelectComponent } from "@/hook/useSelectComponent";
 import clsx from "clsx";
+import { PropComponent } from "@/entity/sidebar/PropComponent";
+import { defaultRowDropObject } from "./RowDrop";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -93,13 +95,13 @@ export const PanelDrop = ({
 
   const isActive = isOver && canDrop;
 
-  const selectedComponentId = useSelector(
-    (state: RootState) => state.canvas.selectedComponentId
+  const selectedComponent = useSelector(
+    (state: RootState) => state.canvas.selectedComponent
   );
   const { select } = useSelectComponent(); //
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    select(panel.id);
+    select(panel);
   };
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
@@ -111,7 +113,7 @@ export const PanelDrop = ({
       onClick={handleClick}
       className={`${clsx(
         styles.pannelContainer,
-        panel.id && panel.id === selectedComponentId && "selectedComponent"
+        panel.id && panel.id === selectedComponent?.id && "selectedComponent"
       )}`}
       style={{
         ...inlineStyle,
@@ -140,6 +142,9 @@ const buildChildren = (item: DropDragItem) => {
     case DATA_TYPE.INPUT: {
       return defaultInputDropObject(item.id as string);
     }
+    case GENERAL_TYPE.ROW: {
+      return defaultRowDropObject(item.id as string);
+    }
   }
   return {
     type: item.type,
@@ -161,6 +166,7 @@ export const defaultPanelDropObject = (id: string) => {
         value: "40px",
       },
     ] as InlineStyle[],
+    specialProps: [] as PropComponent[],
   } as ComponentData;
 };
 

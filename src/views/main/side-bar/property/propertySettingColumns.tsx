@@ -1,6 +1,7 @@
 import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
-import { SettingOutlined } from "@ant-design/icons";
+import { PropComponent } from "@/entity/sidebar/PropComponent";
 export const propertySettingColumns = [
   {
     title: "",
@@ -15,10 +16,10 @@ export const propertySettingColumns = [
 export const propertyDetailColumns = [
   {
     title: "Thuộc tính",
-    dataIndex: "property",
-    key: "property",
+    dataIndex: "name",
+    key: "name",
     width: "50%",
-    render: (value: string) => (
+    render: (value: string, record: PropComponent) => (
       <span style={{ marginLeft: "12px" }}>{value}</span>
     ),
   },
@@ -27,10 +28,21 @@ export const propertyDetailColumns = [
     dataIndex: "value",
     key: "value",
     width: "50%",
-    render: (value: string, o: object, index: number) => (
+    render: (value: string, record: PropComponent, index: number) => (
       <>
-        {index % 2 == 0 && <InputCustom placeholder="Giá trị" />}
-        {index % 2 == 1 && <SelectCustom placeholder="Giá trị" />}
+        {record.valueType == "string" && <InputCustom placeholder="Giá trị" />}
+        {record.valueType == "flex" && (
+          <InputCustom
+            onClick={() => {}}
+            placeholder="Giá trị"
+            onMouseDown={(e) => e.preventDefault()}
+            defaultValue={record.value.formName}
+          />
+        )}
+        {record.valueType == "number" && (
+          <InputNumberCustom placeholder="Giá trị" />
+        )}
+        {record.valueType == "select" && <SelectCustom placeholder="Giá trị" />}
       </>
     ),
   },

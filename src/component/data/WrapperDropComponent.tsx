@@ -5,34 +5,37 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import clsx from "clsx";
 import { useSelectComponent } from "@/hook/useSelectComponent";
+import { ComponentData } from "@/entity/canvas/ComponentData";
 
 export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
+  component: ComponentData;
   children: React.ReactNode;
 }
 
 export const WrapperDropComponent = ({
-  id,
+  component,
   children,
   style,
   className,
   ...restProps
 }: WrapperDropComponentProps) => {
-  const selectedComponentId = useSelector(
-    (state: RootState) => state.canvas.selectedComponentId
+  const selectedComponent = useSelector(
+    (state: RootState) => state.canvas.selectedComponent
   );
   const { select } = useSelectComponent(); //
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    select(id);
+    select(component);
   };
   return (
     <div
       onClick={handleClick}
       className={`${clsx(
         styles.wrapperContainer,
-        id && id === selectedComponentId ? "selectedComponent" : className
+        component && component.id === selectedComponent?.id
+          ? "selectedComponent"
+          : className
       )}`}
       style={style}
       {...restProps} // truyền các prop khác như onClick, draggable, v.v.
