@@ -1,6 +1,6 @@
 import { defaultCss } from "@/config/defaultCss";
 import { ComponentData } from "@/entity/canvas/ComponentData";
-import { Row } from "antd";
+import { Col, Row } from "antd";
 import styles from "./style/row.module.scss";
 import { GenComponent } from "./GenComponent";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
@@ -16,7 +16,11 @@ import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { form } from "@/config/defineSpecialProps/define/form";
-import { colForRow } from "@/config/defineSpecialProps/define/colForRow";
+import {
+  COL_FOR_ROW_KEY,
+  colForRow,
+  ColForRowValue,
+} from "@/config/defineSpecialProps/define/colForRow";
 
 export interface RowDropProps {
   index: number;
@@ -27,6 +31,10 @@ export interface RowDropProps {
 export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
   const inlineStyle = buildStyle(row);
   console.error(inlineStyle);
+
+  const colForRow = row.specialProps?.find((p) => {
+    return p.key === COL_FOR_ROW_KEY;
+  }) as PropComponent;
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: acceptType,
     canDrop: (item: DropDragItem) => {
@@ -56,6 +64,16 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
         }}
         {...restProps}
       >
+        {colForRow &&
+          (colForRow.value as ColForRowValue[]).map(
+            (col: ColForRowValue, index: number) => {
+              return (
+                <>
+                  <Col className={styles.colRow} span={col.span}>d</Col>
+                </>
+              );
+            }
+          )}
         {row.componentChildren &&
           row.componentChildren.map((component: ComponentData) => {
             return (

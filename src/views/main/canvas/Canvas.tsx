@@ -47,7 +47,11 @@ export const Canvas = () => {
       if (!monitor.canDrop()) {
         return;
       }
-      dispatch(pushPanel(defaultPanelDropObject(item.id as string)));
+      console.error(item);
+
+      if (item.source != "Canvas") {
+        dispatch(pushPanel(defaultPanelDropObject(item.id as string)));
+      }
     },
   }));
 

@@ -11,10 +11,15 @@ export const colForRow = {
     if (!value) {
       return false;
     }
-
     return true;
   },
-  value: {
-    formName: "2",
-  },
+  value: [
+    {
+      span: 4,
+    },
+  ] as ColForRowValue[],
 } as PropComponent;
+
+export interface ColForRowValue {
+  span: number;
+}
