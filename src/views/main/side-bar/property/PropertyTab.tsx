@@ -18,6 +18,7 @@ import { specialPropList } from "@/config/defineSpecialProps/specialProps";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useState } from "react";
+import { getColumns } from "./columns";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
   const selectedComponent = useSelector(
@@ -29,6 +30,8 @@ export const PropertyTab = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  const columns = getColumns({ handleOpenModal });
   const expandedRowRender = (key: string) => {
     if (!selectedComponent) {
       return <div></div>;
@@ -46,7 +49,7 @@ export const PropertyTab = () => {
     return (
       <Table
         className="tbl-expand-setting"
-        columns={propertyDetailColumns}
+        columns={columns}
         dataSource={dataSource}
         pagination={false}
         showHeader={false}
