@@ -3,8 +3,9 @@ import { marginGroupStyle } from "./styles/margin";
 import { widthGroupStyle } from "./styles/width";
 import { heightGroupStyle } from "./styles/height";
 import { ComponentData } from "@/entity/canvas/ComponentData";
+import { paddingGroupStyle } from "./styles/padding";
 
-export const styleHTML = [...marginGroupStyle, ...widthGroupStyle, ...heightGroupStyle] as StyleHTML[];
+export const styleHTML = [...marginGroupStyle, ...widthGroupStyle, ...heightGroupStyle, ...paddingGroupStyle] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
   const styles = component.inlineStyle

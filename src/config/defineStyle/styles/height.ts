@@ -1,6 +1,7 @@
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 export const heightKey = "HEIGHT";
 export const minHeightKey = "MIN_HEIGHT";
+export const maxHeightKey = "MAX_HEIGHT";
 export const height = {
     key: heightKey,
     name: "height",
@@ -26,6 +27,17 @@ export const minHeight = {
         return true;
     },
 } as StyleHTML;
+export const maxHeight = {
+    key: maxHeightKey,
+    name: "max-height",
+    reactObjectName: "maxHeight",
+    valueType: "numberPx",
+    validValue: (value: string) => {
+        if (!value) {
+            throw "Giá trị không hợp lệ!";
+        }
+        return true;
+    },
+} as StyleHTML;
 
-
-export const heightGroupStyle = [height, minHeight]
+export const heightGroupStyle = [height, minHeight, maxHeight]
