@@ -1,10 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import globalReducer from "@/app/globalSlice";
 import canvasSlice from "@/views/main/canvas/canvasSlice";
+import ribbonSlice from "@/views/main/ribbon-menu/ribbonSlice";
 
 const rootReducer = combineReducers({
   global: globalReducer,
   canvas: canvasSlice,
+  ribbon: ribbonSlice,
 });
 
 const store = configureStore({

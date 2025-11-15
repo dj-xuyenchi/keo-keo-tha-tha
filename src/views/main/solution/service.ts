@@ -132,10 +132,10 @@ export const deleteFile = async (fileKey: string, fileType: string) => {
 };
 
 
-export const getLastOpenKey = (sessionCaching: SessionCaching[]): string => {
+export const getSessionCacheValueByKey = (sessionCaching: SessionCaching[], key: string): string => {
   if (sessionCaching.length > 0) {
     const file = sessionCaching.find((item) => {
-      return item.key === LAST_OPEN_FILE
+      return item.key === key
     })
     if (file) {
       return file.value

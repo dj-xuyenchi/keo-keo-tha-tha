@@ -1,5 +1,7 @@
 .wrapperContainer {
-    border: 1px solid transparent;
+    .showBorder {
+        border: 1px solid transparent;
+    }
 
     &:hover {
         box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;

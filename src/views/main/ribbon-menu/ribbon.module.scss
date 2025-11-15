@@ -5,52 +5,69 @@
         height: 76px;
         display: flex;
         flex-direction: row;
+
         .feature {
             cursor: pointer;
             border-radius: 4px;
+
             &:hover {
                 background-color: #e2e2e2;
             }
         }
+
+        .iconBtnOn {
+            background-color: #e2e2e2 !important;
+            transform: scale(0.95);
+        }
+
         .fullSizeIcon {
             width: 52px;
             display: flex;
             align-items: center;
             flex-direction: column;
             padding: 2px;
+
             span {
                 font-size: 12px;
             }
         }
+
         .comboMiniIcon {
             display: flex;
             flex-direction: column;
+
             .miniSizeIcon {
                 height: 25px;
                 padding-left: 3px;
                 padding-right: 3px;
                 display: flex;
+                align-items: center;
+
                 span {
                     margin-left: 4px;
-
                     font-size: 12px;
                     line-height: 25px;
                 }
             }
         }
+
         .comboMiniIconCol {
             display: flex;
             flex-direction: column;
+
             .miniSizeIcon {
                 height: 25px;
                 padding-left: 3px;
                 padding-right: 3px;
                 display: flex;
+                align-items: center;
             }
         }
+
         .comboMiniIconRow {
             display: flex;
             flex-direction: row;
+
             .miniSizeIcon {
                 height: 25px;
                 padding-left: 3px;
@@ -58,19 +75,27 @@
                 display: flex;
             }
         }
+
         .runDebug {
             display: flex;
             flex-direction: row;
             align-items: center;
         }
+
         .disabled {
-            opacity: 0.5; /* làm mờ */
-            pointer-events: none; /* chặn mọi click, hover */
-            user-select: none; /* không cho chọn chữ */
-            cursor: not-allowed; /* đổi con trỏ chuột */
-            filter: grayscale(100%); /* tuỳ chọn: làm trắng đen icon */
+            opacity: 0.5;
+            /* làm mờ */
+            pointer-events: none;
+            /* chặn mọi click, hover */
+            user-select: none;
+            /* không cho chọn chữ */
+            cursor: not-allowed;
+            /* đổi con trỏ chuột */
+            filter: grayscale(100%);
+            /* tuỳ chọn: làm trắng đen icon */
             transition: opacity 0.2s ease;
         }
+
         .borderRight {
             padding-right: 4px;
             border-right: 1px solid #d1d9e0;

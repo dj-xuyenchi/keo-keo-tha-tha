@@ -34,7 +34,7 @@ import { ContextMenu } from "./ContextMenu";
 import {
   createFile,
   deleteFile,
-  getLastOpenKey,
+  getSessionCacheValueByKey,
   getNodeOpenIcon,
 } from "./service";
 import { ModalRename } from "./ModalRename";
@@ -365,7 +365,7 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   useEffect(() => {
     if (sessionCaching.length > 0) {
       setExpandedKeys(getAllKeys(solutionInfomation));
-      const key = getLastOpenKey(sessionCaching);
+      const key = getSessionCacheValueByKey(sessionCaching, LAST_OPEN_FILE);
       setDefaultKey(key);
     }
   }, [sessionCaching, solutionInfomation]);

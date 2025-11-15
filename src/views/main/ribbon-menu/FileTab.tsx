@@ -27,15 +27,23 @@ import cmtIcon from "../../../../public/options/ribbon/cmt.png";
 import unCmtIcon from "../../../../public/options/ribbon/un-cmt.png";
 import runIcon from "../../../../public/options/ribbon/run.png";
 import debugIcon from "../../../../public/options/ribbon/debug.png";
+import borderIcon from "../../../../public/options/ribbon/border.png";
+import { getSessionCacheValueByKey } from "../solution/service";
+import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
+import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
+import { SESSION_CACHING_JSON } from "@/config/folder-data/fileType";
 export const FileTab = () => {
   const [mode, setMode] = useState("run");
   const fullSize = 56;
   const miniSize = 20;
   const canvas = useSelector((state: RootState) => state.canvas);
   const global = useSelector((state: RootState) => state.global);
-
+  const sessionCaching = useSelector(
+    (state: RootState) => state.global.sessionCaching
+  );
+  const isShowBorder = getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === 'true';
   const messageApi = getMessageInstance();
-  const handlePaste = () => {};
+  const handlePaste = () => { };
   const handleSetMode = (value: string) => {
     setMode(value);
   };
@@ -72,6 +80,19 @@ export const FileTab = () => {
       }
     }
   };
+  const handleTurnShowBorder = () => {
+    const cacheList = cloneDeep(sessionCaching) as SessionCaching[];
+    const show = cacheList.find((item) => {
+      return item.key == IS_SHOW_BORDER
+    })
+    if (show) {
+      show.value = !isShowBorder ? "true" : "false"
+    }
+    saveData2File(
+      SESSION_CACHING_JSON,
+      JSON.stringify(cacheList)
+    );
+  }
   return (
     <div className={styles.menuList}>
       <div
@@ -252,6 +273,16 @@ export const FileTab = () => {
             <div className={clsx(styles.miniSizeIcon, styles.feature)}>
               <Image
                 src={unCmtIcon}
+                width={miniSize}
+                height={miniSize}
+                alt="icon"
+              />
+            </div>
+          </Tooltip>
+          <Tooltip title={`${isShowBorder ? 'Tắt' : 'Bật'} hiển thị phạm vi`}>
+            <div onClick={handleTurnShowBorder} className={clsx(styles.miniSizeIcon, styles.feature, isShowBorder && styles.iconBtnOn)}>
+              <Image
+                src={borderIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"

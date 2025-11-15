@@ -1,5 +1,4 @@
 .sideBarContainer {
-    width: 400px;
     background-color: white;
     height: calc(100vh - 100px);
     display: flex;
@@ -10,6 +9,11 @@
     position: fixed;
     right: 0;
     top: 120px;
+    width: 400px; // mặc định cho màn lớn hơn 14"
+
+    @media (max-width: 1440px) {
+        width: 300px !important; // màn 14 inch đổ xuống
+    }
 
     .toolbox {
         height: 40vh;
@@ -45,8 +49,7 @@
                     }
                 }
 
-                .icon {
-                }
+                .icon {}
 
                 .name {
                     margin-left: 4px;
@@ -60,7 +63,6 @@
     .properties {
         height: 40vh;
 
-        .optionContainer {
-        }
+        .optionContainer {}
     }
 }
