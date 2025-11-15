@@ -47,7 +47,6 @@ export const Canvas = () => {
       if (!monitor.canDrop()) {
         return;
       }
-      console.error(item);
 
       if (item.source != "Canvas") {
         dispatch(pushPanel(defaultPanelDropObject(item.id as string)));
@@ -57,7 +56,6 @@ export const Canvas = () => {
 
   const movePanel = (fromId: string, toId: string) => {
     const updated = [...canvas.dataWork];
-    console.error(updated);
 
     // 🔍 Tìm index dựa theo id
     const fromIndex = updated.findIndex((p) => p.id === fromId);

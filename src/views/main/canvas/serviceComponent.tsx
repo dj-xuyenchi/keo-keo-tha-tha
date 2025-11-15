@@ -16,9 +16,12 @@ export const buildChildren = (item: DropDragItem) => {
         case GENERAL_TYPE.COL: {
             return defaultColDropObject(item.id as string);
         }
+        default: {
+            return {
+                type: item.type,
+                componentChildren: [] as ComponentData[],
+            } as ComponentData;
+        }
     }
-    return {
-        type: item.type,
-        componentChildren: [] as ComponentData[],
-    } as ComponentData;
+
 };

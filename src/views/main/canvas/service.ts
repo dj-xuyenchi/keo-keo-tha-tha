@@ -34,6 +34,5 @@ export const addChildren2Component = (componentId: string, children: ComponentDa
 
     }
     const res = addRecursively(componentDataWork)
-    console.error(res);
     return res
 }

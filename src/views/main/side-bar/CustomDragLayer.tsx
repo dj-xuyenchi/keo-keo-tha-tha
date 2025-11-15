@@ -70,12 +70,10 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          moveRow={() => { }}
-          index={0}
         />
       );
     case GENERAL_TYPE.COL:
-      return <ColForRow col={{ id: item.id } as ComponentData} />;
+      return <ColForRow isFromSideBar={true} col={{ id: item.id } as ComponentData} />;
     case GENERAL_TYPE.PANEL:
       return (
         <PanelDrop

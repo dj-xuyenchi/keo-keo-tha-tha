@@ -1,6 +1,6 @@
 import { defaultCss } from "@/config/defaultCss";
 import { ComponentData } from "@/entity/canvas/ComponentData";
-import { Col, Row } from "antd";
+import { Row } from "antd";
 import styles from "./style/row.module.scss";
 import { GenComponent } from "./GenComponent";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
@@ -16,9 +16,6 @@ import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { form } from "@/config/defineSpecialProps/define/form";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
-import {
-    colForRow,
-} from "@/config/defineSpecialProps/define/colForRow";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import clsx from "clsx";
@@ -27,14 +24,12 @@ import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { useDispatch } from "react-redux";
 
 export interface RowDropProps {
-    index: number;
-    moveRow: (fromIndex: string, toIndex: string) => void;
     row: ComponentData;
 }
 
 export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
     const inlineStyle = buildStyle(row);
-    console.error(inlineStyle);
+    console.info(inlineStyle);
 
     const canvas = useSelector((state: RootState) => state.canvas);
     const sessionCaching = useSelector(
@@ -56,13 +51,14 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
                 buildChildren(item),
                 canvas.dataWork
             );
+
             dispatch(setData2Work(res));
         },
         collect: (monitor) => ({
             isOver: monitor.isOver({ shallow: true }),
             canDrop: monitor.canDrop(),
         }),
-    }));
+    }), [canvas]);
 
     return (
         <WrapperDropComponent component={row} className={clsx(isShowBorder && "dashUnselect")}>

@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 
+import { getMessageInstance } from "@/config/messageContext";
 import { v4 as uuidv4 } from "uuid";
 import { GenComponent } from "./GenComponent";
 import { DropDragItem } from "@/entity/DropDragItem";
@@ -20,11 +21,9 @@ import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { widthKey } from "@/config/defineStyle/styles/width";
 import { minHeightKey } from "@/config/defineStyle/styles/height";
-import { defaultInputDropObject } from "./InputDrop";
 import { useSelectComponent } from "@/hook/useSelectComponent";
 import clsx from "clsx";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
-import { defaultRowDropObject } from "./RowDrop";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
 export interface PanelDropProps {
   index: number;
@@ -44,10 +43,15 @@ export const PanelDrop = ({
   const canvas = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
+  const message = getMessageInstance()
   const [{ isOver, canDrop }, dropRef] = useDrop(
     () => ({
       accept: acceptType,
       hover(item: DropDragItem, monitor) { },
+      canDrop: (item: DropDragItem) => {
+        // Row chỉ nhận Col khi thả vào
+        return item?.type === GENERAL_TYPE.PANEL || item?.type === GENERAL_TYPE.ROW
+      },
       drop: (item: DropDragItem, monitor) => {
 
         if (!ref.current) {
@@ -58,6 +62,7 @@ export const PanelDrop = ({
           return;
         }
         if (item.type != GENERAL_TYPE.ROW) {
+          message.error("Panel chỉ nhận Row!")
           return
         }
         const res = addChildren2Component(

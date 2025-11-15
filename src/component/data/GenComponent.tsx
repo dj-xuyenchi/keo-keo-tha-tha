@@ -16,28 +16,28 @@ export const GenComponent = ({
     case GENERAL_TYPE.ROW: {
       return (
         <>
-          <RowDrop row={component} index={1} moveRow={() => {}} />
+          <RowDrop row={component} key={component.id} />
         </>
       );
     }
     case GENERAL_TYPE.COL: {
       return (
         <>
-          <ColForRow col={component} index={1} moveRow={() => { }} />
+          <ColForRow col={component} isFromSideBar={false} key={component.id} />
         </>
       );
     }
     case DATA_TYPE.INPUT: {
       return (
         <>
-          <InputDrop input={component} />
+          <InputDrop input={component} key={component.id} />
         </>
       );
     }
     case DATA_TYPE.DROP_DOWN: {
       return (
         <>
-          <SelectDrop />
+          <SelectDrop key={component.id} />
         </>
       );
     }
