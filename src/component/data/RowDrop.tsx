@@ -7,7 +7,6 @@ import { buildStyle } from "@/config/defineStyle/styleHTML";
 import { WrapperDropComponent } from "./WrapperDropComponent";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useSelectComponent } from "@/hook/useSelectComponent";
 import { acceptType } from "@/config/sidebar/acceptType";
 import { useDrop } from "react-dnd";
 import { DropDragItem } from "@/entity/DropDragItem";
@@ -16,14 +15,16 @@ import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { form } from "@/config/defineSpecialProps/define/form";
+import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import {
-    COL_FOR_ROW_KEY,
     colForRow,
-    ColForRowValue,
 } from "@/config/defineSpecialProps/define/colForRow";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import clsx from "clsx";
+import { addChildren2Component } from "@/views/main/canvas/service";
+import { buildChildren } from "@/views/main/canvas/serviceComponent";
+import { useDispatch } from "react-redux";
 
 export interface RowDropProps {
     index: number;
@@ -35,24 +36,27 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
     const inlineStyle = buildStyle(row);
     console.error(inlineStyle);
 
-    const colForRow = row.specialProps?.find((p) => {
-        return p.key === COL_FOR_ROW_KEY;
-    }) as PropComponent;
+    const canvas = useSelector((state: RootState) => state.canvas);
     const sessionCaching = useSelector(
         (state: RootState) => state.global.sessionCaching
     );
+
+    const dispatch = useDispatch();
     const isShowBorder = getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === 'true';
     const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
         accept: acceptType,
         canDrop: (item: DropDragItem) => {
-            // Main dữ liệu canvas chính chỉ cho thả panel
-            return (
-                item?.type !== GENERAL_TYPE.PANEL && item?.type !== GENERAL_TYPE.ROW
-            );
+            // Row chỉ nhận Col khi thả vào
+            return item?.type === GENERAL_TYPE.COL
         },
         hover(item: DropDragItem, monitor) { },
         drop: (item: DropDragItem, monitor) => {
-            console.error(item);
+            const res = addChildren2Component(
+                row.id,
+                buildChildren(item),
+                canvas.dataWork
+            );
+            dispatch(setData2Work(res));
         },
         collect: (monitor) => ({
             isOver: monitor.isOver({ shallow: true }),
@@ -71,16 +75,6 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
                 }}
                 {...restProps}
             >
-                {colForRow &&
-                    (colForRow.value as ColForRowValue[]).map(
-                        (col: ColForRowValue, index: number) => {
-                            return (
-                                <>
-                                    <Col className={clsx(isShowBorder && styles.colBorder)} span={col.span}>d</Col>
-                                </>
-                            );
-                        }
-                    )}
                 {row.componentChildren &&
                     row.componentChildren.map((component: ComponentData) => {
                         return (
@@ -99,6 +93,6 @@ export const defaultRowDropObject = (id: string) => {
         id: id,
         type: GENERAL_TYPE.ROW,
         inlineStyle: [] as InlineStyle[],
-        specialProps: [form, colForRow] as PropComponent[],
+        specialProps: [form] as PropComponent[],
     } as ComponentData;
 };

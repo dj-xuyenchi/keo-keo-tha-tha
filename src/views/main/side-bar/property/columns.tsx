@@ -1,5 +1,8 @@
+import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { PropComponent } from "@/entity/sidebar/PropComponent";
+
 export type CallBacks = {
-  handleOpenModal: () => void;
+  handleOpenModal: (record: PropComponent) => void;
 };
 
 export const getColumns = ({ handleOpenModal }: CallBacks) => [
@@ -8,9 +11,10 @@ export const getColumns = ({ handleOpenModal }: CallBacks) => [
     dataIndex: "name",
     key: "name",
     width: "50%",
-    render: (value: string, record, index: number) => (
-      //       <TableLabelCustom>{index + 1}</TableLabelCustom>
-      <></>
+    render: (value: string, record: PropComponent, index: number) => (
+      <span style={{
+        marginLeft: "12px"
+      }}>{record.name}</span>
     ),
   },
   {
@@ -18,9 +22,21 @@ export const getColumns = ({ handleOpenModal }: CallBacks) => [
     dataIndex: "value",
     key: "value",
     width: "50%",
-    render: (value: string, record, index: number) => (
-      //       <TableLabelCustom>{value}</TableLabelCustom>
-      <span onClick={handleOpenModal}>ss</span>
+    render: (value: string, record: PropComponent, index: number) => (
+      <div style={{
+        height: "100%",
+        width: "100%"
+      }}>
+        {record.valueType == 'flex' && <InputCustom
+          onClick={() => {
+            handleOpenModal(record)
+          }}
+          placeholder="Giá trị"
+          onMouseDown={(e) => {
+            e.preventDefault()
+          }}
+        />}
+      </div >
     ),
   },
 ];

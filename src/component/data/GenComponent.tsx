@@ -4,6 +4,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { SelectDrop } from "./SelectDrop";
 import { TableDrop } from "./TableDrop";
 import { RowDrop } from "./RowDrop";
+import { ColForRow } from "./ColForRow";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -16,6 +17,13 @@ export const GenComponent = ({
       return (
         <>
           <RowDrop row={component} index={1} moveRow={() => {}} />
+        </>
+      );
+    }
+    case GENERAL_TYPE.COL: {
+      return (
+        <>
+          <ColForRow col={component} index={1} moveRow={() => { }} />
         </>
       );
     }

@@ -25,6 +25,7 @@ import { useSelectComponent } from "@/hook/useSelectComponent";
 import clsx from "clsx";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { defaultRowDropObject } from "./RowDrop";
+import { buildChildren } from "@/views/main/canvas/serviceComponent";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -46,18 +47,18 @@ export const PanelDrop = ({
   const [{ isOver, canDrop }, dropRef] = useDrop(
     () => ({
       accept: acceptType,
-      // canDrop: (item: DropDragItem) => {
-      //   // Main dữ liệu canvas chính chỉ cho thả panel
-      //   return item?.type !== LAYOUT_TYPE.PANEL;
-      // },
-      hover(item: DropDragItem, monitor) {},
+      hover(item: DropDragItem, monitor) { },
       drop: (item: DropDragItem, monitor) => {
+
         if (!ref.current) {
           return;
         }
         if (item.type === GENERAL_TYPE.PANEL) {
           movePanel(item.id as string, panel.id);
           return;
+        }
+        if (item.type != GENERAL_TYPE.ROW) {
+          return
         }
         const res = addChildren2Component(
           panel.id,
@@ -137,20 +138,7 @@ export const PanelDrop = ({
   );
 };
 
-const buildChildren = (item: DropDragItem) => {
-  switch (item.type) {
-    case DATA_TYPE.INPUT: {
-      return defaultInputDropObject(item.id as string);
-    }
-    case GENERAL_TYPE.ROW: {
-      return defaultRowDropObject(item.id as string);
-    }
-  }
-  return {
-    type: item.type,
-    componentChildren: [] as ComponentData[],
-  } as ComponentData;
-};
+
 
 export const defaultPanelDropObject = (id: string) => {
   return {

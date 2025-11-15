@@ -21,6 +21,7 @@ export enum DATA_TYPE {
 export enum GENERAL_TYPE {
   PANEL = "PANEL",
   ROW = "ROW",
+  COL = "COL",
   BUTTON = "BUTTON",
   TAB = "TAB",
 }

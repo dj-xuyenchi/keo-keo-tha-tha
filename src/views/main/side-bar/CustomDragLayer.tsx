@@ -10,6 +10,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { RowDrop } from "@/component/data/RowDrop";
 import { widthKey } from "@/config/defineStyle/styles/width";
 import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
+import { ColForRow } from "@/component/data/ColForRow";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(
@@ -69,10 +70,12 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          moveRow={() => {}}
+          moveRow={() => { }}
           index={0}
         />
       );
+    case GENERAL_TYPE.COL:
+      return <ColForRow col={{ id: item.id } as ComponentData} />;
     case GENERAL_TYPE.PANEL:
       return (
         <PanelDrop
@@ -87,12 +90,10 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => {}}
+          movePanel={() => { }}
           index={0}
         />
       );
-    // case DATA_TYPE.TABLE:
-    //   return <TableDrop />;
     case DATA_TYPE.INPUT:
       return <InputDrop input={{ id: item.id } as ComponentData} />;
 
