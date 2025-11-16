@@ -60,6 +60,7 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
         }),
     }), [canvas]);
 
+    const isActive = isOver && canDrop;
     return (
         <WrapperDropComponent component={row} className={clsx(isShowBorder && "dashUnselect")}>
             <Row
@@ -68,6 +69,9 @@ export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
                 style={{
                     ...inlineStyle,
                     ...defaultCss,
+                    border: isActive ? "1px dashed #4caf50" : "",
+                    backgroundColor: isActive ? "#e8f5e9" : isOver ? "#f0f0f0" : "white",
+                    transition: "background-color 0.2s",
                 }}
                 {...restProps}
             >

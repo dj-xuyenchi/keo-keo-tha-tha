@@ -1,1 +1,160 @@
-[{"id":"460a0632-1aa9-4b6c-8053-0a7b2795fd8b","type":"PANEL","inlineStyle":[{"styleKey":"MARGIN_BOTTOM","value":"12px"},{"styleKey":"MIN_HEIGHT","value":"40px"}],"specialProps":[],"componentChildren":[{"id":"1d932533-1cee-4a7b-add6-475913a81bc5","type":"ROW","inlineStyle":[],"specialProps":[{"name":"Form","key":"FORM_KEY","valueType":"flex","apply":["ROW"],"value":{"formName":"customerForm"}}],"componentChildren":[{"id":"848609ea-90d1-4b25-bb0c-2bc537b5b742","type":"COL","inlineStyle":[]},{"id":"0f655f59-d72d-43d2-80ad-9a73fa1e8d8d","type":"COL","inlineStyle":[]},{"id":"536250da-ad9c-4ae0-b419-9b58581c5ee7","type":"COL","inlineStyle":[]},{"id":"686ca494-e51a-48c1-b761-373d809f786d","type":"COL","inlineStyle":[]},{"id":"1ca8c07a-8131-438b-b208-ef17d4271826","type":"COL","inlineStyle":[]},{"id":"b6cf4c42-11c3-4599-bb85-7dd78e02a3bb","type":"COL","inlineStyle":[]},{"id":"2f8eb16b-0d9a-4f2a-aa2b-f7cbfeeb600c","type":"COL","inlineStyle":[]},{"id":"39910efa-9555-4528-a6d3-6330ea2b9164","type":"COL","inlineStyle":[]},{"id":"84745cba-fed1-40a4-b8bf-4243dcfee09e","type":"COL","inlineStyle":[]},{"id":"935086e9-cd5d-4dd0-8ad1-50d522b0694e","type":"COL","inlineStyle":[]},{"id":"f1e1c135-da94-46cb-8a4a-49be35c0a979","type":"COL","inlineStyle":[]},{"id":"fe61cafe-81ff-4713-a607-b3334387a004","type":"COL","inlineStyle":[]},{"id":"21102c47-dc3d-4ec2-92d8-37a2e3a8366f","type":"COL","inlineStyle":[]}]}]}]
+[
+    {
+        "id": "460a0632-1aa9-4b6c-8053-0a7b2795fd8b",
+        "type": "PANEL",
+        "inlineStyle": [
+            {
+                "styleKey": "MARGIN_BOTTOM",
+                "value": "12px"
+            },
+            {
+                "styleKey": "MIN_HEIGHT",
+                "value": "40px"
+            }
+        ],
+        "specialProps": [],
+        "componentChildren": [
+            {
+                "id": "1d932533-1cee-4a7b-add6-475913a81bc5",
+                "type": "ROW",
+                "inlineStyle": [],
+                "specialProps": [
+                    {
+                        "name": "Form",
+                        "key": "FORM_KEY",
+                        "valueType": "flex",
+                        "apply": [
+                            "ROW"
+                        ],
+                        "value": {
+                            "formName": "customerForm"
+                        }
+                    }
+                ],
+                "componentChildren": [
+                    {
+                        "id": "848609ea-90d1-4b25-bb0c-2bc537b5b742",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "0f655f59-d72d-43d2-80ad-9a73fa1e8d8d",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "536250da-ad9c-4ae0-b419-9b58581c5ee7",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "686ca494-e51a-48c1-b761-373d809f786d",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "1ca8c07a-8131-438b-b208-ef17d4271826",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "b6cf4c42-11c3-4599-bb85-7dd78e02a3bb",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "2f8eb16b-0d9a-4f2a-aa2b-f7cbfeeb600c",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "39910efa-9555-4528-a6d3-6330ea2b9164",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "84745cba-fed1-40a4-b8bf-4243dcfee09e",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "935086e9-cd5d-4dd0-8ad1-50d522b0694e",
+                        "type": "COL",
+                        "inlineStyle": []
+                    },
+                    {
+                        "id": "f1e1c135-da94-46cb-8a4a-49be35c0a979",
+                        "type": "COL",
+                        "inlineStyle": [],
+                        "componentChildren": [
+                            {
+                                "id": "b63f499f-2d4f-41b6-a971-8d2e082a89d2",
+                                "type": "INPUT",
+                                "inlineStyle": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": "fe61cafe-81ff-4713-a607-b3334387a004",
+                        "type": "COL",
+                        "inlineStyle": [],
+                        "componentChildren": [
+                            {
+                                "type": "BUTTON",
+                                "componentChildren": [],
+                                "id": "550308cb-b8a6-49c2-8517-02aa13237862"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "21102c47-dc3d-4ec2-92d8-37a2e3a8366f",
+                        "type": "COL",
+                        "inlineStyle": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "8e09bcbb-0be0-4880-864b-59c8109a77ee",
+        "type": "PANEL",
+        "inlineStyle": [
+            {
+                "styleKey": "MARGIN_BOTTOM",
+                "value": "12px"
+            },
+            {
+                "styleKey": "MIN_HEIGHT",
+                "value": "40px"
+            }
+        ],
+        "specialProps": [],
+        "componentChildren": [
+            {
+                "id": "789e97ef-72fa-40f1-9684-9620f5db4606",
+                "type": "ROW",
+                "inlineStyle": [],
+                "specialProps": [
+                    {
+                        "name": "Form",
+                        "key": "FORM_KEY",
+                        "valueType": "flex",
+                        "apply": [
+                            "ROW"
+                        ],
+                        "value": {
+                            "formName": "customerForm"
+                        }
+                    }
+                ],
+                "componentChildren": [
+                    {
+                        "id": "5af79af6-bf85-4709-baef-77fcdaf3d33e",
+                        "type": "COL",
+                        "inlineStyle": []
+                    }
+                ]
+            }
+        ]
+    }
+]

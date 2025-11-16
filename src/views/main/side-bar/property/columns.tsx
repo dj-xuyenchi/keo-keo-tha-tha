@@ -1,4 +1,5 @@
 import { InputCustom } from "@/component/componentCustom/InputCustom";
+import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 
 export type CallBacks = {
@@ -35,6 +36,9 @@ export const getColumns = ({ handleOpenModal }: CallBacks) => [
           onMouseDown={(e) => {
             e.preventDefault()
           }}
+        />}
+        {record.valueType == 'number' && <InputNumberCustom status="error"
+          placeholder="Giá trị"
         />}
       </div >
     ),

@@ -1,7 +1,6 @@
 import { Modal, Table } from "antd";
 import styles from "./sidebar.module.scss";
 import {
-  propertyDetailColumns,
   propertySettingColumns,
 } from "./propertySettingColumns";
 import {
@@ -19,12 +18,22 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useState } from "react";
 import { getColumns } from "./columns";
+import { SPAN_KEY } from "@/config/defineSpecialProps/define/span";
+import { SpanSetting } from "./special-prop-setting/SpanSetting";
+import { useDispatch } from "react-redux";
+import { setSelectProp } from "../sideBarSlice";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
   const selectedComponent = useSelector(
     (state: RootState) => state.canvas.selectedComponent
   );
-  const handleOpenModal = () => {
+
+  const dispatch = useDispatch();
+  const sideBar = useSelector(
+    (state: RootState) => state.sideBar
+  );
+  const handleOpenModal = (prop: PropComponent) => {
+    dispatch(setSelectProp(prop))
     setOpenModal(true);
   };
   const handleCloseModal = () => {
@@ -41,10 +50,18 @@ export const PropertyTab = () => {
       dataSource = selectedComponent.bindingProps;
     }
     if (key === EXTANDS_KEY) {
-      dataSource = selectedComponent.specialProps;
+      const componentType = selectedComponent.type
+      const specialPropsByType = specialPropList.filter((prop) => {
+        return prop.apply.includes(componentType);
+      })
+      dataSource = specialPropsByType;
     }
     if (key === STYLE_KEY) {
-      dataSource = selectedComponent.inlineStyle;
+      // dataSource = selectedComponent.inlineStyle.map((style) => {
+      //   return {
+
+      //   } as PropComponent
+      // });
     }
     return (
       <Table
@@ -80,16 +97,14 @@ export const PropertyTab = () => {
         pagination={false}
       />
       <Modal
-        title={<p>Loading Modal</p>}
+        title={<p>{sideBar?.speacialSelected?.name}</p>}
         footer={null}
-        loading={true}
+        loading={false}
         open={openModal}
         centered
         onCancel={handleCloseModal}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {sideBar?.speacialSelected?.key === SPAN_KEY && <SpanSetting />}
       </Modal>
     </>
   );

@@ -94,7 +94,8 @@ function renderNodePreview(item: {
       );
     case DATA_TYPE.INPUT:
       return <InputDrop input={{ id: item.id } as ComponentData} />;
-
+    case DATA_TYPE.TABLE:
+      return <TableDrop />;
     default:
       return (
         <div className="rounded border bg-white px-3 py-2 shadow">

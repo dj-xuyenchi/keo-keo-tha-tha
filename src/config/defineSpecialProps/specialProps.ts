@@ -1,5 +1,5 @@
 import { PropComponent } from "@/entity/sidebar/PropComponent";
-import { colForRow } from "./define/colForRow";
 import { form } from "./define/form";
+import { spanGroup } from "./define/span";
 
-export const specialPropList = [form, colForRow] as PropComponent[];
+export const specialPropList = [form, ...spanGroup] as PropComponent[];
