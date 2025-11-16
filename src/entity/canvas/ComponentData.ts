@@ -20,3 +20,21 @@ export interface ComponentData {
 
   componentChildren: ComponentData[];
 }
+
+export const findComponentById = (
+  nodes: ComponentData[],
+  id: string
+): ComponentData | null => {
+  for (const node of nodes) {
+    if (node.id === id) {
+      return node; // trả về **tham chiếu gốc**
+    }
+    if (node.componentChildren?.length) {
+      const found = findComponentById(node.componentChildren, id);
+      if (found) {
+        return found;
+      }
+    }
+  }
+  return null;
+};

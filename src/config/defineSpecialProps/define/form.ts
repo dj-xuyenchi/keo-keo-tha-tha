@@ -7,13 +7,6 @@ export const form = {
   key: FORM_KEY,
   valueType: "flex",
   apply: [GENERAL_TYPE.ROW],
-  valid: (value: string) => {
-    if (!value) {
-      return false;
-    }
-
-    return true;
-  },
   value: {
     formName: "customerForm",
   },

@@ -1,8 +1,6 @@
-import { Modal, Table } from "antd";
+import { FormInstance, Modal, Table } from "antd";
 import styles from "./sidebar.module.scss";
-import {
-  propertySettingColumns,
-} from "./propertySettingColumns";
+import { propertySettingColumns } from "./propertySettingColumns";
 import {
   BINDING_KEY,
   EXTANDS_KEY,
@@ -29,11 +27,9 @@ export const PropertyTab = () => {
   );
 
   const dispatch = useDispatch();
-  const sideBar = useSelector(
-    (state: RootState) => state.sideBar
-  );
+  const sideBar = useSelector((state: RootState) => state.sideBar);
   const handleOpenModal = (prop: PropComponent) => {
-    dispatch(setSelectProp(prop))
+    dispatch(setSelectProp(prop));
     setOpenModal(true);
   };
   const handleCloseModal = () => {
@@ -50,16 +46,15 @@ export const PropertyTab = () => {
       dataSource = selectedComponent.bindingProps;
     }
     if (key === EXTANDS_KEY) {
-      const componentType = selectedComponent.type
+      const componentType = selectedComponent.type;
       const specialPropsByType = specialPropList.filter((prop) => {
         return prop.apply.includes(componentType);
-      })
+      });
       dataSource = specialPropsByType;
     }
     if (key === STYLE_KEY) {
       // dataSource = selectedComponent.inlineStyle.map((style) => {
       //   return {
-
       //   } as PropComponent
       // });
     }
@@ -102,9 +97,15 @@ export const PropertyTab = () => {
         loading={false}
         open={openModal}
         centered
+        width={"auto"}
+        style={{
+          width: "fit-content",
+        }}
         onCancel={handleCloseModal}
       >
-        {sideBar?.speacialSelected?.key === SPAN_KEY && <SpanSetting />}
+        {openModal && sideBar?.speacialSelected?.key === SPAN_KEY && (
+          <SpanSetting open={openModal} handleClose={handleCloseModal} />
+        )}
       </Modal>
     </>
   );

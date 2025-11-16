@@ -4,8 +4,7 @@ export interface PropComponent {
   valueType: VALUE_TYPE;
   value: string | object | object[] | null;
   apply: string[];
-  tooltip?: string
-  valid: (value: string) => boolean;
+  tooltip?: string;
 }
 
 export type VALUE_TYPE =
