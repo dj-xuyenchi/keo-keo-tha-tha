@@ -13,13 +13,7 @@ import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
 import { ColForRow } from "@/component/data/ColForRow";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
-function getItemStyles(
-  clientOffset?: XYCoord | null,
-  sourceClientOffset?: XYCoord | null,
-  initialClientOffset?: XYCoord | null,
-  initialSourceClientOffset?: XYCoord | null,
-  isSidebar?: boolean
-) {
+function getItemStyles(clientOffset?: XYCoord | null) {
   if (clientOffset) {
     const { x, y } = clientOffset;
     const transform = `translate(${x}px, ${y}px)`;
@@ -73,7 +67,12 @@ function renderNodePreview(item: {
         />
       );
     case GENERAL_TYPE.COL:
-      return <ColForRow isFromSideBar={true} col={{ id: item.id } as ComponentData} />;
+      return (
+        <ColForRow
+          isFromSideBar={true}
+          col={{ id: item.id } as ComponentData}
+        />
+      );
     case GENERAL_TYPE.PANEL:
       return (
         <PanelDrop
@@ -88,14 +87,14 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => { }}
+          movePanel={() => {}}
           index={0}
         />
       );
     case DATA_TYPE.INPUT:
       return <InputDrop input={{ id: item.id } as ComponentData} />;
     case DATA_TYPE.TABLE:
-      return <TableDrop />;
+      return <TableDrop table={{ id: item.id } as ComponentData} />;
     default:
       return (
         <div className="rounded border bg-white px-3 py-2 shadow">
@@ -136,15 +135,7 @@ export function CustomDragLayer() {
         zIndex: 9999,
       }}
     >
-      <div
-        style={getItemStyles(
-          clientOffset,
-          sourceClientOffset,
-          initialClientOffset,
-          initialSourceClientOffset,
-          item?.source === "Sidebar"
-        )}
-      >
+      <div style={getItemStyles(clientOffset)}>
         <div className="drop-shadow rounded-2xl">{renderNodePreview(item)}</div>
       </div>
     </div>

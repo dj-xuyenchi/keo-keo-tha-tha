@@ -30,7 +30,6 @@ export const WrapperDropComponent = ({
     const sessionCaching = useSelector(
         (state: RootState) => state.global.sessionCaching
     );
-    const isShowBorder = getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === 'true';
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         select(component);

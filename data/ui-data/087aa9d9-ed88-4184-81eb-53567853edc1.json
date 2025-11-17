@@ -1,76 +1,70 @@
 [
-    {
-        "id": "8e09bcbb-0be0-4880-864b-59c8109a77ee",
-        "type": "PANEL",
-        "inlineStyle": [
-            {
-                "styleKey": "MARGIN_BOTTOM",
-                "value": "12px"
-            },
-            {
-                "styleKey": "MIN_HEIGHT",
-                "value": "40px"
-            }
-        ],
-        "specialProps": [],
-        "componentChildren": [
-            {
-                "id": "789e97ef-72fa-40f1-9684-9620f5db4606",
-                "type": "ROW",
-                "inlineStyle": [],
-                "specialProps": [
-                    {
-                        "name": "Form",
-                        "key": "FORM_KEY",
-                        "valueType": "flex",
-                        "apply": [
-                            "ROW"
-                        ],
-                        "value": {
-                            "formName": "customerForm"
-                        }
-                    }
-                ],
-                "componentChildren": [
-                    {
-                        "id": "5af79af6-bf85-4709-baef-77fcdaf23d33e",
-                        "type": "COL",
-                        "inlineStyle": [],
-                        "specialProps": [
-                            {
-                                "name": "span",
-                                "key": "SPAN_KEY",
-                                "valueType": "flex",
-                                "apply": [
-                                    "COL"
-                                ],
-                                "value": {}
-                            }
-                        ]
-                    },
-                    {
-                        "id": "5af73af6-bf85-4709-baef-77fcdaf23d33e",
-                        "type": "COL",
-                        "inlineStyle": [],
-                        "specialProps": [
-                            {
-                                "name": "span",
-                                "key": "SPAN_KEY",
-                                "valueType": "flex",
-                                "apply": [
-                                    "COL"
-                                ],
-                                "value": {
-                                    "span": 2,
-                                    "xs": 3,
-                                    "sm": 1,
-                                    "md": 1
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+          {
+                    "id": "8e09bcbb-0be0-4880-864b-59c8109a77ee",
+                    "type": "PANEL",
+                    "inlineStyle": [
+                              {
+                                        "styleKey": "MARGIN_BOTTOM",
+                                        "value": "12px"
+                              },
+                              {
+                                        "styleKey": "MIN_HEIGHT",
+                                        "value": "40px"
+                              }
+                    ],
+                    "specialProps": [],
+                    "componentChildren": [
+                              {
+                                        "id": "789e97ef-72fa-40f1-9684-9620f5db4606",
+                                        "type": "ROW",
+                                        "inlineStyle": [],
+                                        "specialProps": [
+                                                  {
+                                                            "name": "Form",
+                                                            "key": "FORM_KEY",
+                                                            "valueType": "flex",
+                                                            "apply": [
+                                                                      "ROW"
+                                                            ],
+                                                            "value": {
+                                                                      "formName": "customerForm"
+                                                            }
+                                                  }
+                                        ],
+                                        "componentChildren": [
+                                                  {
+                                                            "id": "5af73af6-bf85-4709-baef-77fcdaf23d33e",
+                                                            "type": "COL",
+                                                            "inlineStyle": [],
+                                                            "specialProps": [
+                                                                      {
+                                                                                "name": "span",
+                                                                                "key": "SPAN_KEY",
+                                                                                "valueType": "flex",
+                                                                                "apply": [
+                                                                                          "COL"
+                                                                                ],
+                                                                                "value": {
+                                                                                          "span": 24,
+                                                                                          "xs": 24,
+                                                                                          "sm": 24,
+                                                                                          "md": 24,
+                                                                                          "lg": 24,
+                                                                                          "xl": 24,
+                                                                                          "xxl": 24
+                                                                                }
+                                                                      }
+                                                            ],
+                                                            "componentChildren": [
+                                                                      {
+                                                                                "type": "TABLE",
+                                                                                "componentChildren": [],
+                                                                                "id": "b1722304-8e74-44aa-b4aa-d1ac982444df"
+                                                                      }
+                                                            ]
+                                                  }
+                                        ]
+                              }
+                    ]
+          }
 ]

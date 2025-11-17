@@ -33,6 +33,9 @@ import { CollapseCustom } from "../componentCustom/CollapseCustom";
 import styles from "./style/table.module.scss";
 import { WrapperDropComponent } from "./WrapperDropComponent";
 import { ComponentData } from "@/entity/canvas/ComponentData";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { propertyDetailColumns } from "@/views/main/side-bar/property/propertySettingColumns";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   buttonAddTitle?: string;
@@ -55,12 +58,12 @@ export interface ExtendFunction<T> {
 export interface TablePropsCustom<T> extends TableProps<T> {
   dataSource?: T[];
   extendFunction?: ExtendFunction<T>;
-  columns: ColumnTypeCustom<T>[];
   columnsEdit: ColumnTypeCustom<T>[];
   fixedCollap?: boolean;
   viewMode?: boolean;
   isSupportMultiSelect?: boolean;
   tableName: string;
+  table: ComponentData;
 }
 export interface ColumnTypeCustom<T> extends ColumnType<T> {
   sortNumber?: number;
@@ -70,7 +73,6 @@ export interface ColumnTypeCustom<T> extends ColumnType<T> {
 // Component TableDrop
 export const TableDrop = <T extends BaseDataTable>({
   style,
-  columns,
   columnsEdit,
   extendFunction,
   fixedCollap = false,
@@ -79,10 +81,11 @@ export const TableDrop = <T extends BaseDataTable>({
   dataSource,
   tableName,
   isSupportMultiSelect,
+  table,
   ...restProps
 }: TablePropsCustom<T>) => {
   const [isShowSetting, setIsShowSetting] = useState(false);
-  const [visibleColumns, setVisibleColumns] = useState(columns || []);
+  const [visibleColumns, setVisibleColumns] = useState(propertyDetailColumns);
   const [activeCollap, setActiveCollap] = useState(["1"]);
   const [isEditAddBtn, setIsEditAddBtn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,7 +94,9 @@ export const TableDrop = <T extends BaseDataTable>({
   const [selectedRowKeys, setSelectedRowKeys] = useState([] as Key[]);
   const [isZoomOut, setIsZoomOut] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-
+  const selectedComponent = useSelector(
+    (state: RootState) => state.canvas.selectedComponent
+  );
   // Logic setting table
   const handleChangeCollap = (value: string[]) => {
     if (fixedCollap) {
@@ -109,22 +114,7 @@ export const TableDrop = <T extends BaseDataTable>({
   };
 
   // Logic data
-  const handleEditAddDataTable = () => {
-    setIsEditAddBtn(true);
-    if (extendFunction?.toggleViewMode) {
-      extendFunction.toggleViewMode(false);
-    }
-    if (extendFunction?.andOn === "table") {
-      // Mở nút thêm dòng và mở lại hết các cột nếu đang bị ẩn
-      setVisibleColumns(columns);
-    }
-    if (extendFunction?.andOn === "drawer") {
-      // mở drawer
-    }
-    if (extendFunction?.andOn === "page") {
-      // điều hướng trang tạo mới
-    }
-  };
+
   const addRowData = () => {
     if (extendFunction) {
       if (extendFunction.handleUpdateDataSource) {
@@ -211,11 +201,14 @@ export const TableDrop = <T extends BaseDataTable>({
     onChange: onSelectChange,
   };
 
-  useEffect(() => {
-    setVisibleColumns(viewMode ? columns : columnsEdit);
-  }, [viewMode, columns]);
   return (
-    <WrapperDropComponent id="">
+    <WrapperDropComponent
+      component={table}
+      className={`${clsx(
+        styles.pannelContainer,
+        table && table.id === selectedComponent?.id && "selectedComponent"
+      )}`}
+    >
       <div
         className={clsx(
           "table-custom-container",
@@ -517,3 +510,5 @@ export const TableDrop = <T extends BaseDataTable>({
     </WrapperDropComponent>
   );
 };
+
+export const defaultTableObject = () => {};

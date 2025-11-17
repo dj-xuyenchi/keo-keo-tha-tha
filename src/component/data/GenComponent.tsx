@@ -42,7 +42,11 @@ export const GenComponent = ({
       );
     }
     case DATA_TYPE.TABLE: {
-      return <>{/* <TableDrop /> */}</>;
+      return (
+        <>
+          <TableDrop />
+        </>
+      );
     }
     default: {
       return <></>;
