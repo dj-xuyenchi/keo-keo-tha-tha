@@ -5,7 +5,7 @@ export const ribbonMenu = [
     title: "File",
   },
   {
-    title: "Testing",
+    title: "API & Testing",
   },
   {
     title: "Build",

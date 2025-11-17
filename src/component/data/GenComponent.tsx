@@ -44,7 +44,7 @@ export const GenComponent = ({
     case DATA_TYPE.TABLE: {
       return (
         <>
-          <TableDrop />
+          <TableDrop table={component} />
         </>
       );
     }

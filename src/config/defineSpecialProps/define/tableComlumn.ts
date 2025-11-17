@@ -1,4 +1,4 @@
-import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
+import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 
 export const TABLE_COLUMN_KEY = "TABLE_COLUMN_KEY";
@@ -14,5 +14,7 @@ export const tableComlumnValid = (value: number): boolean => {
  
   return true;
 };
-export interface TableColumnValue {}
+export interface TableColumnValue {
+          
+}
 

@@ -11,7 +11,7 @@ import { RootState } from "@/store/store";
 import { Form } from "antd";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { FormInstance, RuleObject } from "antd/es/form";
+import { RuleObject } from "antd/es/form";
 import cloneDeep from "lodash/cloneDeep";
 import {
   ComponentData,
@@ -19,14 +19,8 @@ import {
 } from "@/entity/canvas/ComponentData";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
-// Breakpoint	Kích thước màn hình	Ý nghĩa
-// xs   < 576px	Mobile nhỏ
-// sm	≥ 576px	Mobile to
-// md	≥ 768px	Tablet
-// lg	≥ 992px	Laptop nhỏ
-// xl	≥ 1200px	Laptop to / desktop
-// xxl
-export const SpanSetting = ({
+
+export const TableColumnSetting = ({
   open,
   handleClose,
 }: {

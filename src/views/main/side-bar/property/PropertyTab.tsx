@@ -20,6 +20,8 @@ import { SPAN_KEY } from "@/config/defineSpecialProps/define/span";
 import { SpanSetting } from "./special-prop-setting/SpanSetting";
 import { useDispatch } from "react-redux";
 import { setSelectProp } from "../sideBarSlice";
+import { TableColumnSetting } from "./special-prop-setting/TableColumnSetting";
+import { TABLE_COLUMN_KEY } from "@/config/defineSpecialProps/define/tableComlumn";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
   const selectedComponent = useSelector(
@@ -105,6 +107,9 @@ export const PropertyTab = () => {
       >
         {openModal && sideBar?.speacialSelected?.key === SPAN_KEY && (
           <SpanSetting open={openModal} handleClose={handleCloseModal} />
+        )}
+        {openModal && sideBar?.speacialSelected?.key === TABLE_COLUMN_KEY && (
+          <TableColumnSetting open={openModal} handleClose={handleCloseModal} />
         )}
       </Modal>
     </>

@@ -73,7 +73,6 @@ export interface ColumnTypeCustom<T> extends ColumnType<T> {
 // Component TableDrop
 export const TableDrop = <T extends BaseDataTable>({
   style,
-  columnsEdit,
   extendFunction,
   fixedCollap = false,
   viewMode,
@@ -404,7 +403,6 @@ export const TableDrop = <T extends BaseDataTable>({
                               extendFunction.buttonAddTitle ||
                               "Chỉnh sửa tạo mới"
                             }
-                            onClick={handleEditAddDataTable}
                             type="primary"
                             style={{
                               marginLeft: "8px",
