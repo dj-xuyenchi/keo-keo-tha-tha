@@ -95,8 +95,8 @@ export const SpanSetting = ({
         <Form form={form} onFinish={handleSubmit} layout="vertical">
           <Form.Item
             tooltip="Số cột tương ứng"
-            name="span"
             label="span"
+            name="span"
             rules={valid}
           >
             <InputNumberCustom

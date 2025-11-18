@@ -5,8 +5,10 @@ import { useDispatch } from "react-redux";
 export const useSelectComponent = () => {
   const dispatch = useDispatch();
 
-  const select = (component: ComponentData) => {
-    dispatch(setSelectComponent(component));
+  const select = (component: ComponentData | null) => {
+    if (component) {
+      dispatch(setSelectComponent(component));
+    }
   };
 
   return { select };

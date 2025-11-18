@@ -7,7 +7,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 export interface InputDropProps extends InputProps {
-  input: ComponentData;
+  input: ComponentData | null;
 }
 export const InputDrop = ({ input, ...restProps }: InputDropProps) => {
   return (
@@ -18,6 +18,7 @@ export const InputDrop = ({ input, ...restProps }: InputDropProps) => {
           pointerEvents: "none",
           cursor: "default",
         }}
+        size="small"
         {...restProps}
       />
     </WrapperDropComponent>

@@ -1,9 +1,12 @@
-.colDrop {
-    border: 0.5px dashed rgb(219, 219, 219);
-
+.col {
+    border: 0.5px dashed transparent;
     &:hover {
         border: 0.5px dashed rgb(175, 175, 175);
     }
+}
+
+.colDrop {
+    border: 0.5px dashed rgb(219, 219, 219);
 }
 
 .colBorder {

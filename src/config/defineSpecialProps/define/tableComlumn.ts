@@ -7,14 +7,18 @@ export const tableComlumn = {
   key: TABLE_COLUMN_KEY,
   valueType: "flex",
   apply: [DATA_TYPE.TABLE],
-  value: {} as TableColumnValue,
+  value: [] as TableColumnValue[],
   tooltip: "Cấu hình cột cho bảng dữ liệu",
 } as PropComponent;
 export const tableComlumnValid = (value: number): boolean => {
- 
   return true;
 };
 export interface TableColumnValue {
-          
+  title: string;
+  dataIndex: string;
+  key: string;
+  width: number;
+  onHeaderCellClass: string;
+  chidlren: TableColumnValue[];
+  algin: "center" | "left" | "right";
 }
-

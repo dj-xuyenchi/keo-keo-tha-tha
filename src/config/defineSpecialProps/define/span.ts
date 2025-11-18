@@ -7,7 +7,9 @@ export const span = {
   key: SPAN_KEY,
   valueType: "flex",
   apply: [GENERAL_TYPE.COL],
-  value: {} as SpanValue,
+  value: {
+    xl: 2,
+  } as SpanValue,
   tooltip: "Giá trị trong khoảng từ 1 - 24",
 } as PropComponent;
 export const spanValid = (value: number): boolean => {

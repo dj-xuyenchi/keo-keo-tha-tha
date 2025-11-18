@@ -11,7 +11,7 @@ import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 
 export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  component: ComponentData;
+  component: ComponentData | null;
   children: React.ReactNode;
 }
 

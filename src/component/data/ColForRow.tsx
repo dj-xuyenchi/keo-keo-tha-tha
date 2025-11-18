@@ -19,7 +19,12 @@ import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { Ref } from "react";
-import { SPAN_KEY, SpanValue } from "@/config/defineSpecialProps/define/span";
+import {
+  span,
+  SPAN_KEY,
+  SpanValue,
+} from "@/config/defineSpecialProps/define/span";
+import { PropComponent } from "@/entity/sidebar/PropComponent";
 export interface ColForRowProps extends ColProps {
   col: ComponentData;
   isFromSideBar: boolean;
@@ -95,7 +100,8 @@ export const ColForRow = ({
         xl={spanProp?.xl}
         xxl={spanProp?.xxl}
         className={clsx(
-          styles.colDrop,
+          styles.col,
+          isShowBorder && styles.colDrop,
           selectedComponent?.id === col.id
             ? "selectedComponent"
             : isShowBorder && styles.colBorder
@@ -135,6 +141,7 @@ export const defaultColDropObject = (id: string) => {
     id: id,
     type: GENERAL_TYPE.COL,
     inlineStyle: [] as InlineStyle[],
+    specialProps: [span] as PropComponent[],
   } as ComponentData;
 };
 

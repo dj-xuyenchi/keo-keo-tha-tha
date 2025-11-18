@@ -191,6 +191,11 @@ body {
 .table-custom-container .ant-collapse-header {
     align-items: center;
     padding-right: unset !important;
+    font-size: 12px
+}
+
+.table-custom-container .ant-collapse-expand-icon {
+    height: 18px !important;
 }
 
 .table-custom .ant-table-container {
@@ -243,6 +248,10 @@ body {
     z-index: 2;
     opacity: 1;
     pointer-events: none;
+}
+
+.table-custom-container .ant-table-thead {
+    font-size: 12px
 }
 
 .table-custom-container .ant-table-cell-fix-left,
@@ -559,4 +568,10 @@ body {
 
 .node-setting .ant-table-container {
     border-radius: unset !important;
+}
+
+
+
+.table-column-setting .ant-table-tbody {
+    display: none;
 }
