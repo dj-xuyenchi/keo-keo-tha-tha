@@ -17,10 +17,10 @@ import { RootState } from "@/store/store";
 import { useState } from "react";
 import { getColumns } from "./columns";
 import { SPAN_KEY } from "@/config/defineSpecialProps/define/span";
-import { SpanSetting } from "./special-prop-setting/SpanSetting";
+import { SpanSetting } from "./special-prop-setting/span/SpanSetting";
 import { useDispatch } from "react-redux";
 import { setSelectProp } from "../sideBarSlice";
-import { TableColumnSetting } from "./special-prop-setting/TableColumnSetting";
+import { TableColumnSetting } from "./special-prop-setting/table-column/TableColumnSetting";
 import { TABLE_COLUMN_KEY } from "@/config/defineSpecialProps/define/tableComlumn";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
