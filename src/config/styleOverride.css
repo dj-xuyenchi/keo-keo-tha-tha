@@ -131,6 +131,13 @@ body {
     box-shadow: unset;
 }
 
+/* Input */
+.input-number-custom {
+    width: 100% !important;
+}
+
+
+
 /* Collapse */
 .ant-collapse {
     border-radius: 0;

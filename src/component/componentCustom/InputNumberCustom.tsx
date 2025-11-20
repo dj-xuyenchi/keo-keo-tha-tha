@@ -11,6 +11,7 @@ export const InputNumberCustom = ({
 }: InputNumberPropsCustom) => {
   return (
     <InputNumber
+    className="input-number-custom"
       style={{
         ...defaultCss,
         ...style,

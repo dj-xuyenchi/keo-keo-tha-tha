@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import {
   Button,
+  Col,
   Flex,
   Form,
   Input,
@@ -31,17 +32,21 @@ import {
 } from "@/entity/canvas/ComponentData";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
-import { TABLE_COLUMN_KEY } from "@/config/defineSpecialProps/define/tableComlumn";
+import {
+  TABLE_COLUMN_KEY,
+  TableColumnValue,
+} from "@/config/defineSpecialProps/define/tableComlumn";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { Editor } from "@monaco-editor/react";
 import { CodeEditor } from "@/component/project-component/CodeEditor";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 
 import { DownOutlined } from "@ant-design/icons";
-import { findNodeByKey, renderPreviewCol } from "./service";
-import { ColumnType } from "antd/es/table";
+import { findNodeByKey } from "./service";
+import { ColumnsType, ColumnType } from "antd/es/table";
 import Panel from "antd/es/splitter/Panel";
 import { DataNode, EventDataNode } from "antd/es/tree";
+import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 const ROOT = "ROOT";
 export const TableColumnSetting = ({
   open,
@@ -52,17 +57,22 @@ export const TableColumnSetting = ({
 }) => {
   const sideBar = useSelector((state: RootState) => state.sideBar);
   const canvas = useSelector((state: RootState) => state.canvas);
+  const [form] = Form.useForm();
   const [treeColData, setTreeColData] = useState([
     {
+      dataIndex: "",
+      width: 0,
+      onHeaderCellClass: "",
+      algin: "center",
       title: "Danh sách cột",
       key: ROOT,
-      children: [] as TreeDataNode[],
+      children: [] as TableColumnValue[],
     },
-  ] as TreeDataNode[]);
+  ] as TableColumnValue[]);
   const [colSelectedKey, setColSelectedKey] = useState(ROOT);
 
   const dispatch = useDispatch();
-  const handleAddCol = (e) => {
+  const handleAddCol = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     if (!colSelectedKey) return;
 
@@ -105,13 +115,16 @@ export const TableColumnSetting = ({
         className="table-column-setting"
         style={{
           width: "1200px",
+          height: "300px",
         }}
       >
         <div>
-          <div></div>
           <Flex vertical gap="middle">
             <Splitter
-              style={{ height: 200, boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
+              style={{
+                minHeight: "160px",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+              }}
             >
               <Splitter.Panel
                 size={"30%"}
@@ -152,14 +165,47 @@ export const TableColumnSetting = ({
                   <ButtonCustom danger>Xóa cột</ButtonCustom>
                 </Row>
                 {colSelectedKey != ROOT && (
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    đ
-                  </Row>
+                  <Form form={form} layout="vertical">
+                    <Row gutter={16}>
+                      <Col span={8}>
+                        <Form.Item label="Title" name="title">
+                          <InputCustom placeholder="Tên cột" />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item label="Data index" name="dataIndex">
+                          <InputCustom placeholder="field mapping" />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item label="Key" name="key">
+                          <InputCustom placeholder="Key của cột" />
+                        </Form.Item>
+                      </Col>
+
+                      <Col span={8}>
+                        <Form.Item label="Độ dài" name="width">
+                          <InputNumberCustom
+                            placeholder="Độ dài cột"
+                            width={"100%"}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item label="Align" name="align">
+                          <SelectCustom
+                            placeholder="Căn chỉnh vị trí tên cột"
+                            options={[]}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={8}>
+                        <Form.Item label="Class" name="onHeaderCell">
+                          <InputCustom placeholder="Class tùy chỉnh" />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </Form>
                 )}
               </Splitter.Panel>
             </Splitter>
@@ -173,9 +219,7 @@ export const TableColumnSetting = ({
             rowKey="rowUUID"
             className="table-custom"
             bordered
-            columns={[].map((col) => {
-              return {};
-            })}
+            columns={treeColData[0].children}
             dataSource={[]}
             scroll={{ x: "100%" }}
           />
@@ -183,7 +227,6 @@ export const TableColumnSetting = ({
 
         <Row
           style={{
-            marginTop: "12px",
             display: "flex",
             justifyContent: "flex-end",
           }}

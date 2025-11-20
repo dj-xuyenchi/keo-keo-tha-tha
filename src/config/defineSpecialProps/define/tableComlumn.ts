@@ -19,6 +19,6 @@ export interface TableColumnValue {
   key: string;
   width: number;
   onHeaderCellClass: string;
-  chidlren: TableColumnValue[];
+  children: TableColumnValue[];
   algin: "center" | "left" | "right";
 }
