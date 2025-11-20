@@ -1,53 +1,37 @@
 import clsx from "clsx";
 import React, { Key, useEffect, useState } from "react";
-import {
-  span,
-  spanValid,
-  SpanValue,
-} from "@/config/defineSpecialProps/define/span";
+
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import {
-  Button,
-  Col,
-  Flex,
-  Form,
-  Input,
-  Row,
-  Space,
-  Splitter,
-  Switch,
-  Table,
-  Tree,
-  TreeDataNode,
-} from "antd";
+import { Col, ColorPicker, Flex, Form, Row, Splitter, Table, Tree } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { RuleObject } from "antd/es/form";
 import cloneDeep from "lodash/cloneDeep";
-import {
-  ComponentData,
-  findComponentById,
-} from "@/entity/canvas/ComponentData";
+
 import { useDispatch } from "react-redux";
-import { setData2Work } from "@/views/main/canvas/canvasSlice";
-import {
-  TABLE_COLUMN_KEY,
-  TableColumnValue,
-} from "@/config/defineSpecialProps/define/tableComlumn";
+import { TableColumnValue } from "@/config/defineSpecialProps/define/tableComlumn";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
-import { Editor } from "@monaco-editor/react";
-import { CodeEditor } from "@/component/project-component/CodeEditor";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 
 import { DownOutlined } from "@ant-design/icons";
 import { findNodeByKey } from "./service";
-import { ColumnsType, ColumnType } from "antd/es/table";
-import Panel from "antd/es/splitter/Panel";
 import { DataNode, EventDataNode } from "antd/es/tree";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 const ROOT = "ROOT";
+export const alignOptions = [
+  {
+    value: "left",
+    label: "Căn trái",
+  },
+  {
+    value: "center",
+    label: "Căn giữa",
+  },
+  {
+    value: "right",
+    label: "Căn phải",
+  },
+];
 export const TableColumnSetting = ({
   open,
   handleClose,
@@ -108,21 +92,24 @@ export const TableColumnSetting = ({
   ) => {
     setColSelectedKey(selectedKeys[0].toString() as string);
   };
-
+  const onSave = () => {
+    if (colSelectedKey === ROOT) {
+      return;
+    }
+    form.submit();
+  };
   return (
     <>
       <div
         className="table-column-setting"
         style={{
           width: "1200px",
-          height: "300px",
         }}
       >
         <div>
           <Flex vertical gap="middle">
             <Splitter
               style={{
-                minHeight: "160px",
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
               }}
             >
@@ -130,6 +117,7 @@ export const TableColumnSetting = ({
                 size={"30%"}
                 resizable={false}
                 style={{
+                  height: "220px",
                   padding: "10px 12px",
                 }}
               >
@@ -149,64 +137,127 @@ export const TableColumnSetting = ({
               >
                 <Row
                   style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
+                    marginBottom: "8px",
                   }}
                 >
-                  <ButtonCustom
+                  <Col span={12}>
+                    <ButtonCustom
+                      style={{
+                        marginRight: "4px",
+                      }}
+                      type="primary"
+                      onClick={handleAddCol}
+                    >
+                      Thêm {colSelectedKey === ROOT ? `cột` : `cột con`}
+                    </ButtonCustom>
+                  </Col>
+                  <Col
+                    span={12}
                     style={{
-                      marginRight: "4px",
+                      display: "flex",
+                      justifyContent: "flex-end",
                     }}
-                    type="primary"
-                    onClick={handleAddCol}
                   >
-                    Thêm {colSelectedKey === ROOT ? `cột` : `cột con`}
-                  </ButtonCustom>
-                  <ButtonCustom danger>Xóa cột</ButtonCustom>
+                    <ButtonCustom
+                      style={{
+                        marginRight: "4px",
+                      }}
+                      type="primary"
+                      disabled={colSelectedKey === ROOT}
+                      onClick={onSave}
+                    >
+                      Lưu
+                    </ButtonCustom>
+                    <ButtonCustom danger>Xóa cột</ButtonCustom>
+                  </Col>
                 </Row>
-                {colSelectedKey != ROOT && (
-                  <Form form={form} layout="vertical">
-                    <Row gutter={16}>
-                      <Col span={8}>
-                        <Form.Item label="Title" name="title">
-                          <InputCustom placeholder="Tên cột" />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item label="Data index" name="dataIndex">
-                          <InputCustom placeholder="field mapping" />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item label="Key" name="key">
-                          <InputCustom placeholder="Key của cột" />
-                        </Form.Item>
-                      </Col>
+                <Form
+                  form={form}
+                  layout="vertical"
+                  disabled={colSelectedKey === ROOT}
+                >
+                  <Row gutter={16}>
+                    <Col span={8}>
+                      <Form.Item
+                        label="Title"
+                        name="title"
+                        rules={[
+                          { required: true, message: "Vui lòng nhập tên cột" },
+                        ]}
+                      >
+                        <InputCustom placeholder="Tên cột" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        label="Data index"
+                        name="dataIndex"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập tên field cần mapping",
+                          },
+                        ]}
+                      >
+                        <InputCustom placeholder="field mapping" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        label="Key"
+                        name="key"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập key cho cột",
+                          },
+                        ]}
+                      >
+                        <InputCustom placeholder="Key của cột" />
+                      </Form.Item>
+                    </Col>
 
-                      <Col span={8}>
-                        <Form.Item label="Độ dài" name="width">
-                          <InputNumberCustom
-                            placeholder="Độ dài cột"
-                            width={"100%"}
-                          />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item label="Align" name="align">
-                          <SelectCustom
-                            placeholder="Căn chỉnh vị trí tên cột"
-                            options={[]}
-                          />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item label="Class" name="onHeaderCell">
-                          <InputCustom placeholder="Class tùy chỉnh" />
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  </Form>
-                )}
+                    <Col span={8}>
+                      <Form.Item
+                        label="Độ dài"
+                        name="width"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập độ dài cột",
+                          },
+                        ]}
+                      >
+                        <InputNumberCustom
+                          placeholder="Độ dài cột"
+                          width={"100%"}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        label="Align"
+                        name="align"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng chọn vị trí căn chỉnh cho cột",
+                          },
+                        ]}
+                      >
+                        <SelectCustom
+                          placeholder="Căn chỉnh vị trí tên cột"
+                          options={alignOptions}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item label="Màu nền" name="backgroundColor">
+                        <ColorPicker allowClear showText />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>
               </Splitter.Panel>
             </Splitter>
           </Flex>
@@ -229,6 +280,7 @@ export const TableColumnSetting = ({
           style={{
             display: "flex",
             justifyContent: "flex-end",
+            marginTop: "12px",
           }}
         >
           <ButtonCustom type="primary" title="Xác nhận" htmlType="submit" />

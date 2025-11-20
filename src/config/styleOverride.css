@@ -576,9 +576,3 @@ body {
 .node-setting .ant-table-container {
     border-radius: unset !important;
 }
-
-
-
-.table-column-setting .ant-table-tbody {
-    display: none;
-}

@@ -441,7 +441,15 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
           </div>
         )}
       </div>
-      <div className={styles.componentList}></div>
+      <div className={styles.componentList}>
+        <Tree
+          showLine={true}
+          showIcon={true}
+          treeData={solutionInfomation}
+          expandAction="click"
+          onSelect={handleNodeClick}
+        />
+      </div>
       <ModalCreate
         isCreateFolder={isCreateFolder}
         contextMenu={contextMenu}
