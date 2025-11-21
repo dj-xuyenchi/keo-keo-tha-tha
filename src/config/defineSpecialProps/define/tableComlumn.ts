@@ -18,7 +18,10 @@ export interface TableColumnValue {
   dataIndex: string;
   key: string;
   width: number;
-  onHeaderCellClass: string;
+  onHeaderCellClass?: string;
   children: TableColumnValue[];
-  algin: "center" | "left" | "right";
+  backgroundColor?: string;
+  fontColor?: string;
+  align: "center" | "left" | "right";
+  fixed?: "right" | "left";
 }

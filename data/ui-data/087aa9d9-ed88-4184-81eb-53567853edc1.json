@@ -1,1 +1,87 @@
-[{"id":"8e09bcbb-0be0-4880-864b-59c8109a77ee","type":"PANEL","inlineStyle":[{"styleKey":"MARGIN_BOTTOM","value":"12px"},{"styleKey":"MIN_HEIGHT","value":"40px"}],"specialProps":[],"componentChildren":[{"id":"789e97ef-72fa-40f1-9684-9620f5db4606","type":"ROW","inlineStyle":[],"specialProps":[{"name":"Form","key":"FORM_KEY","valueType":"flex","apply":["ROW"],"value":{"formName":"customerForm"}}],"componentChildren":[{"id":"5af73af6-bf85-4709-baef-77fcdaf23d33e","type":"COL","inlineStyle":[],"specialProps":[{"name":"span","key":"SPAN_KEY","valueType":"flex","apply":["COL"],"value":{"span":24,"xs":24,"sm":24,"md":24,"lg":24,"xl":24,"xxl":24}}],"componentChildren":[{"type":"TABLE","componentChildren":[],"id":"b1722304-8e74-44aa-b4aa-d1ac982444df"}]}]}]},{"id":"86c9f41a-abaf-4b5b-b247-6c03a1ff4034","type":"PANEL","inlineStyle":[{"styleKey":"MARGIN_BOTTOM","value":"12px"},{"styleKey":"MIN_HEIGHT","value":"40px"}],"specialProps":[],"componentChildren":[{"id":"a1bb3e6f-6853-4746-b446-34f5a79462a5","type":"ROW","inlineStyle":[],"specialProps":[{"name":"Form","key":"FORM_KEY","valueType":"flex","apply":["ROW"],"value":{"formName":"customerForm"}}],"componentChildren":[{"id":"55ea900e-2411-43ce-a59e-f94efcd19f08","type":"COL","inlineStyle":[],"specialProps":[{"name":"span","key":"SPAN_KEY","valueType":"flex","apply":["COL"],"value":{"xl":24},"tooltip":"Giá trị trong khoảng từ 1 - 24"}],"componentChildren":[{"type":"TABLE","componentChildren":[],"id":"91b44c06-532d-4523-bdc4-4b2d59664b65"}]}]},{"id":"7e27df58-1fe9-4f75-bee0-32ac67638a63","type":"ROW","inlineStyle":[],"specialProps":[{"name":"Form","key":"FORM_KEY","valueType":"flex","apply":["ROW"],"value":{"formName":"customerForm"}}]}]}]
+[
+          {
+                    "id": "3f0c1cd2-c909-40ed-9971-3a149d197893",
+                    "type": "PANEL",
+                    "inlineStyle": [
+                              {
+                                        "styleKey": "MARGIN_BOTTOM",
+                                        "value": "12px"
+                              },
+                              {
+                                        "styleKey": "MIN_HEIGHT",
+                                        "value": "40px"
+                              }
+                    ],
+                    "specialProps": [],
+                    "componentChildren": [
+                              {
+                                        "id": "78a02b68-d1ef-48b5-af85-e35dd4aa1e36",
+                                        "type": "ROW",
+                                        "inlineStyle": [],
+                                        "specialProps": [
+                                                  {
+                                                            "name": "Form",
+                                                            "key": "FORM_KEY",
+                                                            "valueType": "flex",
+                                                            "apply": [
+                                                                      "ROW"
+                                                            ],
+                                                            "value": {
+                                                                      "formName": "customerForm"
+                                                            }
+                                                  }
+                                        ],
+                                        "componentChildren": [
+                                                  {
+                                                            "id": "da95190a-c04c-499f-b439-6dab89616fa2",
+                                                            "type": "COL",
+                                                            "inlineStyle": [],
+                                                            "specialProps": [
+                                                                      {
+                                                                                "name": "span",
+                                                                                "key": "SPAN_KEY",
+                                                                                "valueType": "flex",
+                                                                                "apply": [
+                                                                                          "COL"
+                                                                                ],
+                                                                                "value": {
+                                                                                          "xl": 23
+                                                                                },
+                                                                                "tooltip": "Giá trị trong khoảng từ 1 - 24"
+                                                                      }
+                                                            ],
+                                                            "componentChildren": [
+                                                                      {
+                                                                                "id": "44e5ed42-0fe1-49b7-a37c-bfd1bcfa250c",
+                                                                                "type": "TABLE",
+                                                                                "inlineStyle": [],
+                                                                                "specialProps": [
+                                                                                          {
+                                                                                                    "name": "Cột table",
+                                                                                                    "key": "TABLE_COLUMN_KEY",
+                                                                                                    "valueType": "flex",
+                                                                                                    "apply": [
+                                                                                                              "TABLE"
+                                                                                                    ],
+                                                                                                    "value": [
+                                                                                                              {
+                                                                                                                        "title": "Cột mới",
+                                                                                                                        "key": "d1c78eb3-9f48-467b-96ac-da109c2360f7",
+                                                                                                                        "children": [],
+                                                                                                                        "fontColor": "#000000",
+                                                                                                                        "dataIndex": "",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 0
+                                                                                                              }
+                                                                                                    ],
+                                                                                                    "tooltip": "Cấu hình cột cho bảng dữ liệu"
+                                                                                          }
+                                                                                ]
+                                                                      }
+                                                            ]
+                                                  }
+                                        ]
+                              }
+                    ]
+          }
+]

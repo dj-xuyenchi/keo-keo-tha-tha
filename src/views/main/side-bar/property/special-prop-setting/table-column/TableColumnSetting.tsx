@@ -9,7 +9,11 @@ import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import cloneDeep from "lodash/cloneDeep";
 
 import { useDispatch } from "react-redux";
-import { TableColumnValue } from "@/config/defineSpecialProps/define/tableComlumn";
+import {
+  TABLE_COLUMN_KEY,
+  TableColumnValue,
+  tableComlumn,
+} from "@/config/defineSpecialProps/define/tableComlumn";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 
@@ -17,6 +21,12 @@ import { DownOutlined } from "@ant-design/icons";
 import { findNodeByKey } from "./service";
 import { DataNode, EventDataNode } from "antd/es/tree";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
+import { Color } from "antd/es/color-picker";
+import {
+  ComponentData,
+  findComponentById,
+} from "@/entity/canvas/ComponentData";
+import { setData2Work } from "@/views/main/canvas/canvasSlice";
 const ROOT = "ROOT";
 export const alignOptions = [
   {
@@ -30,6 +40,20 @@ export const alignOptions = [
   {
     value: "right",
     label: "Căn phải",
+  },
+];
+export const fixedOptions = [
+  {
+    value: null,
+    label: "Không fix",
+  },
+  {
+    value: "left",
+    label: "Fix trái",
+  },
+  {
+    value: "right",
+    label: "Fixed phải",
   },
 ];
 export const TableColumnSetting = ({
@@ -47,7 +71,7 @@ export const TableColumnSetting = ({
       dataIndex: "",
       width: 0,
       onHeaderCellClass: "",
-      algin: "center",
+      align: "center",
       title: "Danh sách cột",
       key: ROOT,
       children: [] as TableColumnValue[],
@@ -66,11 +90,16 @@ export const TableColumnSetting = ({
         title: "Cột mới",
         key: uuidv4(),
         children: [],
-      };
+        fontColor: "#000000",
+        dataIndex: "",
+        align: "center",
+        width: 0,
+      } as TableColumnValue;
 
       const targetNode = findNodeByKey(newData, colSelectedKey);
-      if (!targetNode) return newData;
-
+      if (!targetNode) {
+        return newData;
+      }
       if (!targetNode.children) {
         targetNode.children = [];
       }
@@ -91,12 +120,73 @@ export const TableColumnSetting = ({
     }
   ) => {
     setColSelectedKey(selectedKeys[0].toString() as string);
+    const column = findNodeByKey(
+      treeColData,
+      selectedKeys[0].toString() as string
+    );
+    if (column) {
+      form.setFieldsValue({
+        title: column.title,
+        key: column.key,
+        align: column.align,
+        width: column.width,
+        dataIndex: column.dataIndex,
+        backgroundColor: column.backgroundColor,
+      });
+    }
   };
   const onSave = () => {
     if (colSelectedKey === ROOT) {
       return;
     }
+
     form.submit();
+  };
+  const onFinish = (value: TableColumnValue) => {
+    setTreeColData((prev) => {
+      const newData = cloneDeep(prev);
+      const target = findNodeByKey(newData, colSelectedKey);
+
+      if (target) {
+        // convert color sang hex nếu là đối tượng Color
+        if (
+          value.backgroundColor &&
+          typeof value.backgroundColor !== "string"
+        ) {
+          value.backgroundColor = (
+            value.backgroundColor as Color
+          ).toHexString();
+        }
+        if (value.fontColor && typeof value.fontColor !== "string") {
+          value.fontColor = (value.fontColor as Color).toHexString();
+        }
+        // ghi đè field vào node
+        Object.assign(target, value);
+      }
+
+      return newData;
+    });
+
+    const workList = cloneDeep(canvas.dataWork) as ComponentData[];
+    const componentSelected = findComponentById(
+      workList,
+      canvas.selectedComponent?.id as string
+    );
+    const tableColProp = componentSelected?.specialProps?.find((prop) => {
+      return prop.key === TABLE_COLUMN_KEY;
+    });
+    console.error(componentSelected);
+
+    if (tableColProp) {
+      tableColProp.value = treeColData[0].children;
+    } else {
+      componentSelected?.specialProps.push({
+        ...tableComlumn,
+        value: treeColData[0].children,
+      });
+      console.error(canvas);
+    }
+    dispatch(setData2Work(workList));
   };
   return (
     <>
@@ -175,6 +265,7 @@ export const TableColumnSetting = ({
                   form={form}
                   layout="vertical"
                   disabled={colSelectedKey === ROOT}
+                  onFinish={onFinish}
                 >
                   <Row gutter={16}>
                     <Col span={8}>
@@ -251,9 +342,22 @@ export const TableColumnSetting = ({
                         />
                       </Form.Item>
                     </Col>
-                    <Col span={8}>
+                    <Col span={4}>
                       <Form.Item label="Màu nền" name="backgroundColor">
                         <ColorPicker allowClear showText />
+                      </Form.Item>
+                    </Col>
+                    <Col span={4}>
+                      <Form.Item label="Màu chữ" name="fontColor">
+                        <ColorPicker allowClear showText />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item label="Fixed column" name="fixed">
+                        <SelectCustom
+                          placeholder="Fixed cột"
+                          options={fixedOptions}
+                        />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -270,7 +374,18 @@ export const TableColumnSetting = ({
             rowKey="rowUUID"
             className="table-custom"
             bordered
-            columns={treeColData[0].children}
+            columns={treeColData[0].children.map((col) => {
+              return {
+                ...col,
+                onHeaderCell: (column) => ({
+                  style: {
+                    backgroundColor: col.backgroundColor,
+                    fontColor: col.fontColor,
+                  },
+                  onClick: () => console.log("header clicked"),
+                }),
+              };
+            })}
             dataSource={[]}
             scroll={{ x: "100%" }}
           />
