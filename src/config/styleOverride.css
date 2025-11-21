@@ -264,7 +264,7 @@ body {
 .table-custom-container .ant-table-cell-fix-left,
 .table-custom-container .ant-table-cell-fix-right {
     z-index: 3 !important;
-    background-color: white !important;
+    /* background-color: white !important; */
 }
 
 .view-mode .ant-input-outlined.ant-input-disabled {

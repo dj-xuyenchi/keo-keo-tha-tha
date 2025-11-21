@@ -22,7 +22,11 @@ import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { defaultCss } from "@/config/defaultCss";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
-import { tableComlumn } from "@/config/defineSpecialProps/define/tableComlumn";
+import {
+  TABLE_COLUMN_KEY,
+  TableColumnValue,
+  tableComlumn,
+} from "@/config/defineSpecialProps/define/tableComlumn";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
@@ -53,6 +57,9 @@ export const TableDrop = <T extends BaseDataTable>({
   table,
   ...restProps
 }: TablePropsCustom<T>) => {
+  const tableColProp = table.specialProps.find(
+    (prop) => prop.key === TABLE_COLUMN_KEY
+  ) as PropComponent;
   const [visibleColumns, setVisibleColumns] = useState(propertyDetailColumns);
   const [activeCollap, setActiveCollap] = useState(["1"]);
   const sessionCaching = useSelector(
@@ -95,7 +102,19 @@ export const TableDrop = <T extends BaseDataTable>({
                     loading={loading}
                     style={{ ...style }}
                     bordered
-                    columns={visibleColumns}
+                    columns={(
+                      (tableColProp?.value as TableColumnValue[]) ?? []
+                    ).map((col) => {
+                      return {
+                        ...col,
+                        onHeaderCell: (column) => ({
+                          style: {
+                            backgroundColor: col.backgroundColor,
+                            fontColor: col.fontColor,
+                          },
+                        }),
+                      };
+                    })}
                     dataSource={[]}
                     scroll={{ x: "100%" }}
                     {...restProps}

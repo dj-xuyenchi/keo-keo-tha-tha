@@ -66,16 +66,17 @@ export const TableColumnSetting = ({
   const sideBar = useSelector((state: RootState) => state.sideBar);
   const canvas = useSelector((state: RootState) => state.canvas);
   const [form] = Form.useForm();
+  const initTree = {
+    dataIndex: "",
+    width: 0,
+    onHeaderCellClass: "",
+    align: "center",
+    title: "Danh sách cột",
+    key: ROOT,
+    children: [] as TableColumnValue[],
+  };
   const [treeColData, setTreeColData] = useState([
-    {
-      dataIndex: "",
-      width: 0,
-      onHeaderCellClass: "",
-      align: "center",
-      title: "Danh sách cột",
-      key: ROOT,
-      children: [] as TableColumnValue[],
-    },
+    initTree,
   ] as TableColumnValue[]);
   const [colSelectedKey, setColSelectedKey] = useState(ROOT);
 
@@ -166,7 +167,8 @@ export const TableColumnSetting = ({
 
       return newData;
     });
-
+  };
+  const handleSave = () => {
     const workList = cloneDeep(canvas.dataWork) as ComponentData[];
     const componentSelected = findComponentById(
       workList,
@@ -175,8 +177,6 @@ export const TableColumnSetting = ({
     const tableColProp = componentSelected?.specialProps?.find((prop) => {
       return prop.key === TABLE_COLUMN_KEY;
     });
-    console.error(componentSelected);
-
     if (tableColProp) {
       tableColProp.value = treeColData[0].children;
     } else {
@@ -187,7 +187,19 @@ export const TableColumnSetting = ({
       console.error(canvas);
     }
     dispatch(setData2Work(workList));
+    handleClose();
   };
+  useEffect(() => {
+    if (open) {
+      const tableColProp = canvas.selectedComponent?.specialProps?.find(
+        (prop) => prop.key === TABLE_COLUMN_KEY
+      );
+      if (tableColProp) {
+        initTree.children = tableColProp.value as TableColumnValue[];
+        setTreeColData([initTree] as TableColumnValue[]);
+      }
+    }
+  }, [canvas.selectedComponent]);
   return (
     <>
       <div
@@ -398,7 +410,7 @@ export const TableColumnSetting = ({
             marginTop: "12px",
           }}
         >
-          <ButtonCustom type="primary" title="Xác nhận" htmlType="submit" />
+          <ButtonCustom type="primary" title="Xác nhận" onClick={handleSave} />
         </Row>
       </div>
     </>
