@@ -39,6 +39,8 @@
     gap: 6px;
 }
 
+
+
 .tree-folder .ant-tree-node-content-wrapper {
     display: flex;
     align-items: center;
@@ -58,6 +60,10 @@
     display: none !important;
 }
 
+.tree-component .ant-tree-iconEle {
+    display: inline-flex !important;
+    align-items: center;
+}
 
 /*  */
 

@@ -6,6 +6,7 @@ import { NodeDragEventParams } from "rc-tree/lib/contextTypes";
 import React, { Key, ReactNode } from "react";
 
 import { v4 as uuidv4 } from "uuid";
+import { ComponentData } from "../canvas/ComponentData";
 export interface FileFolderTree extends TreeDataNode {
   isOpen: boolean;
   isRoot: boolean;
@@ -51,7 +52,9 @@ const mapIcon = (icon: string) => {
     width: 20,
   });
 };
-export const getAllKeys = (nodes: FileFolderTree[]): string[] => {
+export const getAllKeys = (
+  nodes: FileFolderTree[]
+): string[] => {
   let keys: string[] = [];
   for (const node of nodes) {
     keys.push(node.key);

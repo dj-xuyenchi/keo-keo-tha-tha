@@ -9,6 +9,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { useDrag } from "react-dnd";
 import { acceptType } from "@/config/sidebar/acceptType";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 
 export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -35,6 +36,12 @@ export const WrapperDropComponent = ({
   const [{ isDragging }, dragRef, preview] = useDrag(
     () => ({
       type: acceptType,
+      canDrag: () => {
+        return (
+          component?.type !== GENERAL_TYPE.COL &&
+          component?.type !== GENERAL_TYPE.ROW
+        );
+      },
       item: {
         ...component,
         type: component?.type,

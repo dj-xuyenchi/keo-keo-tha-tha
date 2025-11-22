@@ -1,5 +1,11 @@
 import { IconFileFolder } from "@/component/icon-foulder/IconFileFolder";
-import { CSS, JAVA_SCRIPT, REACT, SASS, TYPE_SCRIPT } from "@/config/folder-data/fileType";
+import {
+  CSS,
+  JAVA_SCRIPT,
+  REACT,
+  SASS,
+  TYPE_SCRIPT,
+} from "@/config/folder-data/fileType";
 import {
   CSS_DATA,
   JS_DATA,
@@ -7,66 +13,85 @@ import {
   TS_DATA,
   UI_DATA,
 } from "@/config/folder-data/folderDataLocation";
-import { LAST_OPEN_FILE } from "@/config/folder-data/sessionCachingKey";
+import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 import { TreeNodeProps } from "antd";
 import React from "react";
+import { IconTree } from "./IconTree";
+import { ComponentData } from "@/entity/canvas/ComponentData";
+
 export const getNodeOpenIcon = (node: TreeNodeProps) => {
   const open = node.expanded;
   switch (node.data.key) {
     case "0-0-0":
       return open
         ? React.createElement(IconFileFolder, {
-          icon: "uiOpen",
-          height: 18,
-          width: 18,
-        })
+            icon: "uiOpen",
+            height: 18,
+            width: 18,
+          })
         : React.createElement(IconFileFolder, {
-          icon: "ui",
-          height: 18,
-          width: 18,
-        });
+            icon: "ui",
+            height: 18,
+            width: 18,
+          });
     case "1-0-0":
       return open
         ? React.createElement(IconFileFolder, {
-          icon: "utilOpen",
-          height: 18,
-          width: 18,
-        })
+            icon: "utilOpen",
+            height: 18,
+            width: 18,
+          })
         : React.createElement(IconFileFolder, {
-          icon: "util",
-          height: 18,
-          width: 18,
-        });
+            icon: "util",
+            height: 18,
+            width: 18,
+          });
 
     case "2-0-0":
       return open
         ? React.createElement(IconFileFolder, {
-          icon: "settingOpen",
-          height: 18,
-          width: 18,
-        })
+            icon: "settingOpen",
+            height: 18,
+            width: 18,
+          })
         : React.createElement(IconFileFolder, {
-          icon: "setting",
-          height: 18,
-          width: 18,
-        });
+            icon: "setting",
+            height: 18,
+            width: 18,
+          });
 
     default:
       return open
         ? React.createElement(IconFileFolder, {
-          icon: "openFolder",
-          height: 18,
-          width: 18,
-        })
+            icon: "openFolder",
+            height: 18,
+            width: 18,
+          })
         : React.createElement(IconFileFolder, {
-          icon: "folder1",
-          height: 18,
-          width: 18,
-        });
+            icon: "folder1",
+            height: 18,
+            width: 18,
+          });
   }
 };
-
+export const getComponentIcon = (type: string) => {
+  return React.createElement(IconTree, {
+    type: type,
+    height: 18,
+    width: 18,
+  });
+};
+export const getAllIdComponent = (nodes: ComponentData[]): string[] => {
+  let ids: string[] = [];
+  for (const node of nodes) {
+    ids.push(node.id);
+    if (node.componentChildren) {
+      ids = ids.concat(getAllIdComponent(node.componentChildren));
+    }
+  }
+  return ids;
+};
 export const createFile = async (
   fileName: string,
   fileType: string,
@@ -131,18 +156,20 @@ export const deleteFile = async (fileKey: string, fileType: string) => {
   return await window.electronAPI.deleteFile(folder + fileKey + ".json");
 };
 
-
-export const getSessionCacheValueByKey = (sessionCaching: SessionCaching[], key: string): string => {
+export const getSessionCacheValueByKey = (
+  sessionCaching: SessionCaching[],
+  key: string
+): string => {
   if (sessionCaching.length > 0) {
     const file = sessionCaching.find((item) => {
-      return item.key === key
-    })
+      return item.key === key;
+    });
     if (file) {
-      return file.value
+      return file.value;
     } else {
-      return ''
+      return "";
     }
   } else {
-    return ''
+    return "";
   }
-}
+};

@@ -1,6 +1,8 @@
 import { TYPE_DROP } from "@/config/sidebar/TypeComponent";
 import { InlineStyle } from "./InlineStyle";
 import { PropComponent } from "../sidebar/PropComponent";
+import { TreeDataNode } from "antd";
+import { getComponentIcon } from "@/views/main/solution/service";
 
 export interface ComponentData {
   id: string;
@@ -37,4 +39,12 @@ export const findComponentById = (
     }
   }
   return null;
+};
+export const convertToTreeNode = (node: ComponentData): TreeDataNode => {
+  return {
+    title: node.type, // hoặc dùng node.id nếu bạn muốn
+    key: node.id,
+    icon: getComponentIcon(node.type),
+    children: node.componentChildren?.map(convertToTreeNode) || [],
+  } as TreeDataNode;
 };

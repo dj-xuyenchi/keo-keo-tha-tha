@@ -36,6 +36,7 @@ import {
   deleteFile,
   getSessionCacheValueByKey,
   getNodeOpenIcon,
+  getAllIdComponent,
 } from "./service";
 import { ModalRename } from "./ModalRename";
 import {
@@ -50,7 +51,7 @@ import {
 } from "@/config/folder-data/fileType";
 import { getMessageInstance } from "@/config/messageContext";
 import { NodeDragEventParams } from "rc-tree/lib/contextTypes";
-import { EventDataNode } from "antd/es/tree";
+import { DataNode, EventDataNode } from "antd/es/tree";
 import { ModalDelete } from "./ModalDelete";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -58,6 +59,11 @@ import { RootState } from "@/store/store";
 import { setFileClick } from "../canvas/canvasSlice";
 import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { LAST_OPEN_FILE } from "@/config/folder-data/sessionCachingKey";
+import {
+  convertToTreeNode,
+  findComponentById,
+} from "@/entity/canvas/ComponentData";
+import { useSelectComponent } from "@/hook/useSelectComponent";
 
 export interface SolutionPanelProps {
   justClick: boolean;
@@ -86,6 +92,9 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
   });
   const messageApi = getMessageInstance();
   const global = useSelector((state: RootState) => state.global);
+  const canvas = useSelector((state: RootState) => state.canvas);
+
+  const { select } = useSelectComponent();
   const sessionCaching = useSelector(
     (state: RootState) => state.global.sessionCaching
   );
@@ -196,7 +205,22 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
 
     setSolutionInformation(folderGoFisrt(treeData));
   };
-
+  const handleComponentClick = (
+    selectedKeys: Key[],
+    info: {
+      event: "select";
+      selected: boolean;
+      node: EventDataNode<DataNode>;
+      selectedNodes: DataNode[];
+      nativeEvent: MouseEvent;
+    }
+  ) => {
+    const component = findComponentById(
+      canvas.dataWork,
+      selectedKeys[0].toString()
+    );
+    select(component);
+  };
   const handleNodeClick = (
     _selectedKeys: React.Key[],
     info: { node: { key: string; fileType: string } }
@@ -442,12 +466,40 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
         )}
       </div>
       <div className={styles.componentList}>
-        <Tree
-          showLine={true}
-          showIcon={true}
-          treeData={solutionInfomation}
-          expandAction="click"
-          onSelect={handleNodeClick}
+        <Tabs
+          type="card"
+          defaultActiveKey="1"
+          items={[{}].map((_, i) => {
+            const id = String(i + 1);
+            return {
+              label: "Kết cấu",
+              key: id,
+              children: (
+                <div
+                  style={{
+                    height: "400px", // trừ chiều cao tab header (~40px)
+                    overflowY: "auto", // scroll chỉ nội dung
+                  }}
+                >
+                  <div
+                    style={{
+                      overflow: "scroll",
+                    }}
+                  >
+                    <Tree
+                      expandedKeys={getAllIdComponent(canvas.dataWork)}
+                      className="tree-component"
+                      showLine={true}
+                      showIcon={true}
+                      treeData={canvas.dataWork.map(convertToTreeNode)}
+                      expandAction="click"
+                      onSelect={handleComponentClick}
+                    />
+                  </div>
+                </div>
+              ),
+            };
+          })}
         />
       </div>
       <ModalCreate
