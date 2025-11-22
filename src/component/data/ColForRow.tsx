@@ -1,6 +1,9 @@
 import styles from "./style/col.module.scss";
 
-import { ComponentData } from "@/entity/canvas/ComponentData";
+import {
+  ComponentData,
+  findComponentById,
+} from "@/entity/canvas/ComponentData";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { Col, ColProps } from "antd";
@@ -14,7 +17,11 @@ import { useSelectComponent } from "@/hook/useSelectComponent";
 import { acceptType } from "@/config/sidebar/acceptType";
 import { useDrop } from "react-dnd";
 import { DropDragItem } from "@/entity/DropDragItem";
-import { addChildren2Component } from "@/views/main/canvas/service";
+import {
+  addChildren2Component,
+  addComponentToParent,
+  removeComponentById,
+} from "@/views/main/canvas/service";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
@@ -25,6 +32,7 @@ import {
   SpanValue,
 } from "@/config/defineSpecialProps/define/span";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
+import cloneDeep from "lodash/cloneDeep";
 export interface ColForRowProps extends ColProps {
   col: ComponentData;
   isFromSideBar: boolean;
@@ -65,12 +73,30 @@ export const ColForRow = ({
         ) {
           return;
         }
-        const res = addChildren2Component(
-          col.id,
-          buildChildren(item),
-          canvas.dataWork
-        );
-        dispatch(setData2Work(res));
+        const draggedId = item.id; // id B
+        const newParentId = col.id; // A2
+
+        if (!draggedId || !newParentId) {
+          return;
+        }
+
+        // Clone data
+        let newTree = cloneDeep(canvas.dataWork);
+
+        // 1. Tìm lại component B (vì item là bản copy, không phải reference)
+        const draggedComp = findComponentById(newTree, draggedId);
+        if (!draggedComp) {
+          return;
+        }
+
+        // 2. Xoá B khỏi parent cũ
+        newTree = removeComponentById(newTree, draggedId);
+
+        // 3. Thêm B vào parent mới
+        newTree = addComponentToParent(newTree, newParentId, draggedComp);
+
+        // 4. Cập nhật redux
+        dispatch(setData2Work(newTree));
       },
       collect: (monitor) => ({
         isOver: monitor.isOver({ shallow: true }),

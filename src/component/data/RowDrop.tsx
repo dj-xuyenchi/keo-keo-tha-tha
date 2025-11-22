@@ -4,7 +4,7 @@ import { Row } from "antd";
 import styles from "./style/row.module.scss";
 import { GenComponent } from "./GenComponent";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
-import { WrapperDropComponent } from "./WrapperDropComponent";
+import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { acceptType } from "@/config/sidebar/acceptType";
@@ -23,76 +23,85 @@ import { addChildren2Component } from "@/views/main/canvas/service";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { useDispatch } from "react-redux";
 
-export interface RowDropProps {
-    row: ComponentData;
+export interface RowDropProps extends WrapperBase {
+  row: ComponentData;
 }
 
-export const RowDrop = ({ row, ...restProps }: RowDropProps) => {
-    const inlineStyle = buildStyle(row);
-    console.info(inlineStyle);
+export const RowDrop = ({ row, widthDefault, ...restProps }: RowDropProps) => {
+  const inlineStyle = buildStyle(row);
+  console.info(inlineStyle);
 
-    const canvas = useSelector((state: RootState) => state.canvas);
-    const sessionCaching = useSelector(
-        (state: RootState) => state.global.sessionCaching
-    );
+  const canvas = useSelector((state: RootState) => state.canvas);
+  const sessionCaching = useSelector(
+    (state: RootState) => state.global.sessionCaching
+  );
 
-    const dispatch = useDispatch();
-    const isShowBorder = getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === 'true';
-    const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
-        accept: acceptType,
-        canDrop: (item: DropDragItem) => {
-            // Row chỉ nhận Col khi thả vào
-            return item?.type === GENERAL_TYPE.COL
-        },
-        hover(item: DropDragItem, monitor) { },
-        drop: (item: DropDragItem, monitor) => {
-            const res = addChildren2Component(
-                row.id,
-                buildChildren(item),
-                canvas.dataWork
+  const dispatch = useDispatch();
+  const isShowBorder =
+    getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
+  const [{ isOver, canDrop }, dropRef] = useDrop(
+    () => ({
+      accept: acceptType,
+      canDrop: (item: DropDragItem) => {
+        // Row chỉ nhận Col khi thả vào
+        return item?.type === GENERAL_TYPE.COL;
+      },
+      hover(item: DropDragItem, monitor) {},
+      drop: (item: DropDragItem, monitor) => {
+        const res = addChildren2Component(
+          row.id,
+          buildChildren(item),
+          canvas.dataWork
+        );
+
+        dispatch(setData2Work(res));
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver({ shallow: true }),
+        canDrop: monitor.canDrop(),
+      }),
+    }),
+    [canvas]
+  );
+
+  const isActive = isOver && canDrop;
+  return (
+    <WrapperDropComponent
+      widthDefault={widthDefault}
+      component={row}
+      className={clsx(isShowBorder && "dashUnselect")}
+    >
+      <Row
+        ref={dropRef as unknown as Ref<HTMLDivElement> | undefined}
+        className={clsx(styles.rowContainer)}
+        style={{
+          ...inlineStyle,
+          ...defaultCss,
+          border: isActive ? "1px dashed #4caf50" : "1px dashed transparent",
+          backgroundColor: isActive ? "#e8f5e9" : isOver ? "#f0f0f0" : "white",
+          transition: "background-color 0.2s",
+          ...(widthDefault ? { width: widthDefault } : {}),
+        }}
+        {...restProps}
+      >
+        {row.componentChildren &&
+          row.componentChildren.map((component: ComponentData) => {
+            return (
+              <>
+                <GenComponent key={component.id} component={component} />
+              </>
             );
-
-            dispatch(setData2Work(res));
-        },
-        collect: (monitor) => ({
-            isOver: monitor.isOver({ shallow: true }),
-            canDrop: monitor.canDrop(),
-        }),
-    }), [canvas]);
-
-    const isActive = isOver && canDrop;
-    return (
-        <WrapperDropComponent component={row} className={clsx(isShowBorder && "dashUnselect")}>
-            <Row
-                ref={dropRef as unknown as Ref<HTMLDivElement> | undefined}
-                className={clsx(styles.rowContainer)}
-                style={{
-                    ...inlineStyle,
-                    ...defaultCss,
-                    border: isActive ? "1px dashed #4caf50" : "",
-                    backgroundColor: isActive ? "#e8f5e9" : isOver ? "#f0f0f0" : "white",
-                    transition: "background-color 0.2s",
-                }}
-                {...restProps}
-            >
-                {row.componentChildren &&
-                    row.componentChildren.map((component: ComponentData) => {
-                        return (
-                            <>
-                                <GenComponent key={component.id} component={component} />
-                            </>
-                        );
-                    })}
-            </Row>
-        </WrapperDropComponent>
-    );
+          })}
+      </Row>
+    </WrapperDropComponent>
+  );
 };
 
 export const defaultRowDropObject = (id: string) => {
-    return {
-        id: id,
-        type: GENERAL_TYPE.ROW,
-        inlineStyle: [] as InlineStyle[],
-        specialProps: [form] as PropComponent[],
-    } as ComponentData;
+  return {
+    id: id,
+    type: GENERAL_TYPE.ROW,
+    inlineStyle: [] as InlineStyle[],
+    specialProps: [form] as PropComponent[],
+  } as ComponentData;
 };

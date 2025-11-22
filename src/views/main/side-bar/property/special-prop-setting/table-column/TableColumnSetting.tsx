@@ -92,6 +92,7 @@ export const TableColumnSetting = ({
     initTree,
   ] as TableColumnValue[]);
   const [colSelectedKey, setColSelectedKey] = useState(ROOT);
+  const [modal, modalContextHolder] = Modal.useModal();
 
   const dispatch = useDispatch();
   const handleAddCol = (e: { stopPropagation: () => void }) => {
@@ -186,12 +187,13 @@ export const TableColumnSetting = ({
       return;
     }
 
-    Modal.confirm({
+    modal.confirm({
       title: "Bạn có chắc muốn xoá cột này?",
       content: "Thao tác này không thể hoàn tác.",
       okText: "Xoá",
       cancelText: "Hủy",
       okType: "danger",
+      centered: true,
       onOk: () => {
         const tree = cloneDeep(treeColData[0].children);
         const newCols = deleteColRecursive(tree, colSelectedKey);
@@ -200,7 +202,7 @@ export const TableColumnSetting = ({
           children: newCols as TableColumnValue[],
         };
         setTreeColData([newData] as TableColumnValue[]);
-        setColSelectedKey(ROOT); // clear selection
+        setColSelectedKey(ROOT);
       },
     });
   };
@@ -259,6 +261,7 @@ export const TableColumnSetting = ({
   }, [canvas.selectedComponent]);
   return (
     <>
+      {modalContextHolder}
       <div
         className="table-column-setting"
         style={{

@@ -12,7 +12,7 @@ import { InputDrop } from "./InputDrop";
 import { ButtonCustom } from "../componentCustom/ButtonCustom";
 import { CollapseCustom } from "../componentCustom/CollapseCustom";
 import styles from "./style/table.module.scss";
-import { WrapperDropComponent } from "./WrapperDropComponent";
+import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -34,14 +34,10 @@ export interface ExtendFunction<T> {
 }
 
 // Props cho TableCustom
-export interface TablePropsCustom<T> extends TableProps<T> {
+export interface TablePropsCustom<T> extends TableProps<T>, WrapperBase {
   dataSource?: T[];
-  extendFunction?: ExtendFunction<T>;
-  columnsEdit: ColumnTypeCustom<T>[];
   fixedCollap?: boolean;
   viewMode?: boolean;
-  isSupportMultiSelect?: boolean;
-  tableName: string;
   table: ComponentData;
 }
 export interface ColumnTypeCustom<T> extends ColumnType<T> {
@@ -55,6 +51,7 @@ export const TableDrop = <T extends BaseDataTable>({
   fixedCollap = false,
   loading,
   table,
+  widthDefault,
   ...restProps
 }: TablePropsCustom<T>) => {
   const tableColProp = table.specialProps?.find(
@@ -80,6 +77,7 @@ export const TableDrop = <T extends BaseDataTable>({
 
   return (
     <WrapperDropComponent
+      widthDefault={widthDefault}
       component={table}
       className={`${clsx(
         styles.pannelContainer,

@@ -49,6 +49,7 @@ function renderNodePreview(item: {
     case GENERAL_TYPE.ROW:
       return (
         <RowDrop
+          widthDefault={400}
           row={
             {
               componentChildren: item.componentChildren,
@@ -94,7 +95,12 @@ function renderNodePreview(item: {
     case DATA_TYPE.INPUT:
       return <InputDrop input={{ id: item.id } as ComponentData} />;
     case DATA_TYPE.TABLE:
-      return <TableDrop table={{ id: item.id } as ComponentData} />;
+      return (
+        <TableDrop
+          widthDefault={800}
+          table={item as unknown as ComponentData}
+        />
+      );
     default:
       return (
         <div className="rounded border bg-white px-3 py-2 shadow">
@@ -105,14 +111,7 @@ function renderNodePreview(item: {
 }
 
 export function CustomDragLayer() {
-  const {
-    isDragging,
-    item,
-    clientOffset,
-    sourceClientOffset, // 👈 lấy top-left hiện tại của source
-    initialClientOffset,
-    initialSourceClientOffset,
-  } = useDragLayer((monitor) => ({
+  const { isDragging, item, clientOffset } = useDragLayer((monitor) => ({
     item: monitor.getItem(),
     isDragging: monitor.isDragging(),
     clientOffset: monitor.getClientOffset(),
