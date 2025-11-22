@@ -15,3 +15,18 @@ export const findNodeByKey = (
   }
   return null;
 };
+
+export const deleteColRecursive = (
+  cols: TableColumnValue[],
+  keyToDelete: string
+) => {
+  return cols
+    .map((col) => ({ ...col })) // clone tránh mutate
+    .filter((col) => col.key !== keyToDelete) // xoá ở cấp này
+    .map((col) => {
+      if (col.children && col.children.length > 0) {
+        col.children = deleteColRecursive(col.children, keyToDelete);
+      }
+      return col;
+    });
+};

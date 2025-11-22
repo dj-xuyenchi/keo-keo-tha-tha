@@ -1,9 +1,18 @@
-import clsx from "clsx";
 import React, { Key, useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { Col, ColorPicker, Flex, Form, Row, Splitter, Table, Tree } from "antd";
+import {
+  Col,
+  ColorPicker,
+  Flex,
+  Form,
+  Modal,
+  Row,
+  Splitter,
+  Table,
+  Tree,
+} from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
 import cloneDeep from "lodash/cloneDeep";
@@ -18,7 +27,7 @@ import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 
 import { DownOutlined } from "@ant-design/icons";
-import { findNodeByKey } from "./service";
+import { deleteColRecursive, findNodeByKey } from "./service";
 import { DataNode, EventDataNode } from "antd/es/tree";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { Color } from "antd/es/color-picker";
@@ -27,6 +36,8 @@ import {
   findComponentById,
 } from "@/entity/canvas/ComponentData";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
+import { getMessageInstance } from "@/config/messageContext";
+import { mapColumnsRecursive } from "@/component/data/TableDrop";
 const ROOT = "ROOT";
 export const alignOptions = [
   {
@@ -65,6 +76,8 @@ export const TableColumnSetting = ({
 }) => {
   const sideBar = useSelector((state: RootState) => state.sideBar);
   const canvas = useSelector((state: RootState) => state.canvas);
+
+  const message = getMessageInstance();
   const [form] = Form.useForm();
   const initTree = {
     dataIndex: "",
@@ -140,7 +153,6 @@ export const TableColumnSetting = ({
     if (colSelectedKey === ROOT) {
       return;
     }
-
     form.submit();
   };
   const onFinish = (value: TableColumnValue) => {
@@ -167,6 +179,30 @@ export const TableColumnSetting = ({
 
       return newData;
     });
+    message.success("Lưu cột thành công");
+  };
+  const handleDeleteCol = () => {
+    if (colSelectedKey === ROOT) {
+      return;
+    }
+
+    Modal.confirm({
+      title: "Bạn có chắc muốn xoá cột này?",
+      content: "Thao tác này không thể hoàn tác.",
+      okText: "Xoá",
+      cancelText: "Hủy",
+      okType: "danger",
+      onOk: () => {
+        const tree = cloneDeep(treeColData[0].children);
+        const newCols = deleteColRecursive(tree, colSelectedKey);
+        const newData = {
+          ...initTree,
+          children: newCols as TableColumnValue[],
+        };
+        setTreeColData([newData] as TableColumnValue[]);
+        setColSelectedKey(ROOT); // clear selection
+      },
+    });
   };
   const handleSave = () => {
     const workList = cloneDeep(canvas.dataWork) as ComponentData[];
@@ -187,6 +223,27 @@ export const TableColumnSetting = ({
       console.error(canvas);
     }
     dispatch(setData2Work(workList));
+    handleClose();
+  };
+
+  const getAllKeys = (nodes: TableColumnValue[]) => {
+    let keys: React.Key[] = [];
+    nodes.forEach((node: TableColumnValue) => {
+      keys.push(node.key);
+      if (node.children) {
+        keys = keys.concat(getAllKeys(node.children));
+      }
+    });
+    return keys;
+  };
+  const handleCancel = () => {
+    const tableColProp = canvas.selectedComponent?.specialProps?.find(
+      (prop) => prop.key === TABLE_COLUMN_KEY
+    );
+    if (tableColProp) {
+      initTree.children = tableColProp.value as TableColumnValue[];
+      setTreeColData([initTree] as TableColumnValue[]);
+    }
     handleClose();
   };
   useEffect(() => {
@@ -224,6 +281,7 @@ export const TableColumnSetting = ({
                 }}
               >
                 <Tree
+                  expandedKeys={getAllKeys(treeColData)}
                   showLine
                   defaultSelectedKeys={[colSelectedKey]}
                   switcherIcon={<DownOutlined />}
@@ -270,7 +328,13 @@ export const TableColumnSetting = ({
                     >
                       Lưu
                     </ButtonCustom>
-                    <ButtonCustom danger>Xóa cột</ButtonCustom>
+                    <ButtonCustom
+                      disabled={colSelectedKey === ROOT}
+                      onClick={handleDeleteCol}
+                      danger
+                    >
+                      Xóa cột
+                    </ButtonCustom>
                   </Col>
                 </Row>
                 <Form
@@ -386,18 +450,9 @@ export const TableColumnSetting = ({
             rowKey="rowUUID"
             className="table-custom"
             bordered
-            columns={treeColData[0].children.map((col) => {
-              return {
-                ...col,
-                onHeaderCell: (column) => ({
-                  style: {
-                    backgroundColor: col.backgroundColor,
-                    fontColor: col.fontColor,
-                  },
-                  onClick: () => console.log("header clicked"),
-                }),
-              };
-            })}
+            columns={mapColumnsRecursive(
+              (treeColData[0].children ?? []) as TableColumnValue[]
+            )}
             dataSource={[]}
             scroll={{ x: "100%" }}
           />
@@ -410,7 +465,15 @@ export const TableColumnSetting = ({
             marginTop: "12px",
           }}
         >
-          <ButtonCustom type="primary" title="Xác nhận" onClick={handleSave} />
+          <ButtonCustom
+            style={{
+              marginRight: "8px",
+            }}
+            type="primary"
+            title="Xác nhận"
+            onClick={handleSave}
+          />
+          <ButtonCustom title="Hủy" onClick={handleCancel} />
         </Row>
       </div>
     </>

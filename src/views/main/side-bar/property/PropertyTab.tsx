@@ -103,7 +103,7 @@ export const PropertyTab = () => {
         style={{
           width: "fit-content",
         }}
-        onCancel={handleCloseModal}
+        closable={false}
       >
         {openModal && sideBar?.speacialSelected?.key === SPAN_KEY && (
           <SpanSetting open={openModal} handleClose={handleCloseModal} />

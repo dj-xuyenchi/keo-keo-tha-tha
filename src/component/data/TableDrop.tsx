@@ -57,7 +57,7 @@ export const TableDrop = <T extends BaseDataTable>({
   table,
   ...restProps
 }: TablePropsCustom<T>) => {
-  const tableColProp = table.specialProps.find(
+  const tableColProp = table.specialProps?.find(
     (prop) => prop.key === TABLE_COLUMN_KEY
   ) as PropComponent;
   const [visibleColumns, setVisibleColumns] = useState(propertyDetailColumns);
@@ -102,19 +102,9 @@ export const TableDrop = <T extends BaseDataTable>({
                     loading={loading}
                     style={{ ...style }}
                     bordered
-                    columns={(
-                      (tableColProp?.value as TableColumnValue[]) ?? []
-                    ).map((col) => {
-                      return {
-                        ...col,
-                        onHeaderCell: (column) => ({
-                          style: {
-                            backgroundColor: col.backgroundColor,
-                            fontColor: col.fontColor,
-                          },
-                        }),
-                      };
-                    })}
+                    columns={mapColumnsRecursive(
+                      (tableColProp?.value ?? []) as TableColumnValue[]
+                    )}
                     dataSource={[]}
                     scroll={{ x: "100%" }}
                     {...restProps}
@@ -170,4 +160,24 @@ export const defaultTableDropObject = (id: string) => {
     inlineStyle: [] as InlineStyle[],
     specialProps: [tableComlumn] as PropComponent[],
   } as ComponentData;
+};
+
+export const mapColumnsRecursive = (cols: TableColumnValue[]) => {
+  return cols.map((col) => {
+    const newCol = {
+      ...col,
+      onHeaderCell: () => ({
+        style: {
+          backgroundColor: col.backgroundColor,
+          color: col.fontColor,
+        },
+      }),
+    };
+
+    if (col.children && col.children.length > 0) {
+      newCol.children = mapColumnsRecursive(col.children);
+    }
+
+    return newCol;
+  });
 };

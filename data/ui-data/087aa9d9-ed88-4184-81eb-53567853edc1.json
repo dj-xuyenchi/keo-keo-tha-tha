@@ -1,1 +1,218 @@
-[{"id":"3f0c1cd2-c909-40ed-9971-3a149d197893","type":"PANEL","inlineStyle":[{"styleKey":"MARGIN_BOTTOM","value":"12px"},{"styleKey":"MIN_HEIGHT","value":"40px"}],"specialProps":[],"componentChildren":[{"id":"78a02b68-d1ef-48b5-af85-e35dd4aa1e36","type":"ROW","inlineStyle":[],"specialProps":[{"name":"Form","key":"FORM_KEY","valueType":"flex","apply":["ROW"],"value":{"formName":"customerForm"}}],"componentChildren":[{"id":"da95190a-c04c-499f-b439-6dab89616fa2","type":"COL","inlineStyle":[],"specialProps":[{"name":"span","key":"SPAN_KEY","valueType":"flex","apply":["COL"],"value":{"xl":23},"tooltip":"Giá trị trong khoảng từ 1 - 24"}],"componentChildren":[{"id":"44e5ed42-0fe1-49b7-a37c-bfd1bcfa250c","type":"TABLE","inlineStyle":[],"specialProps":[{"name":"Cột table","key":"TABLE_COLUMN_KEY","valueType":"flex","apply":["TABLE"],"value":[{"title":"Cột mới000","key":"611edf4a-5d43-4587-8b5b-c95bf7099829","children":[],"dataIndex":"ggg","align":"center","width":88},{"title":"Cột mớidđ","key":"dc9bae91-c819-40cd-bf8d-97ecf7a8dea4","children":[],"dataIndex":"dđ","align":"right","width":333,"backgroundColor":"#ff0000"}],"tooltip":"Cấu hình cột cho bảng dữ liệu"}]}]}]}]}]
+[
+          {
+                    "id": "3f0c1cd2-c909-40ed-9971-3a149d197893",
+                    "type": "PANEL",
+                    "inlineStyle": [
+                              {
+                                        "styleKey": "MARGIN_BOTTOM",
+                                        "value": "12px"
+                              },
+                              {
+                                        "styleKey": "MIN_HEIGHT",
+                                        "value": "40px"
+                              }
+                    ],
+                    "specialProps": [],
+                    "componentChildren": [
+                              {
+                                        "id": "78a02b68-d1ef-48b5-af85-e35dd4aa1e36",
+                                        "type": "ROW",
+                                        "inlineStyle": [],
+                                        "specialProps": [
+                                                  {
+                                                            "name": "Form",
+                                                            "key": "FORM_KEY",
+                                                            "valueType": "flex",
+                                                            "apply": [
+                                                                      "ROW"
+                                                            ],
+                                                            "value": {
+                                                                      "formName": "customerForm"
+                                                            }
+                                                  }
+                                        ],
+                                        "componentChildren": [
+                                                  {
+                                                            "id": "da95190a-c04c-499f-b439-6dab89616fa2",
+                                                            "type": "COL",
+                                                            "inlineStyle": [],
+                                                            "specialProps": [
+                                                                      {
+                                                                                "name": "span",
+                                                                                "key": "SPAN_KEY",
+                                                                                "valueType": "flex",
+                                                                                "apply": [
+                                                                                          "COL"
+                                                                                ],
+                                                                                "value": {
+                                                                                          "xl": 23
+                                                                                },
+                                                                                "tooltip": "Giá trị trong khoảng từ 1 - 24"
+                                                                      }
+                                                            ],
+                                                            "componentChildren": [
+                                                                      {
+                                                                                "id": "44e5ed42-0fe1-49b7-a37c-bfd1bcfa250c",
+                                                                                "type": "TABLE",
+                                                                                "inlineStyle": [],
+                                                                                "specialProps": [
+                                                                                          {
+                                                                                                    "name": "Cột table",
+                                                                                                    "key": "TABLE_COLUMN_KEY",
+                                                                                                    "valueType": "flex",
+                                                                                                    "apply": [
+                                                                                                              "TABLE"
+                                                                                                    ],
+                                                                                                    "value": [
+                                                                                                              {
+                                                                                                                        "title": "Cột mới000",
+                                                                                                                        "key": "611edf4a-5d43-4587-8b5b-c95bf7099829",
+                                                                                                                        "children": [],
+                                                                                                                        "dataIndex": "ggg",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 88
+                                                                                                              },
+                                                                                                              {
+                                                                                                                        "title": "Cột mớidđ",
+                                                                                                                        "key": "dc9bae91-c819-40cd-bf8d-97ecf7a8dea4",
+                                                                                                                        "children": [],
+                                                                                                                        "dataIndex": "dđ",
+                                                                                                                        "align": "right",
+                                                                                                                        "width": 333,
+                                                                                                                        "backgroundColor": "#ff0000"
+                                                                                                              }
+                                                                                                    ],
+                                                                                                    "tooltip": "Cấu hình cột cho bảng dữ liệu"
+                                                                                          }
+                                                                                ]
+                                                                      }
+                                                            ]
+                                                  }
+                                        ]
+                              },
+                              {
+                                        "id": "1c44b367-768e-44b5-a006-b5334acad13d",
+                                        "type": "ROW",
+                                        "inlineStyle": [],
+                                        "specialProps": [
+                                                  {
+                                                            "name": "Form",
+                                                            "key": "FORM_KEY",
+                                                            "valueType": "flex",
+                                                            "apply": [
+                                                                      "ROW"
+                                                            ],
+                                                            "value": {
+                                                                      "formName": "customerForm"
+                                                            }
+                                                  }
+                                        ],
+                                        "componentChildren": [
+                                                  {
+                                                            "id": "44073325-cb43-4bbe-b98f-bdd7fa50a7ff",
+                                                            "type": "COL",
+                                                            "inlineStyle": [],
+                                                            "specialProps": [
+                                                                      {
+                                                                                "name": "span",
+                                                                                "key": "SPAN_KEY",
+                                                                                "valueType": "flex",
+                                                                                "apply": [
+                                                                                          "COL"
+                                                                                ],
+                                                                                "value": {
+                                                                                          "xl": 23
+                                                                                },
+                                                                                "tooltip": "Giá trị trong khoảng từ 1 - 24"
+                                                                      }
+                                                            ],
+                                                            "componentChildren": [
+                                                                      {
+                                                                                "id": "4a9f9901-e765-4101-9c32-273eb5aae23f",
+                                                                                "type": "TABLE",
+                                                                                "inlineStyle": [],
+                                                                                "specialProps": [
+                                                                                          {
+                                                                                                    "name": "Cột table",
+                                                                                                    "key": "TABLE_COLUMN_KEY",
+                                                                                                    "valueType": "flex",
+                                                                                                    "apply": [
+                                                                                                              "TABLE"
+                                                                                                    ],
+                                                                                                    "value": [
+                                                                                                              {
+                                                                                                                        "title": "Cột mới",
+                                                                                                                        "key": "cc14978c-10ab-4001-8f00-90839f9a1d26",
+                                                                                                                        "children": [],
+                                                                                                                        "fontColor": "#000000",
+                                                                                                                        "dataIndex": "",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 0
+                                                                                                              },
+                                                                                                              {
+                                                                                                                        "title": "Cột mới",
+                                                                                                                        "key": "dbeb4fee-8179-4d57-9784-38c105d9203c",
+                                                                                                                        "children": [],
+                                                                                                                        "fontColor": "#000000",
+                                                                                                                        "dataIndex": "",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 0
+                                                                                                              },
+                                                                                                              {
+                                                                                                                        "title": "gege",
+                                                                                                                        "key": "4327bf2f-cc0b-4bb4-9140-2f998575abd3",
+                                                                                                                        "children": [
+                                                                                                                                  {
+                                                                                                                                            "title": "fff",
+                                                                                                                                            "key": "a5d97b9d-3aac-4e3d-b179-423dbf2b68c7",
+                                                                                                                                            "children": [],
+                                                                                                                                            "dataIndex": "cscsc",
+                                                                                                                                            "align": "center",
+                                                                                                                                            "width": 0,
+                                                                                                                                            "backgroundColor": "#9869ff"
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                            "title": "Cột mới",
+                                                                                                                                            "key": "b3b949dd-519b-4595-b739-feebf7a53f81",
+                                                                                                                                            "children": [],
+                                                                                                                                            "fontColor": "#000000",
+                                                                                                                                            "dataIndex": "",
+                                                                                                                                            "align": "center",
+                                                                                                                                            "width": 0
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                            "title": "Cột mới",
+                                                                                                                                            "key": "c1deaf7c-fb35-4361-995e-0fdb6f30d261",
+                                                                                                                                            "children": [],
+                                                                                                                                            "fontColor": "#000000",
+                                                                                                                                            "dataIndex": "",
+                                                                                                                                            "align": "center",
+                                                                                                                                            "width": 0
+                                                                                                                                  }
+                                                                                                                        ],
+                                                                                                                        "fontColor": "#000000",
+                                                                                                                        "dataIndex": "",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 0
+                                                                                                              },
+                                                                                                              {
+                                                                                                                        "title": "Cột mới",
+                                                                                                                        "key": "6a898354-ae6e-4b1d-ad0c-c94c410d0bee",
+                                                                                                                        "children": [],
+                                                                                                                        "fontColor": "#000000",
+                                                                                                                        "dataIndex": "",
+                                                                                                                        "align": "center",
+                                                                                                                        "width": 0
+                                                                                                              }
+                                                                                                    ],
+                                                                                                    "tooltip": "Cấu hình cột cho bảng dữ liệu"
+                                                                                          }
+                                                                                ]
+                                                                      }
+                                                            ]
+                                                  }
+                                        ]
+                              }
+                    ]
+          }
+]
