@@ -36,7 +36,6 @@ export const propertyDetailColumns = [
             onClick={() => {}}
             placeholder="Giá trị"
             onMouseDown={(e) => e.preventDefault()}
-            defaultValue={record.value.formName}
           />
         )}
         {record.valueType == "number" && (

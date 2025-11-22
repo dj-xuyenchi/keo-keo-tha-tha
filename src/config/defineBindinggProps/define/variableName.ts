@@ -7,11 +7,4 @@ export const variable = {
   key: VARIABLE_KEY,
   valueType: "string",
   apply: [...DATA_COMPONENT_KEYS],
-  valid: (value: string) => {
-    if (!value) {
-      return false;
-    }
-
-    return true;
-  },
 } as PropComponent;
