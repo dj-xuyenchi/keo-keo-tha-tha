@@ -32,18 +32,23 @@ import { getSessionCacheValueByKey } from "../solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 import { SESSION_CACHING_JSON } from "@/config/folder-data/fileType";
+import { setSessionCaching } from "@/app/globalSlice";
+import { useDispatch } from "react-redux";
 export const FileTab = () => {
   const [mode, setMode] = useState("run");
   const fullSize = 56;
   const miniSize = 20;
   const canvas = useSelector((state: RootState) => state.canvas);
   const global = useSelector((state: RootState) => state.global);
+
+  const dispatch = useDispatch();
   const sessionCaching = useSelector(
     (state: RootState) => state.global.sessionCaching
   );
-  const isShowBorder = getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === 'true';
+  const isShowBorder =
+    getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
   const messageApi = getMessageInstance();
-  const handlePaste = () => { };
+  const handlePaste = () => {};
   const handleSetMode = (value: string) => {
     setMode(value);
   };
@@ -72,7 +77,8 @@ export const FileTab = () => {
         if (file) {
           saveData2File(
             file.folderName + "/" + file.name,
-            JSON.stringify(work.data)
+            JSON.stringify(work.data),
+            "Lưu dữ liệu thành công!"
           );
         }
       } catch (e) {
@@ -83,16 +89,18 @@ export const FileTab = () => {
   const handleTurnShowBorder = () => {
     const cacheList = cloneDeep(sessionCaching) as SessionCaching[];
     const show = cacheList.find((item) => {
-      return item.key == IS_SHOW_BORDER
-    })
+      return item.key == IS_SHOW_BORDER;
+    });
     if (show) {
-      show.value = !isShowBorder ? "true" : "false"
+      show.value = !isShowBorder ? "true" : "false";
+      saveData2File(
+        SESSION_CACHING_JSON,
+        JSON.stringify(cacheList),
+        !isShowBorder ? "Bật hiển thị phạm vi" : "Tắt hiển thị phạm vi"
+      );
+      dispatch(setSessionCaching(cacheList));
     }
-    saveData2File(
-      SESSION_CACHING_JSON,
-      JSON.stringify(cacheList)
-    );
-  }
+  };
   return (
     <div className={styles.menuList}>
       <div
@@ -279,8 +287,15 @@ export const FileTab = () => {
               />
             </div>
           </Tooltip>
-          <Tooltip title={`${isShowBorder ? 'Tắt' : 'Bật'} hiển thị phạm vi`}>
-            <div onClick={handleTurnShowBorder} className={clsx(styles.miniSizeIcon, styles.feature, isShowBorder && styles.iconBtnOn)}>
+          <Tooltip title={`${isShowBorder ? "Tắt" : "Bật"} hiển thị phạm vi`}>
+            <div
+              onClick={handleTurnShowBorder}
+              className={clsx(
+                styles.miniSizeIcon,
+                styles.feature,
+                isShowBorder && styles.iconBtnOn
+              )}
+            >
               <Image
                 src={borderIcon}
                 width={miniSize}

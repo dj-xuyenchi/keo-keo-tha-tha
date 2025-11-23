@@ -1,5 +1,4 @@
-import { FormInstance, Modal, Table } from "antd";
-import styles from "./sidebar.module.scss";
+import { Modal, Table } from "antd";
 import { propertySettingColumns } from "./propertySettingColumns";
 import {
   BINDING_KEY,
@@ -9,50 +8,72 @@ import {
 } from "./propertySettingOption";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { SearchOutlined } from "@ant-design/icons";
-import { bindingPropList } from "@/config/defineBindinggProps/bindingProps";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { specialPropList } from "@/config/defineSpecialProps/specialProps";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getColumns } from "./columns";
-import { SPAN_KEY } from "@/config/defineSpecialProps/define/span";
+import { SPAN_KEY } from "@/config/defineSpecialProps/define/col/span";
 import { SpanSetting } from "./special-prop-setting/span/SpanSetting";
 import { useDispatch } from "react-redux";
 import { setSelectProp } from "../sideBarSlice";
 import { TableColumnSetting } from "./special-prop-setting/table-column/TableColumnSetting";
-import { TABLE_COLUMN_KEY } from "@/config/defineSpecialProps/define/tableComlumn";
+import { TABLE_COLUMN_KEY } from "@/config/defineSpecialProps/define/table/tableComlumn";
+import cloneDeep from "lodash/cloneDeep";
+import {
+  ComponentData,
+  findComponentById,
+} from "@/entity/canvas/ComponentData";
+import { setData2Work } from "../../canvas/canvasSlice";
+import { tableName } from "@/config/defineSpecialProps/define/table/tableName";
+import { ColumnsType } from "antd/es/table";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
+
+  const [columns, setColumns] = useState<ColumnsType<PropComponent>>([]);
+  // const [dataSource, setDatasource] = useState([] as PropComponent[]);
+
   const selectedComponent = useSelector(
     (state: RootState) => state.canvas.selectedComponent
   );
+  const canvas = useSelector((state: RootState) => state.canvas);
 
   const dispatch = useDispatch();
   const sideBar = useSelector((state: RootState) => state.sideBar);
-  const handleOpenModal = (prop: PropComponent) => {
+  function handleOpenModal(prop: PropComponent) {
     dispatch(setSelectProp(prop));
     setOpenModal(true);
-  };
+  }
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
-  const columns = getColumns({ handleOpenModal });
   const expandedRowRender = (key: string) => {
     if (!selectedComponent) {
       return <div></div>;
     }
-    let dataSource = [] as PropComponent[];
+    let dataSource: PropComponent[] = [];
     if (key === BINDING_KEY) {
       dataSource = selectedComponent.bindingProps;
     }
     if (key === EXTANDS_KEY) {
       const componentType = selectedComponent.type;
-      const specialPropsByType = specialPropList.filter((prop) => {
-        return prop.apply.includes(componentType);
-      });
-      dataSource = specialPropsByType;
+      const cloneList = cloneDeep(specialPropList);
+      dataSource = cloneList
+        .filter((prop: PropComponent) => prop.apply.includes(componentType))
+        .map((prop: PropComponent) => {
+          const existed = selectedComponent.specialProps.find(
+            (p) =>
+              p.key === prop.key &&
+              (p.valueType === "string" || p.valueType === "switch")
+          );
+
+          return {
+            ...prop,
+            value: existed ? existed.value : null,
+          };
+        });
     }
     if (key === STYLE_KEY) {
       // dataSource = selectedComponent.inlineStyle.map((style) => {
@@ -62,6 +83,7 @@ export const PropertyTab = () => {
     }
     return (
       <Table
+        key={selectedComponent?.id}
         className="tbl-expand-setting"
         columns={columns}
         dataSource={dataSource}
@@ -71,6 +93,39 @@ export const PropertyTab = () => {
       />
     );
   };
+  useEffect(() => {
+    function handleSetValue(
+      propAction: PropComponent,
+      value: string | boolean
+    ) {
+      const workList = cloneDeep(canvas.dataWork) as ComponentData[];
+      const componentSelected = findComponentById(
+        workList,
+        canvas.selectedComponent?.id as string
+      );
+      const specialProp = componentSelected?.specialProps?.find((prop) => {
+        return prop.key === propAction.key;
+      });
+
+      if (specialProp) {
+        specialProp.value = value;
+      } else {
+        componentSelected?.specialProps.push({
+          ...tableName,
+          value: value,
+        });
+      }
+      dispatch(setData2Work(workList));
+    }
+    const cols = getColumns({ handleOpenModal, handleSetValue });
+    setColumns([...cols]);
+  }, [
+    selectedComponent?.id,
+    canvas.dataWork,
+    handleOpenModal,
+    canvas.selectedComponent?.id,
+    dispatch,
+  ]);
 
   return (
     <>

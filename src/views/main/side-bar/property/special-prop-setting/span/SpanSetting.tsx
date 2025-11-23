@@ -5,7 +5,7 @@ import {
   SPAN_KEY,
   spanValid,
   SpanValue,
-} from "@/config/defineSpecialProps/define/span";
+} from "@/config/defineSpecialProps/define/col/span";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { Form } from "antd";
@@ -74,6 +74,9 @@ export const SpanSetting = ({
       },
     },
   ];
+  const handleCancel = () => {
+    handleClose();
+  };
   useEffect(() => {
     if (open) {
       form.resetFields();
@@ -178,7 +181,15 @@ export const SpanSetting = ({
             />
           </Form.Item>
           <Form.Item style={{ textAlign: "right", marginTop: "12px" }}>
-            <ButtonCustom type="primary" title="Xác nhận" htmlType="submit" />
+            <ButtonCustom
+              style={{
+                marginRight: "12px",
+              }}
+              type="primary"
+              title="Xác nhận"
+              htmlType="submit"
+            />
+            <ButtonCustom title="Hủy" onClick={handleCancel} />
           </Form.Item>
         </Form>
       </div>

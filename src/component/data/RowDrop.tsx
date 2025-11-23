@@ -14,7 +14,7 @@ import { Ref } from "react";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
-import { form } from "@/config/defineSpecialProps/define/form";
+import { form } from "@/config/defineSpecialProps/define/row/form";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";

@@ -8,11 +8,12 @@ export const tableComlumn = {
   valueType: "flex",
   apply: [DATA_TYPE.TABLE],
   value: [] as TableColumnValue[],
-  tooltip: "Cấu hình cột cho bảng dữ liệu",
 } as PropComponent;
 export const tableComlumnValid = (value: number): boolean => {
   return true;
 };
+export const tableComlumnTooltip = "Cấu hình cột cho bảng dữ liệu";
+export const tableComlumnPlaceHolder = "Cấu hình cột cho bảng";
 export interface TableColumnValue {
   title: string;
   dataIndex: string;

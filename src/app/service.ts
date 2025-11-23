@@ -36,8 +36,8 @@ export const getSessionCachingData = async () => {
   const sessionCachingData = await window.electronAPI.readFile(
     SESSION_CACHING_JSON
   );
-  return JSON.parse(sessionCachingData)
-}
+  return JSON.parse(sessionCachingData);
+};
 
 export const handleCommandCtrlS = (
   event: KeyboardEvent,
@@ -70,7 +70,8 @@ export const handleCommandCtrlS = (
         if (file) {
           saveData2File(
             file.folderName + "/" + file.name,
-            JSON.stringify(work.data)
+            JSON.stringify(work.data),
+            "Lưu dữ liệu thành công!"
           );
         }
       } catch (e) {

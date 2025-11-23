@@ -1,7 +1,13 @@
 import { getMessageInstance } from "@/config/messageContext";
 
-export const saveData2File = async (file: string, data: string) => {
+export const saveData2File = async (
+  file: string,
+  data: string,
+  mess?: string
+) => {
   const messageApi = getMessageInstance();
   await window.electronAPI.writeFile(file, data);
-  messageApi.info("Lưu file thành công!");
+  if (mess) {
+    messageApi.info(mess);
+  }
 };

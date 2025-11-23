@@ -2,8 +2,8 @@
 import { Table, TableProps, Row, Col } from "antd";
 import "@/config/styleOverride.css";
 
-import { IoSearchSharp, IoSettingsSharp } from "react-icons/io5";
-import { ReactNode, useEffect, useState } from "react";
+import { IoSearchSharp } from "react-icons/io5";
+import { useState } from "react";
 import { ColumnType } from "antd/es/table";
 import { CgClose } from "react-icons/cg";
 import clsx from "clsx";
@@ -16,7 +16,6 @@ import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { propertyDetailColumns } from "@/views/main/side-bar/property/propertySettingColumns";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { defaultCss } from "@/config/defaultCss";
@@ -26,8 +25,9 @@ import {
   TABLE_COLUMN_KEY,
   TableColumnValue,
   tableComlumn,
-} from "@/config/defineSpecialProps/define/tableComlumn";
+} from "@/config/defineSpecialProps/define/table/tableComlumn";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
+import { TABLE_NAME_KEY } from "@/config/defineSpecialProps/define/table/tableName";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   size?: "small" | "middle" | "large";
@@ -57,7 +57,9 @@ export const TableDrop = <T extends BaseDataTable>({
   const tableColProp = table.specialProps?.find(
     (prop) => prop.key === TABLE_COLUMN_KEY
   ) as PropComponent;
-  const [visibleColumns, setVisibleColumns] = useState(propertyDetailColumns);
+  const tableNameProp = table.specialProps?.find(
+    (prop) => prop.key === TABLE_NAME_KEY
+  ) as PropComponent;
   const [activeCollap, setActiveCollap] = useState(["1"]);
   const sessionCaching = useSelector(
     (state: RootState) => state.global.sessionCaching
@@ -91,7 +93,7 @@ export const TableDrop = <T extends BaseDataTable>({
           items={[
             {
               key: "1",
-              label: "Kết quả",
+              label: tableNameProp && (tableNameProp.value as string),
               children: (
                 <>
                   <Table<T>
@@ -161,6 +163,9 @@ export const defaultTableDropObject = (id: string) => {
 };
 
 export const mapColumnsRecursive = (cols: TableColumnValue[]) => {
+  if (!cols) {
+    return [];
+  }
   return cols.map((col) => {
     const newCol = {
       ...col,

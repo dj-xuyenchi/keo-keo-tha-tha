@@ -1,4 +1,4 @@
-import { TableColumnValue } from "@/config/defineSpecialProps/define/tableComlumn";
+import { TableColumnValue } from "@/config/defineSpecialProps/define/table/tableComlumn";
 import { TreeDataNode } from "antd";
 
 export const findNodeByKey = (

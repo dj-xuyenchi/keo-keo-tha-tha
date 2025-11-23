@@ -75,7 +75,9 @@ const canvasSlice = createSlice({
       state.dataWork.push(action.payload);
     },
     setSelectComponent: (state, action) => {
-      state.selectedComponent = action.payload;
+      state.selectedComponent = {
+        ...action.payload,
+      };
     },
   },
 });

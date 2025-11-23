@@ -30,7 +30,7 @@ import {
   span,
   SPAN_KEY,
   SpanValue,
-} from "@/config/defineSpecialProps/define/span";
+} from "@/config/defineSpecialProps/define/col/span";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import cloneDeep from "lodash/cloneDeep";
 export interface ColForRowProps extends ColProps {
@@ -71,6 +71,15 @@ export const ColForRow = ({
           item.type === GENERAL_TYPE.COL ||
           item.type === GENERAL_TYPE.ROW
         ) {
+          return;
+        }
+        if (item.source === "Sidebar") {
+          const res = addChildren2Component(
+            col.id,
+            buildChildren(item),
+            canvas.dataWork
+          );
+          dispatch(setData2Work(res));
           return;
         }
         const draggedId = item.id; // id B

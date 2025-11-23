@@ -22,7 +22,7 @@ import {
   TABLE_COLUMN_KEY,
   TableColumnValue,
   tableComlumn,
-} from "@/config/defineSpecialProps/define/tableComlumn";
+} from "@/config/defineSpecialProps/define/table/tableComlumn";
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 
