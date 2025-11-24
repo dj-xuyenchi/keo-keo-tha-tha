@@ -1,18 +1,23 @@
-import Input, { InputProps } from "antd/es/input/Input";
+import { InputProps } from "antd/es/input/Input";
 import { defaultCss } from "@/config/defaultCss";
-import { WrapperDropComponent } from "./WrapperDropComponent";
+import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import styles from "./style/input.module.scss";
 
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
-export interface InputDropProps extends InputProps {
+import { InputCustom } from "../componentCustom/InputCustom";
+export interface InputDropProps extends InputProps, WrapperBase {
   input: ComponentData | null;
 }
-export const InputDrop = ({ input, ...restProps }: InputDropProps) => {
+export const InputDrop = ({
+  input,
+  widthDefault,
+  ...restProps
+}: InputDropProps) => {
   return (
-    <WrapperDropComponent component={input}>
-      <Input
+    <WrapperDropComponent component={input} widthDefault={widthDefault}>
+      <InputCustom
         style={{
           ...defaultCss,
           pointerEvents: "none",

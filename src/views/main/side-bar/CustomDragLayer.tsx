@@ -52,7 +52,7 @@ function renderNodePreview(item: {
           widthDefault={400}
           row={
             {
-              componentChildren: item.componentChildren,
+              ...(item as unknown as ComponentData),
               inlineStyle: [
                 {
                   styleKey: widthKey,
@@ -71,7 +71,7 @@ function renderNodePreview(item: {
       return (
         <ColForRow
           isFromSideBar={true}
-          col={{ id: item.id } as ComponentData}
+          col={item as unknown as ComponentData}
         />
       );
     case GENERAL_TYPE.PANEL:
@@ -93,7 +93,12 @@ function renderNodePreview(item: {
         />
       );
     case DATA_TYPE.INPUT:
-      return <InputDrop input={{ id: item.id } as ComponentData} />;
+      return (
+        <InputDrop
+          widthDefault={240}
+          input={item as unknown as ComponentData}
+        />
+      );
     case DATA_TYPE.TABLE:
       return (
         <TableDrop

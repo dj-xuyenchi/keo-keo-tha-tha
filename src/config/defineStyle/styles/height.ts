@@ -3,41 +3,20 @@ export const heightKey = "HEIGHT";
 export const minHeightKey = "MIN_HEIGHT";
 export const maxHeightKey = "MAX_HEIGHT";
 export const height = {
-    key: heightKey,
-    name: "height",
-    reactObjectName: "height",
-    valueType: "numberPx",
-    validValue: (value: string) => {
-        if (!value) {
-            throw "Giá trị không hợp lệ!";
-        }
-        return true;
-    },
+  key: heightKey,
+  name: "height",
+  reactObjectName: "height",
 } as StyleHTML;
 
 export const minHeight = {
-    key: minHeightKey,
-    name: "min-height",
-    reactObjectName: "minHeight",
-    valueType: "numberPx",
-    validValue: (value: string) => {
-        if (!value) {
-            throw "Giá trị không hợp lệ!";
-        }
-        return true;
-    },
+  key: minHeightKey,
+  name: "min-height",
+  reactObjectName: "minHeight",
 } as StyleHTML;
 export const maxHeight = {
-    key: maxHeightKey,
-    name: "max-height",
-    reactObjectName: "maxHeight",
-    valueType: "numberPx",
-    validValue: (value: string) => {
-        if (!value) {
-            throw "Giá trị không hợp lệ!";
-        }
-        return true;
-    },
+  key: maxHeightKey,
+  name: "max-height",
+  reactObjectName: "maxHeight",
 } as StyleHTML;
 
-export const heightGroupStyle = [height, minHeight, maxHeight]
+export const heightGroupStyle = [height, minHeight, maxHeight];

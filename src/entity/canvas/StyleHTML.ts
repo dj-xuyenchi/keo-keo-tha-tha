@@ -2,9 +2,5 @@ export interface StyleHTML {
   key: string;
   name: string;
   reactObjectName: string;
-  valueType: ValueType;
-  valueListOption: string[];
-  validValue: (value: string) => boolean;
+  value: string | object | object[] | boolean | null;
 }
-
-export type ValueType = "freeStyle" | "numberPx" | "numberEm" | "selectOption";

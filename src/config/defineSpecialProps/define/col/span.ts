@@ -22,6 +22,8 @@ export const spanValid = (value: number): boolean => {
   }
   return true;
 };
+
+export const spanPlaceHolder = "Cấu hình span cột";
 export interface SpanValue {
   // Breakpoint	Kích thước màn hình	Ý nghĩa
   // xs   < 576px	Mobile nhỏ

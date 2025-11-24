@@ -28,10 +28,14 @@ import {
 import { setData2Work } from "../../canvas/canvasSlice";
 import { tableName } from "@/config/defineSpecialProps/define/table/tableName";
 import { ColumnsType } from "antd/es/table";
+import { getColumnStyle } from "./columnStyle";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
+import { styleHTML } from "@/config/defineStyle/styleHTML";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const [columns, setColumns] = useState<ColumnsType<PropComponent>>([]);
+  const [columnStyle, setColumnStyle] = useState<ColumnsType<StyleHTML>>([]);
   // const [dataSource, setDatasource] = useState([] as PropComponent[]);
 
   const selectedComponent = useSelector(
@@ -76,10 +80,18 @@ export const PropertyTab = () => {
         });
     }
     if (key === STYLE_KEY) {
-      // dataSource = selectedComponent.inlineStyle.map((style) => {
-      //   return {
-      //   } as PropComponent
-      // });
+      const dataSourceStyle = styleHTML;
+      return (
+        <Table
+          key={selectedComponent?.id}
+          className="tbl-expand-setting"
+          columns={columnStyle}
+          dataSource={dataSourceStyle}
+          pagination={false}
+          showHeader={false}
+          bordered
+        />
+      );
     }
     return (
       <Table
@@ -119,13 +131,30 @@ export const PropertyTab = () => {
     }
     const cols = getColumns({ handleOpenModal, handleSetValue });
     setColumns([...cols]);
-  }, [
-    selectedComponent?.id,
-    canvas.dataWork,
-    handleOpenModal,
-    canvas.selectedComponent?.id,
-    dispatch,
-  ]);
+    // Style
+    function handleSetValueStyle(style: StyleHTML, value: string | boolean) {
+      const workList = cloneDeep(canvas.dataWork) as ComponentData[];
+      const componentSelected = findComponentById(
+        workList,
+        canvas.selectedComponent?.id as string
+      );
+      const specialProp = componentSelected?.specialProps?.find((prop) => {
+        return prop.key === style.key;
+      });
+
+      if (specialProp) {
+        specialProp.value = value;
+      } else {
+        componentSelected?.specialProps.push({
+          ...tableName,
+          value: value,
+        });
+      }
+      dispatch(setData2Work(workList));
+    }
+    const colStyle = getColumnStyle({ handleOpenModal, handleSetValueStyle });
+    setColumnStyle([...colStyle]);
+  }, [selectedComponent?.id]);
 
   return (
     <>
