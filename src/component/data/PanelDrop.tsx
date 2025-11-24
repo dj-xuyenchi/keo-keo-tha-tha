@@ -2,7 +2,7 @@ import { defaultCss } from "@/config/defaultCss";
 import styles from "./style/pannel.module.scss";
 import { useDrag, useDrop } from "react-dnd";
 import { acceptType } from "@/config/sidebar/acceptType";
-import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
+import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { useEffect, useRef } from "react";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { ComponentData } from "@/entity/canvas/ComponentData";
@@ -11,7 +11,6 @@ import { getMessageInstance } from "@/config/messageContext";
 import { v4 as uuidv4 } from "uuid";
 import { GenComponent } from "./GenComponent";
 import { DropDragItem } from "@/entity/DropDragItem";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { margrinBottomKey } from "@/config/defineStyle/styles/margin";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
 import { useSelector } from "react-redux";
@@ -25,6 +24,7 @@ import { useSelectComponent } from "@/hook/useSelectComponent";
 import clsx from "clsx";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -43,17 +43,18 @@ export const PanelDrop = ({
   const canvas = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
-  const message = getMessageInstance()
+  const message = getMessageInstance();
   const [{ isOver, canDrop }, dropRef] = useDrop(
     () => ({
       accept: acceptType,
-      hover(item: DropDragItem, monitor) { },
+      hover(item: DropDragItem, monitor) {},
       canDrop: (item: DropDragItem) => {
         // Row chỉ nhận Col khi thả vào
-        return item?.type === GENERAL_TYPE.PANEL || item?.type === GENERAL_TYPE.ROW
+        return (
+          item?.type === GENERAL_TYPE.PANEL || item?.type === GENERAL_TYPE.ROW
+        );
       },
       drop: (item: DropDragItem, monitor) => {
-
         if (!ref.current) {
           return;
         }
@@ -62,8 +63,8 @@ export const PanelDrop = ({
           return;
         }
         if (item.type != GENERAL_TYPE.ROW) {
-          message.error("Panel chỉ nhận Row!")
-          return
+          message.error("Panel chỉ nhận Row!");
+          return;
         }
         const res = addChildren2Component(
           panel.id,
@@ -143,22 +144,20 @@ export const PanelDrop = ({
   );
 };
 
-
-
 export const defaultPanelDropObject = (id: string) => {
   return {
     id: id,
     type: GENERAL_TYPE.PANEL,
     inlineStyle: [
       {
-        styleKey: margrinBottomKey,
+        key: margrinBottomKey,
         value: "12px",
       },
       {
-        styleKey: minHeightKey,
+        key: minHeightKey,
         value: "40px",
       },
-    ] as InlineStyle[],
+    ] as StyleHTML[],
     specialProps: [] as PropComponent[],
   } as ComponentData;
 };

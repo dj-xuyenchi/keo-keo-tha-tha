@@ -1,18 +1,13 @@
 import { InputCustom } from "@/component/componentCustom/InputCustom";
-import { getPlaceHolder } from "@/config/defineSpecialProps/getPlaceHolder";
 import { getTooltip } from "@/config/defineSpecialProps/getTooltip";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 export type CallBacks = {
-  handleOpenModal: () => void;
-  handleSetValueStyle: (record: StyleHTML, value: string | boolean) => void;
+  handleSetValueStyle: (record: StyleHTML, value: string) => void;
 };
 
-export const getColumnStyle = ({
-  handleOpenModal,
-  handleSetValueStyle,
-}: CallBacks) => [
+export const getColumnStyle = ({ handleSetValueStyle }: CallBacks) => [
   {
     title: "Thuộc tính",
     dataIndex: "name",

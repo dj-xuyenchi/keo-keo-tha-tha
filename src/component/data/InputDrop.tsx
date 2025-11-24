@@ -4,9 +4,9 @@ import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import styles from "./style/input.module.scss";
 
 import { ComponentData } from "@/entity/canvas/ComponentData";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { InputCustom } from "../componentCustom/InputCustom";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
 export interface InputDropProps extends InputProps, WrapperBase {
   input: ComponentData | null;
 }
@@ -33,7 +33,7 @@ export const defaultInputDropObject = (id: string) => {
   return {
     id: id,
     type: DATA_TYPE.INPUT,
-    inlineStyle: [] as InlineStyle[],
+    inlineStyle: [] as StyleHTML[],
   } as ComponentData;
 };
 

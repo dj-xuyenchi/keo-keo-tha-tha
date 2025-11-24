@@ -11,6 +11,7 @@ import { RowDrop } from "@/component/data/RowDrop";
 import { widthKey } from "@/config/defineStyle/styles/width";
 import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
 import { ColForRow } from "@/component/data/ColForRow";
+import { TextDrop } from "@/component/data/TextDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -50,12 +51,13 @@ function renderNodePreview(item: {
       return (
         <RowDrop
           widthDefault={400}
+          heightDefault={40}
           row={
             {
               ...(item as unknown as ComponentData),
               inlineStyle: [
                 {
-                  styleKey: widthKey,
+                  key: widthKey,
                   value: "400px",
                 },
                 {
@@ -63,6 +65,18 @@ function renderNodePreview(item: {
                   value: "100px",
                 },
               ],
+            } as ComponentData
+          }
+        />
+      );
+    case DATA_TYPE.TEXT:
+      return (
+        <TextDrop
+          widthDefault={40}
+          heightDefault={20}
+          text={
+            {
+              ...(item as unknown as ComponentData),
             } as ComponentData
           }
         />
@@ -82,7 +96,7 @@ function renderNodePreview(item: {
               componentChildren: item.componentChildren,
               inlineStyle: [
                 {
-                  styleKey: minHeightKey,
+                  key: minHeightKey,
                   value: "40px",
                 },
               ],

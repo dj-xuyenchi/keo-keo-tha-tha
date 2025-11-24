@@ -5,6 +5,7 @@ import { SelectDrop } from "./SelectDrop";
 import { TableDrop } from "./TableDrop";
 import { RowDrop } from "./RowDrop";
 import { ColForRow } from "./ColForRow";
+import { TextDrop } from "./TextDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -31,6 +32,13 @@ export const GenComponent = ({
       return (
         <>
           <InputDrop input={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.TEXT: {
+      return (
+        <>
+          <TextDrop text={component} key={component.id} />
         </>
       );
     }

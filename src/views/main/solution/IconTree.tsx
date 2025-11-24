@@ -5,6 +5,7 @@ import rowIcon from "../../../../public/options/layout/row.png";
 import buttonIcon from "../../../../public/options/control/button.png";
 import tab2Icon from "../../../../public/options/control/tab2.png";
 import tableIcon from "../../../../public/options/data/table.png";
+import textInlineIcon from "../../../../public/options/data/text-line.png";
 import checkboxIcon from "../../../../public/options/data/checkbox.png";
 import radioIcon from "../../../../public/options/data/radio.png";
 import switchIcon from "../../../../public/options/data/switch.png";
@@ -35,6 +36,8 @@ export const IconTree = ({ type, height, width }: IconTreeCustom) => {
     [GENERAL_TYPE.COL]: colIcon,
     [GENERAL_TYPE.ROW]: rowIcon,
     [DATA_TYPE.TABLE]: tableIcon,
+    [DATA_TYPE.TEXT]: textInlineIcon,
+    [DATA_TYPE.INPUT]: inputIcon,
   };
 
   const iconSrc = iconMap[type];

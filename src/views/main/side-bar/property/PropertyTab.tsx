@@ -123,7 +123,7 @@ export const PropertyTab = () => {
         specialProp.value = value;
       } else {
         componentSelected?.specialProps.push({
-          ...tableName,
+          ...propAction,
           value: value,
         });
       }
@@ -132,27 +132,29 @@ export const PropertyTab = () => {
     const cols = getColumns({ handleOpenModal, handleSetValue });
     setColumns([...cols]);
     // Style
-    function handleSetValueStyle(style: StyleHTML, value: string | boolean) {
+    function handleSetValueStyle(styleAction: StyleHTML, value: string) {
       const workList = cloneDeep(canvas.dataWork) as ComponentData[];
       const componentSelected = findComponentById(
         workList,
         canvas.selectedComponent?.id as string
       );
-      const specialProp = componentSelected?.specialProps?.find((prop) => {
-        return prop.key === style.key;
-      });
+      const inlineStyle = componentSelected?.inlineStyle?.find(
+        (style: StyleHTML) => {
+          return style.key === styleAction.key;
+        }
+      );
 
-      if (specialProp) {
-        specialProp.value = value;
+      if (inlineStyle) {
+        inlineStyle.value = value;
       } else {
-        componentSelected?.specialProps.push({
-          ...tableName,
+        componentSelected?.inlineStyle.push({
+          ...styleAction,
           value: value,
         });
       }
       dispatch(setData2Work(workList));
     }
-    const colStyle = getColumnStyle({ handleOpenModal, handleSetValueStyle });
+    const colStyle = getColumnStyle({ handleSetValueStyle });
     setColumnStyle([...colStyle]);
   }, [selectedComponent?.id]);
 
@@ -171,7 +173,7 @@ export const PropertyTab = () => {
           expandedRowRender: (e: { key: string }) => {
             return expandedRowRender(e.key);
           },
-          defaultExpandedRowKeys: [BINDING_KEY, EXTANDS_KEY],
+          defaultExpandedRowKeys: [BINDING_KEY, EXTANDS_KEY, STYLE_KEY],
         }}
         dataSource={options}
         bordered

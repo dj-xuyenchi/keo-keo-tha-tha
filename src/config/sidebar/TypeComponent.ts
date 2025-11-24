@@ -16,6 +16,7 @@ export enum DATA_TYPE {
   TREE = "TREE",
   QR = "QR",
   CHART = "CHART",
+  TEXT = "TEXT",
 }
 
 export enum GENERAL_TYPE {
@@ -30,6 +31,7 @@ export type TYPE_DROP = GENERAL_TYPE | DATA_TYPE;
 
 export const DATA_COMPONENT_KEYS = [
   DATA_TYPE.TABLE,
+  DATA_TYPE.TEXT,
   DATA_TYPE.INPUT,
   DATA_TYPE.INPUT_NUMBER,
   DATA_TYPE.RICH_TEXT,

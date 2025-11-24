@@ -20,7 +20,6 @@ import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { defaultCss } from "@/config/defaultCss";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import {
   TABLE_COLUMN_KEY,
   TableColumnValue,
@@ -28,6 +27,8 @@ import {
 } from "@/config/defineSpecialProps/define/table/tableComlumn";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { TABLE_NAME_KEY } from "@/config/defineSpecialProps/define/table/tableName";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
+import { QUICK_SEARCH_KEY } from "@/config/defineSpecialProps/define/table/quickSearch";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   size?: "small" | "middle" | "large";
@@ -54,12 +55,18 @@ export const TableDrop = <T extends BaseDataTable>({
   widthDefault,
   ...restProps
 }: TablePropsCustom<T>) => {
+  /// Special Prop
   const tableColProp = table.specialProps?.find(
     (prop) => prop.key === TABLE_COLUMN_KEY
   ) as PropComponent;
   const tableNameProp = table.specialProps?.find(
     (prop) => prop.key === TABLE_NAME_KEY
   ) as PropComponent;
+  const quickSearchProp = table.specialProps?.find(
+    (prop) => prop.key === QUICK_SEARCH_KEY
+  ) as PropComponent;
+  ///
+
   const [activeCollap, setActiveCollap] = useState(["1"]);
   const sessionCaching = useSelector(
     (state: RootState) => state.global.sessionCaching
@@ -116,18 +123,20 @@ export const TableDrop = <T extends BaseDataTable>({
                   {
                     <Row align="middle">
                       <Col>
-                        <InputDrop
-                          input={null}
-                          style={{
-                            ...defaultCss,
-                            pointerEvents: "none",
-                            cursor: "default",
-                            width: "150px",
-                            fontSize: "14px",
-                          }}
-                          prefix={<IoSearchSharp />}
-                          placeholder="Tìm kiếm nhanh..."
-                        />
+                        {quickSearchProp && quickSearchProp.value && (
+                          <InputDrop
+                            input={null}
+                            style={{
+                              ...defaultCss,
+                              pointerEvents: "none",
+                              cursor: "default",
+                              width: "150px",
+                              fontSize: "14px",
+                            }}
+                            prefix={<IoSearchSharp />}
+                            placeholder="Tìm kiếm nhanh..."
+                          />
+                        )}
                       </Col>
                       <Col>
                         <ButtonCustom
@@ -157,7 +166,7 @@ export const defaultTableDropObject = (id: string) => {
   return {
     id: id,
     type: DATA_TYPE.TABLE,
-    inlineStyle: [] as InlineStyle[],
+    inlineStyle: [] as StyleHTML[],
     specialProps: [tableComlumn] as PropComponent[],
   } as ComponentData;
 };

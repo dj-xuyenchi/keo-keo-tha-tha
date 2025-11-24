@@ -15,10 +15,11 @@ export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement>,
     WrapperBase {
   component: ComponentData | null;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 export interface WrapperBase {
   widthDefault?: number;
+  heightDefault?: number;
 }
 
 export const WrapperDropComponent = ({
@@ -27,6 +28,7 @@ export const WrapperDropComponent = ({
   style,
   className,
   widthDefault,
+  heightDefault,
   ...restProps
 }: WrapperDropComponentProps) => {
   const selectedComponent = useSelector(
@@ -78,6 +80,7 @@ export const WrapperDropComponent = ({
       style={{
         ...style,
         ...(widthDefault ? { width: widthDefault + 2 } : {}),
+        ...(heightDefault ? { height: heightDefault } : {}),
       }}
       {...restProps} // truyền các prop khác như onClick, draggable, v.v.
     >

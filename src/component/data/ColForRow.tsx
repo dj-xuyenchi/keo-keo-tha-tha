@@ -4,7 +4,6 @@ import {
   ComponentData,
   findComponentById,
 } from "@/entity/canvas/ComponentData";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { Col, ColProps } from "antd";
 import { GenComponent } from "./GenComponent";
@@ -33,6 +32,8 @@ import {
 } from "@/config/defineSpecialProps/define/col/span";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import cloneDeep from "lodash/cloneDeep";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
+import { buildStyle } from "@/config/defineStyle/styleHTML";
 export interface ColForRowProps extends ColProps {
   col: ComponentData;
   isFromSideBar: boolean;
@@ -42,6 +43,9 @@ export const ColForRow = ({
   isFromSideBar,
   ...restProps
 }: ColForRowProps) => {
+  const inlineStyle = buildStyle(col);
+  console.error(inlineStyle);
+
   const sessionCaching = useSelector(
     (state: RootState) => state.global.sessionCaching
   );
@@ -143,6 +147,7 @@ export const ColForRow = ({
         )}
         {...restProps}
         style={{
+          ...inlineStyle,
           border: isActive ? "1px dashed #4caf50" : "",
           backgroundColor: isActive ? "#e8f5e9" : isOver ? "#f0f0f0" : "white",
           transition: "background-color 0.2s",
@@ -175,7 +180,7 @@ export const defaultColDropObject = (id: string) => {
   return {
     id: id,
     type: GENERAL_TYPE.COL,
-    inlineStyle: [] as InlineStyle[],
+    inlineStyle: [] as StyleHTML[],
     specialProps: [span] as PropComponent[],
   } as ComponentData;
 };

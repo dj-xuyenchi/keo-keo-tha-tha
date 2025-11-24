@@ -14,7 +14,7 @@ export const buildStyle = (component: ComponentData) => {
   }
   return styles.reduce((pre, next) => {
     const style = styleHTML.find((s) => {
-      return s.key === next.styleKey;
+      return s.key === next.key;
     });
     if (!style) {
       return {};

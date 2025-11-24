@@ -12,7 +12,6 @@ import { useDrop } from "react-dnd";
 import { DropDragItem } from "@/entity/DropDragItem";
 import { Ref } from "react";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
-import { InlineStyle } from "@/entity/canvas/InlineStyle";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { form } from "@/config/defineSpecialProps/define/row/form";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
@@ -22,12 +21,18 @@ import clsx from "clsx";
 import { addChildren2Component } from "@/views/main/canvas/service";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { useDispatch } from "react-redux";
+import { StyleHTML } from "@/entity/canvas/StyleHTML";
 
 export interface RowDropProps extends WrapperBase {
   row: ComponentData;
 }
 
-export const RowDrop = ({ row, widthDefault, ...restProps }: RowDropProps) => {
+export const RowDrop = ({
+  row,
+  widthDefault,
+  heightDefault,
+  ...restProps
+}: RowDropProps) => {
   const inlineStyle = buildStyle(row);
   console.info(inlineStyle);
 
@@ -68,6 +73,7 @@ export const RowDrop = ({ row, widthDefault, ...restProps }: RowDropProps) => {
   return (
     <WrapperDropComponent
       widthDefault={widthDefault}
+      heightDefault={heightDefault}
       component={row}
       className={clsx(isShowBorder && "dashUnselect")}
     >
@@ -101,7 +107,7 @@ export const defaultRowDropObject = (id: string) => {
   return {
     id: id,
     type: GENERAL_TYPE.ROW,
-    inlineStyle: [] as InlineStyle[],
+    inlineStyle: [] as StyleHTML[],
     specialProps: [form] as PropComponent[],
   } as ComponentData;
 };

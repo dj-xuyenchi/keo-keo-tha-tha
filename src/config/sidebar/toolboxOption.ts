@@ -21,6 +21,7 @@ import rateIcon from "../../../public/options/data/rate.png";
 import uploadIcon from "../../../public/options/data/upload.png";
 import qrIcon from "../../../public/options/data/qr.png";
 import chartIcon from "../../../public/options/data/chart.png";
+import textLine from "../../../public/options/data/text-line.png";
 import colIcon from "../../../public/options/layout/col.png";
 
 export const toolBoxOption: Toolbox[] = [
@@ -31,6 +32,11 @@ export const toolBoxOption: Toolbox[] = [
         name: "Table",
         icon: tableIcon,
         type: DATA_TYPE.TABLE,
+      },
+      {
+        name: "Text",
+        icon: textLine,
+        type: DATA_TYPE.TEXT,
       },
       {
         name: "Checkbox",
