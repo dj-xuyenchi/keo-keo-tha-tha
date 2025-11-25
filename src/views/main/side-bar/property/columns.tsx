@@ -2,6 +2,7 @@ import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 import { getPlaceHolder } from "@/config/defineSpecialProps/getPlaceHolder";
 import { getTooltip } from "@/config/defineSpecialProps/getTooltip";
+import { getValueFlex } from "@/config/defineSpecialProps/getValueFlex";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Switch, Tooltip } from "antd";
@@ -47,6 +48,7 @@ export const getColumns = ({ handleOpenModal, handleSetValue }: CallBacks) => [
       >
         {record.valueType == "flex" && (
           <InputCustom
+            defaultValue={getValueFlex(record)}
             onClick={() => {
               handleOpenModal(record);
             }}

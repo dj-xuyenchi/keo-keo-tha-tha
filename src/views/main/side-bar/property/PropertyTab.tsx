@@ -33,6 +33,8 @@ import { getColumnStyle } from "./columnStyle";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { styleHTML } from "@/config/defineStyle/styleHTML";
 import clsx from "clsx";
+import { FORM_KEY } from "@/config/defineSpecialProps/define/row/form";
+import { FormSetting } from "./special-prop-setting/form/FormSetting";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -70,9 +72,7 @@ export const PropertyTab = () => {
         .filter((prop: PropComponent) => prop.apply.includes(componentType))
         .map((prop: PropComponent) => {
           const existed = selectedComponent.specialProps.find(
-            (p) =>
-              p.key === prop.key &&
-              (p.valueType === "string" || p.valueType === "switch")
+            (p) => p.key === prop.key
           );
 
           return {
@@ -200,6 +200,9 @@ export const PropertyTab = () => {
         )}
         {openModal && sideBar?.speacialSelected?.key === TABLE_COLUMN_KEY && (
           <TableColumnSetting open={openModal} handleClose={handleCloseModal} />
+        )}
+        {openModal && sideBar?.speacialSelected?.key === FORM_KEY && (
+          <FormSetting open={openModal} handleClose={handleCloseModal} />
         )}
       </Modal>
     </>

@@ -129,7 +129,7 @@ export const toolBoxOption: Toolbox[] = [
         type: GENERAL_TYPE.PANEL,
       },
       {
-        name: "Row",
+        name: "Row (Form place)",
         icon: rowIcon,
         type: GENERAL_TYPE.ROW,
       },

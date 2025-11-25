@@ -1,5 +1,4 @@
-import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   span,
   SPAN_KEY,
@@ -11,7 +10,7 @@ import { RootState } from "@/store/store";
 import { Form } from "antd";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { FormInstance, RuleObject } from "antd/es/form";
+import { RuleObject } from "antd/es/form";
 import cloneDeep from "lodash/cloneDeep";
 import {
   ComponentData,

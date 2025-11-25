@@ -11,3 +11,10 @@ export const form = {
     formName: "customerForm",
   },
 } as PropComponent;
+
+export const formTooltip = "Cấu hình form nhập liệu";
+export const formPlaceHolder = "Cấu hình form";
+
+export interface FormValue {
+  formVarName: string;
+}

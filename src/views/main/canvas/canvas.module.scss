@@ -12,9 +12,10 @@
     .canvasContent {
         background-color: white;
         border: 1px solid #d1d9e0;
-        width: 800px;
+        width: 1000px;
         min-height: 100vh;
         position: relative;
+        margin-right: 100px;
     }
 
     .node {
@@ -44,7 +45,6 @@
 
 .canvasContent {
     position: relative;
-    width: 2000px; // vùng vẽ logic (tuỳ bạn)
     height: 2000px;
 }
 
