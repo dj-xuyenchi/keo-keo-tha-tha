@@ -17,20 +17,19 @@
 
     .toolbox {
         height: 40vh;
-        overflow: scroll;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
 
         .optionContainer {
             padding: 0px 8px;
             display: block;
             gap: 12px;
+            height: calc(40vh - 38px);
             overflow: scroll;
-            height: 470px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
 
             .sidebarItem {
                 cursor: grab;
@@ -49,7 +48,8 @@
                     }
                 }
 
-                .icon {}
+                .icon {
+                }
 
                 .name {
                     margin-left: 4px;
@@ -61,8 +61,17 @@
     }
 
     .properties {
-        height: 40vh;
+        height: calc(54vh - 100px);
 
-        .optionContainer {}
+        .optionContainer {
+            height: calc(54vh - 100px);
+            overflow: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
 }

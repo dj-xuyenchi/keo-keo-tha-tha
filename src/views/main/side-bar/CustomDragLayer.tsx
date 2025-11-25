@@ -1,9 +1,6 @@
-import React from "react";
 import { useDragLayer, XYCoord } from "react-dnd";
 import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
-import { ButtonDrop } from "../../../component/control/ButtonDrop";
 import { InputDrop } from "../../../component/data/InputDrop";
-import { Image } from "antd";
 import { TableDrop } from "@/component/data/TableDrop";
 import { PanelDrop } from "@/component/data/PanelDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";

@@ -5,8 +5,11 @@ import { PROPERTY, SettingOption } from "@/config/sidebar/propertyOption";
 
 export const NodePropsSetting = ({ option }: { option: SettingOption }) => {
   return (
-    <div className={clsx(styles.optionContainer,'node-setting')}>
+    <>
       {option.type === PROPERTY && <PropertyTab />}
-    </div>
+      {option.type != PROPERTY && (
+        <div className={clsx(styles.optionContainer)}></div>
+      )}
+    </>
   );
 };

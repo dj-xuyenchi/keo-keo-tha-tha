@@ -26,11 +26,13 @@ import {
   findComponentById,
 } from "@/entity/canvas/ComponentData";
 import { setData2Work } from "../../canvas/canvasSlice";
-import { tableName } from "@/config/defineSpecialProps/define/table/tableName";
+
+import styles from "./prop.module.scss";
 import { ColumnsType } from "antd/es/table";
 import { getColumnStyle } from "./columnStyle";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { styleHTML } from "@/config/defineStyle/styleHTML";
+import clsx from "clsx";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -165,20 +167,22 @@ export const PropertyTab = () => {
         prefix={<SearchOutlined />}
         style={{ marginBottom: "8px" }}
       />
-      <Table
-        showHeader={false}
-        tableLayout="fixed"
-        columns={propertySettingColumns}
-        expandable={{
-          expandedRowRender: (e: { key: string }) => {
-            return expandedRowRender(e.key);
-          },
-          defaultExpandedRowKeys: [BINDING_KEY, EXTANDS_KEY, STYLE_KEY],
-        }}
-        dataSource={options}
-        bordered
-        pagination={false}
-      />
+      <div className={clsx(styles.tblPropContainer, "node-setting")}>
+        <Table
+          showHeader={false}
+          tableLayout="fixed"
+          columns={propertySettingColumns}
+          expandable={{
+            expandedRowRender: (e: { key: string }) => {
+              return expandedRowRender(e.key);
+            },
+            defaultExpandedRowKeys: [BINDING_KEY, EXTANDS_KEY, STYLE_KEY],
+          }}
+          dataSource={options}
+          bordered
+          pagination={false}
+        />
+      </div>
       <Modal
         title={<p>{sideBar?.speacialSelected?.name}</p>}
         footer={null}
