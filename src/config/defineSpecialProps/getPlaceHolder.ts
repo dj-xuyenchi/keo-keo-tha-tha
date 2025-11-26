@@ -1,4 +1,5 @@
 import { SPAN_KEY, spanPlaceHolder } from "./define/col/span";
+import { FORM_KEY, formPlaceHolder } from "./define/row/form";
 import {
   TABLE_COLUMN_KEY,
   tableComlumnPlaceHolder,
@@ -13,5 +14,7 @@ export const getPlaceHolder = (type: string) => {
       return tableNamePlaceHolder;
     case SPAN_KEY:
       return spanPlaceHolder;
+    case FORM_KEY:
+      return formPlaceHolder;
   }
 };

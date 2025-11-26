@@ -12,9 +12,13 @@ export const form = {
   },
 } as PropComponent;
 
-export const formTooltip = "Cấu hình form nhập liệu";
+export const formTooltip =
+  "Cấu hình form nhập liệu (Chỉ hỗ trợ cho component Row)";
 export const formPlaceHolder = "Cấu hình form";
 
 export interface FormValue {
   formVarName: string;
+  size?: "small" | "middle" | "large";
+  layout: "horizontal" | "vertical";
+  disableStateName?: string;
 }

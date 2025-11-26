@@ -1,3 +1,4 @@
+import { FORM_KEY, formTooltip } from "./define/row/form";
 import {
   QUICK_SEARCH_KEY,
   quickSearchTooltip,
@@ -16,5 +17,7 @@ export const getTooltip = (type: string) => {
       return tableNameTooltip;
     case QUICK_SEARCH_KEY:
       return quickSearchTooltip;
+    case FORM_KEY:
+      return formTooltip;
   }
 };

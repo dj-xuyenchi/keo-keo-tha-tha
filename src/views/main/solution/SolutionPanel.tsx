@@ -410,7 +410,7 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
               label: _.label,
               key: id,
               children: (
-                <div>
+                <div className={styles.fileTreeTab}>
                   <div className={styles.extraBtn}>
                     <ButtonCustom
                       onClick={handleCloseOpenAll}
@@ -425,20 +425,22 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
                       />
                     </ButtonCustom>
                   </div>
-                  <Tree
-                    className="tree-folder"
-                    showLine={true}
-                    showIcon={true}
-                    expandedKeys={expandedKeys}
-                    selectedKeys={[defaultKey]}
-                    treeData={solutionInfomation}
-                    expandAction="click"
-                    onSelect={handleNodeClick}
-                    switcherIcon={getNodeOpenIcon}
-                    onRightClick={handleRightClick}
-                    onDrop={onTreeDrop}
-                    draggable
-                  />
+                  <div className={styles.treeDataFile}>
+                    <Tree
+                      className="tree-folder"
+                      showLine={true}
+                      showIcon={true}
+                      expandedKeys={expandedKeys}
+                      selectedKeys={[defaultKey]}
+                      treeData={solutionInfomation}
+                      expandAction="click"
+                      onSelect={handleNodeClick}
+                      switcherIcon={getNodeOpenIcon}
+                      onRightClick={handleRightClick}
+                      onDrop={onTreeDrop}
+                      draggable
+                    />
+                  </div>
                 </div>
               ),
             };
@@ -475,27 +477,16 @@ export const SolutionPanel = ({ justClick }: SolutionPanelProps) => {
               label: "Kết cấu",
               key: id,
               children: (
-                <div
-                  style={{
-                    height: "400px", // trừ chiều cao tab header (~40px)
-                    overflowY: "auto", // scroll chỉ nội dung
-                  }}
-                >
-                  <div
-                    style={{
-                      overflow: "scroll",
-                    }}
-                  >
-                    <Tree
-                      expandedKeys={getAllIdComponent(canvas.dataWork)}
-                      className="tree-component"
-                      showLine={true}
-                      showIcon={true}
-                      treeData={canvas.dataWork.map(convertToTreeNode)}
-                      expandAction="click"
-                      onSelect={handleComponentClick}
-                    />
-                  </div>
+                <div className={styles.structure}>
+                  <Tree
+                    expandedKeys={getAllIdComponent(canvas.dataWork)}
+                    className="tree-component"
+                    showLine={true}
+                    showIcon={true}
+                    treeData={canvas.dataWork.map(convertToTreeNode)}
+                    expandAction="click"
+                    onSelect={handleComponentClick}
+                  />
                 </div>
               ),
             };

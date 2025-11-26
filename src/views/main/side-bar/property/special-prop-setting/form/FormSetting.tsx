@@ -71,7 +71,7 @@ export const FormSetting = ({
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label="Layout form" name="layout">
+              <Form.Item label="Layout form" name="layout" required>
                 <SelectCustom
                   placeholder="Chọn layout cho form"
                   options={layoutOption}
