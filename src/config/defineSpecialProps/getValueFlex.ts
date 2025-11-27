@@ -4,6 +4,7 @@ import {
   TableColumnValue,
 } from "./define/table/tableComlumn";
 import { FORM_KEY, FormValue } from "./define/row/form";
+import { FORM_ITEM_KEY, FormItemValue } from "./define/common/formItem";
 
 export const getValueFlex = (record: PropComponent): string => {
   if (!record) {
@@ -16,6 +17,13 @@ export const getValueFlex = (record: PropComponent): string => {
         : "Cấu hình";
     case FORM_KEY:
       return (record.value as FormValue).formVarName;
+    case FORM_ITEM_KEY:
+      const formItemValue = record.value as FormItemValue;
+      if (formItemValue) {
+        return formItemValue.formVarName + "." + formItemValue.varName;
+      } else {
+        return "";
+      }
     default: {
       return "Giá trị";
     }

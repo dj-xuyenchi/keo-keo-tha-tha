@@ -4,6 +4,7 @@ import { spanGroup } from "./define/col/span";
 import { tableComlumn } from "./define/table/tableComlumn";
 import { tableName } from "./define/table/tableName";
 import { quickSearch } from "./define/table/quickSearch";
+import { formItem } from "./define/common/formItem";
 
 export const specialPropList = [
   form,
@@ -11,4 +12,5 @@ export const specialPropList = [
   tableComlumn,
   tableName,
   quickSearch,
+  formItem,
 ] as PropComponent[];

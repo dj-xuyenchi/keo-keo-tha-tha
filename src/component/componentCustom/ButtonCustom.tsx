@@ -18,14 +18,13 @@ export const ButtonCustom = ({
 }: ButtonPropsCustom) => {
   return (
     <Button
+      {...restProps}
       style={{
         borderRadius: shape === "circle" ? "50%" : "0px",
         ...style,
       }}
       disabled={disabled}
       className={clsx(disabled && "abs-disable", isIconBtn && "icon-btn")}
-      title={title}
-      {...restProps}
     >
       {title} {children}
     </Button>

@@ -71,7 +71,7 @@ export const PropertyTab = () => {
       dataSource = cloneList
         .filter((prop: PropComponent) => prop.apply.includes(componentType))
         .map((prop: PropComponent) => {
-          const existed = selectedComponent.specialProps.find(
+          const existed = selectedComponent.specialProps?.find(
             (p) => p.key === prop.key
           );
 
