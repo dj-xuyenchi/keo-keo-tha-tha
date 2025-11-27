@@ -24,6 +24,22 @@ function createWindow() {
       webSecurity: false,
     },
   });
+  let forceClose = false;
+
+  win.on('close', (event) => {
+    if (!forceClose) {
+      event.preventDefault(); // ⛔ Chặn hành động đóng
+
+      // Gửi sang renderer để hiển thị modal Confirm
+      win.webContents.send('show-exit-confirm');
+    }
+  });
+
+  ipcMain.on('exit-confirmed', () => {
+    forceClose = true;
+    win.close(); // 👉 Lần này cho phép đóng
+  });
+
   win.webContents.on('will-navigate', (e) => e.preventDefault());
 
   win.webContents.on('will-prevent-unload', (e) => e.preventDefault());

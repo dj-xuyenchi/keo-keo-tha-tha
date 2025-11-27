@@ -11,16 +11,18 @@ export const DndWrapper = ({ children }: { children: React.ReactNode }) => {
   const canvas = useSelector((state: RootState) => state.canvas);
   const global = useSelector((state: RootState) => state.global);
   useEffect(() => {
+   
+
     const handleSaveShortcut = (event: KeyboardEvent) => {
-      handleCommandCtrlS(event, global, canvas)
+      handleCommandCtrlS(event, global, canvas);
     };
 
     window.addEventListener("keydown", handleSaveShortcut);
     return () => {
       window.removeEventListener("keydown", handleSaveShortcut);
+     
     };
-
-  }, [global, canvas])
+  }, [global, canvas]);
   return (
     <DndProvider backend={HTML5Backend}>
       <CustomDragLayer />

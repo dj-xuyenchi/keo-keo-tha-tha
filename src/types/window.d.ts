@@ -11,6 +11,8 @@ declare global {
         fileName: string,
         content: string
       ) => Promise<boolean | string>;
+      onShowExitConfirm: (callback) => boolean;
+      confirmExit: () => boolean;
     };
     __REDUX_STORE__?: ReturnType<typeof createStore>;
   }
