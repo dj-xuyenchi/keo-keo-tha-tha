@@ -35,6 +35,8 @@ import { styleHTML } from "@/config/defineStyle/styleHTML";
 import clsx from "clsx";
 import { FORM_KEY } from "@/config/defineSpecialProps/define/row/form";
 import { FormSetting } from "./special-prop-setting/form/FormSetting";
+import { FORM_ITEM_KEY } from "@/config/defineSpecialProps/define/common/formItem";
+import { FormItemSetting } from "./special-prop-setting/form-item/FormItemSetting";
 export const PropertyTab = () => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -203,6 +205,9 @@ export const PropertyTab = () => {
         )}
         {openModal && sideBar?.speacialSelected?.key === FORM_KEY && (
           <FormSetting open={openModal} handleClose={handleCloseModal} />
+        )}
+        {openModal && sideBar?.speacialSelected?.key === FORM_ITEM_KEY && (
+          <FormItemSetting open={openModal} handleClose={handleCloseModal} />
         )}
       </Modal>
     </>
