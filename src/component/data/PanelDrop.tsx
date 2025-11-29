@@ -15,7 +15,11 @@ import { margrinBottomKey } from "@/config/defineStyle/styles/margin";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { addChildren2Component } from "@/views/main/canvas/service";
+import deleteIcon from "../../../public/options/delete.png";
+import {
+  addChildren2Component,
+  removeComponentById,
+} from "@/views/main/canvas/service";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { widthKey } from "@/config/defineStyle/styles/width";
@@ -25,6 +29,9 @@ import clsx from "clsx";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { buildChildren } from "@/views/main/canvas/serviceComponent";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
+import cloneDeep from "lodash/cloneDeep";
+import { Popconfirm } from "antd";
+import Image from "next/image";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -110,6 +117,14 @@ export const PanelDrop = ({
     e.stopPropagation();
     select(panel);
   };
+  const handleConfirmDelete = () => {
+    if (panel?.id) {
+      let newTree = cloneDeep(canvas.dataWork);
+      newTree = removeComponentById(newTree, panel?.id as string);
+      // 4. Cập nhật redux
+      dispatch(setData2Work(newTree));
+    }
+  };
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
@@ -132,6 +147,24 @@ export const PanelDrop = ({
       }}
       {...restProps}
     >
+      <Popconfirm
+        title="Xóa component!"
+        description="Bạn có chắc muốn xóa component này?"
+        okText="Xóa"
+        onConfirm={handleConfirmDelete}
+        cancelText="Không"
+      >
+        <Image
+          src={deleteIcon}
+          width={12}
+          height={12}
+          alt="icon"
+          style={{
+            display: panel?.id != selectedComponent?.id ? "none" : undefined,
+          }}
+          className={styles.deleteBtn}
+        />
+      </Popconfirm>
       {panel.componentChildren &&
         panel.componentChildren.map((component: ComponentData) => {
           return (

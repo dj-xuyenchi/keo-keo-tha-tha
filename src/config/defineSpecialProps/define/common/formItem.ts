@@ -30,4 +30,6 @@ export const formItemPlaceHolder = "Kết hợp với Form";
 export interface FormItemValue {
   formVarName: string;
   varName: string;
+  requird: boolean;
+  valid: [];
 }

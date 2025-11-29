@@ -10,6 +10,13 @@ import { useDrag } from "react-dnd";
 import { acceptType } from "@/config/sidebar/acceptType";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
+import deleteIcon from "../../../public/options/delete.png";
+import Image from "next/image";
+import { Popconfirm } from "antd";
+import cloneDeep from "lodash/cloneDeep";
+import { removeComponentById } from "@/views/main/canvas/service";
+import { setData2Work } from "@/views/main/canvas/canvasSlice";
+import { useDispatch } from "react-redux";
 
 export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -34,6 +41,8 @@ export const WrapperDropComponent = ({
   const selectedComponent = useSelector(
     (state: RootState) => state.canvas.selectedComponent
   );
+  const canvas = useSelector((state: RootState) => state.canvas);
+  const dispatch = useDispatch();
   const { select } = useSelectComponent();
   const [{ isDragging }, dragRef, preview] = useDrag(
     () => ({
@@ -64,9 +73,18 @@ export const WrapperDropComponent = ({
     e.stopPropagation();
     select(component);
   };
+  const handleConfirmDelete = () => {
+    if (component?.id) {
+      let newTree = cloneDeep(canvas.dataWork);
+      newTree = removeComponentById(newTree, component?.id as string);
+      // 4. Cập nhật redux
+      dispatch(setData2Work(newTree));
+    }
+  };
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
+
   return (
     <div
       ref={dragRef as unknown as Ref<HTMLDivElement> | undefined}
@@ -84,6 +102,25 @@ export const WrapperDropComponent = ({
       }}
       {...restProps} // truyền các prop khác như onClick, draggable, v.v.
     >
+      <Popconfirm
+        title="Xóa component!"
+        description="Bạn có chắc muốn xóa component này?"
+        okText="Xóa"
+        onConfirm={handleConfirmDelete}
+        cancelText="Không"
+      >
+        <Image
+          src={deleteIcon}
+          width={12}
+          height={12}
+          alt="icon"
+          style={{
+            display:
+              component?.id != selectedComponent?.id ? "none" : undefined,
+          }}
+          className={styles.deleteBtn}
+        />
+      </Popconfirm>
       {children}
     </div>
   );

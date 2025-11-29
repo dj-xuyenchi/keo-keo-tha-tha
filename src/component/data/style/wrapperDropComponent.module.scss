@@ -1,11 +1,20 @@
 .wrapperContainer {
     border: 1px solid transparent;
     padding: 1px;
+    position: relative;
     .showBorder {
         border: 1px solid transparent;
     }
 
     &:hover {
         box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+    }
+    .deleteBtn {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        z-index: 999;
     }
 }

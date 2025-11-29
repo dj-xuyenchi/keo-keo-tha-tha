@@ -29,6 +29,7 @@ import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { TABLE_NAME_KEY } from "@/config/defineSpecialProps/define/table/tableName";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { QUICK_SEARCH_KEY } from "@/config/defineSpecialProps/define/table/quickSearch";
+import { InputCustom } from "../componentCustom/InputCustom";
 // Interface mở rộng props
 export interface ExtendFunction<T> {
   size?: "small" | "middle" | "large";
@@ -124,8 +125,7 @@ export const TableDrop = <T extends BaseDataTable>({
                     <Row align="middle">
                       <Col>
                         {quickSearchProp && quickSearchProp.value && (
-                          <InputDrop
-                            input={null}
+                          <InputCustom
                             style={{
                               ...defaultCss,
                               pointerEvents: "none",
@@ -133,6 +133,7 @@ export const TableDrop = <T extends BaseDataTable>({
                               width: "150px",
                               fontSize: "14px",
                             }}
+                            size="small"
                             prefix={<IoSearchSharp />}
                             placeholder="Tìm kiếm nhanh..."
                           />

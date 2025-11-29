@@ -55,11 +55,15 @@ export const findParentRowById = (
       }
       return null;
     }
-
+    if (!node.componentChildren || node.componentChildren.length === 0) {
+      return null;
+    }
     // Duyệt children
     for (const child of node.componentChildren) {
       const result = dfs(child, node);
-      if (result) return result;
+      if (result) {
+        return result;
+      }
     }
 
     return null;
@@ -67,7 +71,9 @@ export const findParentRowById = (
 
   for (const root of tree) {
     const found = dfs(root, null);
-    if (found) return found;
+    if (found) {
+      return found;
+    }
   }
 
   return null;
