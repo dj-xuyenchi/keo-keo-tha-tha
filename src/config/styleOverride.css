@@ -582,3 +582,7 @@ body {
 .node-setting .ant-table-container {
     border-radius: unset !important;
 }
+
+.col-for-row .ant-form-item {
+    margin-bottom: unset !important;
+}

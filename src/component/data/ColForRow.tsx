@@ -139,6 +139,7 @@ export const ColForRow = ({
         xl={spanProp?.xl}
         xxl={spanProp?.xxl}
         className={clsx(
+          "col-for-row",
           styles.col,
           isShowBorder && styles.colDrop,
           selectedComponent?.id === col.id

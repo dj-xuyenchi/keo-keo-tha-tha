@@ -43,39 +43,34 @@ export const findParentRowById = (
   tree: ComponentData[],
   targetId: string
 ): ComponentData | null => {
-  function dfs(
+  const dfs = (
     node: ComponentData,
-    parent: ComponentData | null
-  ): ComponentData | null {
-    // Nếu tìm thấy node
+    ancestors: ComponentData[]
+  ): ComponentData | null => {
+    // nếu node là target -> tìm trong ancestors từ gần nhất về xa nhất
     if (node.id === targetId) {
-      // Trả về cha nếu cha là ROW
-      if (parent && parent.type === GENERAL_TYPE.ROW) {
-        return parent;
+      for (let i = ancestors.length - 1; i >= 0; i--) {
+        if (ancestors[i].type === "ROW") return ancestors[i];
       }
       return null;
     }
-    if (!node.componentChildren || node.componentChildren.length === 0) {
-      return null;
-    }
-    // Duyệt children
-    for (const child of node.componentChildren) {
-      const result = dfs(child, node);
-      if (result) {
-        return result;
+
+    // tiếp tục duyệt children với ancestors đã có node hiện tại appended
+    if (node.componentChildren && node.componentChildren.length) {
+      const nextAncestors = ancestors.concat(node);
+      for (const child of node.componentChildren) {
+        const found = dfs(child, nextAncestors);
+        if (found) return found;
       }
     }
 
     return null;
-  }
+  };
 
   for (const root of tree) {
-    const found = dfs(root, null);
-    if (found) {
-      return found;
-    }
+    const res = dfs(root, []);
+    if (res) return res;
   }
-
   return null;
 };
 export const convertToTreeNode = (node: ComponentData): TreeDataNode => {

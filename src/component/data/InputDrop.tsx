@@ -10,10 +10,14 @@ import {
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import { InputCustom } from "../componentCustom/InputCustom";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
-import { FORM_ITEM_KEY } from "@/config/defineSpecialProps/define/common/formItem";
+import {
+  FORM_ITEM_KEY,
+  FormItemValue,
+} from "@/config/defineSpecialProps/define/common/formItem";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { Form } from "antd";
 export interface InputDropProps extends InputProps, WrapperBase {
   input: ComponentData | null;
 }
@@ -28,21 +32,40 @@ export const InputDrop = ({
   const canvas = useSelector((state: RootState) => state.canvas);
   let formRowSetting;
   if (formItemSetting) {
+    console.error(formItemSetting);
+
     formRowSetting = findParentRowById(canvas.dataWork, input?.id as string);
-    console.error(formRowSetting);
   }
 
   return (
     <WrapperDropComponent component={input} widthDefault={widthDefault}>
-      <InputCustom
-        style={{
-          ...defaultCss,
-          pointerEvents: "none",
-          cursor: "default",
-        }}
-        size="small"
-        {...restProps}
-      />
+      {formItemSetting ? (
+        <Form.Item
+          label={(formItemSetting.value as FormItemValue)?.label}
+          name="formVarName"
+          required
+        >
+          <InputCustom
+            style={{
+              ...defaultCss,
+              pointerEvents: "none",
+              cursor: "default",
+            }}
+            size="small"
+            {...restProps}
+          />
+        </Form.Item>
+      ) : (
+        <InputCustom
+          style={{
+            ...defaultCss,
+            pointerEvents: "none",
+            cursor: "default",
+          }}
+          size="small"
+          {...restProps}
+        />
+      )}
     </WrapperDropComponent>
   );
 };
