@@ -7,9 +7,7 @@ export const form = {
   key: FORM_KEY,
   valueType: "flex",
   apply: [GENERAL_TYPE.ROW],
-  value: {
-    formName: "customerForm",
-  },
+  value: {} as FormValue,
 } as PropComponent;
 
 export const formTooltip =

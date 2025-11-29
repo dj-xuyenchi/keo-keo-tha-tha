@@ -13,7 +13,11 @@ import { DropDragItem } from "@/entity/DropDragItem";
 import { Ref } from "react";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
-import { form, FORM_KEY } from "@/config/defineSpecialProps/define/row/form";
+import {
+  form,
+  FORM_KEY,
+  FormValue,
+} from "@/config/defineSpecialProps/define/row/form";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
@@ -80,7 +84,10 @@ export const RowDrop = ({
       className={clsx(isShowBorder && "dashUnselect")}
     >
       {formSetting ? (
-        <Form autoComplete="off" layout="vertical">
+        <Form
+          autoComplete="off"
+          layout={(formSetting.value as FormValue).layout}
+        >
           <Row
             ref={dropRef as unknown as Ref<HTMLDivElement> | undefined}
             className={clsx(styles.rowContainer)}
