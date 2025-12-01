@@ -9,6 +9,7 @@ import { widthKey } from "@/config/defineStyle/styles/width";
 import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
 import { ColForRow } from "@/component/data/ColForRow";
 import { TextDrop } from "@/component/data/TextDrop";
+import { ButtonDrop } from "@/component/data/ButtonDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -85,6 +86,8 @@ function renderNodePreview(item: {
           col={item as unknown as ComponentData}
         />
       );
+    case GENERAL_TYPE.BUTTON:
+      return <ButtonDrop button={item as unknown as ComponentData} />;
     case GENERAL_TYPE.PANEL:
       return (
         <PanelDrop

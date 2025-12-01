@@ -87,6 +87,7 @@ export const RowDrop = ({
         <Form
           autoComplete="off"
           layout={(formSetting.value as FormValue).layout}
+          size={(formSetting.value as FormValue).size}
         >
           <Row
             ref={dropRef as unknown as Ref<HTMLDivElement> | undefined}

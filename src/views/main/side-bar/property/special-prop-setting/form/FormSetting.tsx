@@ -22,6 +22,7 @@ import {
 } from "@/config/defineSpecialProps/define/row/form";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export const FormSetting = ({
   open,
@@ -47,6 +48,8 @@ export const FormSetting = ({
     handleClose();
   };
   const onFinish = (values: FormValue) => {
+    console.error(values);
+
     const workList = cloneDeep(canvas.dataWork) as ComponentData[];
     const componentSelected = findComponentById(
       workList,
@@ -69,6 +72,17 @@ export const FormSetting = ({
     handleClose();
   };
   const onFinishFailed = () => {};
+  useEffect(() => {
+    if (open) {
+      form.resetFields();
+      const formProp = canvas.selectedComponent?.specialProps?.find(
+        (prop) => prop.key === FORM_KEY
+      );
+      if (formProp) {
+        form.setFieldsValue(formProp.value);
+      }
+    }
+  }, [canvas.selectedComponent]);
   return (
     <>
       {modalContextHolder}

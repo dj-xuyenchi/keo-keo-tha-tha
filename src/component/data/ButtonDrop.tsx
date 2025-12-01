@@ -1,4 +1,3 @@
-import { InputProps } from "antd/es/input/Input";
 import { defaultCss } from "@/config/defaultCss";
 import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import styles from "./style/input.module.scss";
@@ -7,8 +6,7 @@ import {
   ComponentData,
   findParentRowById,
 } from "@/entity/canvas/ComponentData";
-import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
-import { InputCustom } from "../componentCustom/InputCustom";
+import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import {
   FORM_ITEM_KEY,
@@ -17,26 +15,27 @@ import {
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { Form } from "antd";
-export interface InputDropProps extends InputProps, WrapperBase {
-  input: ComponentData | null;
+import { ButtonProps, Form } from "antd";
+import { ButtonCustom } from "../componentCustom/ButtonCustom";
+export interface ButtonDropProps extends ButtonProps, WrapperBase {
+  button: ComponentData | null;
 }
-export const InputDrop = ({
-  input,
+export const ButtonDrop = ({
+  button,
   widthDefault,
   ...restProps
-}: InputDropProps) => {
-  const formItemSetting = input?.specialProps?.find(
+}: ButtonDropProps) => {
+  const formItemSetting = button?.specialProps?.find(
     (prop) => prop.key === FORM_ITEM_KEY
   ) as PropComponent;
   const canvas = useSelector((state: RootState) => state.canvas);
   let formRowSetting;
   if (formItemSetting) {
-    formRowSetting = findParentRowById(canvas.dataWork, input?.id as string);
+    formRowSetting = findParentRowById(canvas.dataWork, button?.id as string);
   }
 
   return (
-    <WrapperDropComponent component={input} widthDefault={widthDefault}>
+    <WrapperDropComponent component={button} widthDefault={widthDefault}>
       {formItemSetting ? (
         <Form.Item
           label={
@@ -48,7 +47,7 @@ export const InputDrop = ({
           required={(formItemSetting.value as FormItemValue)?.requird}
           rules={(formItemSetting.value as FormItemValue)?.valid}
         >
-          <InputCustom
+          <ButtonCustom
             style={{
               ...defaultCss,
               pointerEvents: "none",
@@ -58,23 +57,24 @@ export const InputDrop = ({
           />
         </Form.Item>
       ) : (
-        <InputCustom
+        <ButtonCustom
           style={{
             ...defaultCss,
             pointerEvents: "none",
             cursor: "default",
           }}
           size="small"
+          title="Click me!"
           {...restProps}
         />
       )}
     </WrapperDropComponent>
   );
 };
-export const defaultInputDropObject = (id: string) => {
+export const defaultButtonDropObject = (id: string) => {
   return {
     id: id,
-    type: DATA_TYPE.INPUT,
+    type: GENERAL_TYPE.BUTTON,
     inlineStyle: [] as StyleHTML[],
   } as ComponentData;
 };

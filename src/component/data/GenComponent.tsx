@@ -6,6 +6,7 @@ import { TableDrop } from "./TableDrop";
 import { RowDrop } from "./RowDrop";
 import { ColForRow } from "./ColForRow";
 import { TextDrop } from "./TextDrop";
+import { ButtonDrop } from "./ButtonDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -53,6 +54,13 @@ export const GenComponent = ({
       return (
         <>
           <TableDrop table={component} />
+        </>
+      );
+    }
+    case GENERAL_TYPE.BUTTON: {
+      return (
+        <>
+          <ButtonDrop button={component} />
         </>
       );
     }

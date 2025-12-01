@@ -1,3 +1,4 @@
+import { defaultButtonDropObject } from "@/component/data/ButtonDrop";
 import { defaultColDropObject } from "@/component/data/ColForRow";
 import { defaultInputDropObject } from "@/component/data/InputDrop";
 import { defaultRowDropObject } from "@/component/data/RowDrop";
@@ -23,6 +24,9 @@ export const buildChildren = (item: DropDragItem) => {
     }
     case DATA_TYPE.TABLE: {
       return defaultTableDropObject(item.id as string);
+    }
+    case GENERAL_TYPE.BUTTON: {
+      return defaultButtonDropObject(item.id as string);
     }
     default: {
       return {
