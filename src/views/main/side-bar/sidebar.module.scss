@@ -10,6 +10,7 @@
     right: 0;
     top: 120px;
     width: 400px; // mặc định cho màn lớn hơn 14"
+    z-index: 1;
 
     @media (max-width: 1440px) {
         width: 300px !important; // màn 14 inch đổ xuống
