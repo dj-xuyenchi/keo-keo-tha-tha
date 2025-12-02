@@ -36,6 +36,9 @@ function renderNodePreview(item: {
   node: object;
   componentChildren: ComponentData[];
 }) {
+  if (item) {
+    item.source = 'Canvas'
+  }
   // const n = item?.node;
   // if (!n) return null;
   // if (item.source == "Sidebar") {
@@ -43,7 +46,6 @@ function renderNodePreview(item: {
   //     <Image src={`/options/${item.icon}`} width={24} height={24} alt="icon" />
   //   );
   // }
-
   switch (item.type) {
     case GENERAL_TYPE.ROW:
       return (
@@ -102,7 +104,7 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => {}}
+          movePanel={() => { }}
           index={0}
         />
       );

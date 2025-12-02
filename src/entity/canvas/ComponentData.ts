@@ -19,6 +19,7 @@ export interface ComponentData {
   inlineStyle: StyleHTML[];
 
   componentChildren: ComponentData[];
+  source?: string
 }
 
 export const findComponentById = (
