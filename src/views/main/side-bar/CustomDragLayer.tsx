@@ -36,9 +36,9 @@ function renderNodePreview(item: {
   node: object;
   componentChildren: ComponentData[];
 }) {
-  if (item) {
-    item.source = 'Canvas'
-  }
+  // if (item) {
+  //   item.source = 'Canvas'
+  // }
   // const n = item?.node;
   // if (!n) return null;
   // if (item.source == "Sidebar") {

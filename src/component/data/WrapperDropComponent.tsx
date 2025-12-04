@@ -97,7 +97,7 @@ export const WrapperDropComponent = ({
       )}`}
       style={{
         ...style,
-        ...(isDragging && component?.source != 'Canvas' && { visibility: "hidden" }),
+        ...(isDragging && { opacity: 0 }),
         ...(widthDefault ? { width: widthDefault + 2 } : {}),
         ...(heightDefault ? { height: heightDefault } : {}),
       }}

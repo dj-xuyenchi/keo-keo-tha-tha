@@ -28,6 +28,7 @@ import unCmtIcon from "../../../../public/options/ribbon/un-cmt.png";
 import runIcon from "../../../../public/options/ribbon/run.png";
 import debugIcon from "../../../../public/options/ribbon/debug.png";
 import borderIcon from "../../../../public/options/ribbon/border.png";
+import behaviorIcon from "../../../../public/options/ribbon/behavior.png";
 import { getSessionCacheValueByKey } from "../solution/service";
 import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
@@ -298,6 +299,23 @@ export const FileTab = () => {
             >
               <Image
                 src={borderIcon}
+                width={miniSize}
+                height={miniSize}
+                alt="icon"
+              />
+            </div>
+          </Tooltip>
+          <Tooltip title={`Hành vi mặc định của component`}>
+            <div
+              onClick={handleTurnShowBorder}
+              className={clsx(
+                styles.miniSizeIcon,
+                styles.feature,
+                isShowBorder && styles.iconBtnOn
+              )}
+            >
+              <Image
+                src={behaviorIcon}
                 width={miniSize}
                 height={miniSize}
                 alt="icon"
