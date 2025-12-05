@@ -17,7 +17,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
-import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
+import { IS_ALLOW_DEFAULT_BEHAVIOR, IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { defaultCss } from "@/config/defaultCss";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
 import {
@@ -74,11 +74,16 @@ export const TableDrop = <T extends BaseDataTable>({
   );
   const isShowBorder =
     getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
+  const isAllowDefaultBehavior =
+    getSessionCacheValueByKey(sessionCaching, IS_ALLOW_DEFAULT_BEHAVIOR) === "true";
   const selectedComponent = useSelector(
     (state: RootState) => state.canvas.selectedComponent
   );
   // Logic setting table
   const handleChangeCollap = (value: string[]) => {
+    if (!isAllowDefaultBehavior){
+      return
+    }
     if (fixedCollap) {
       return;
     }
@@ -98,6 +103,7 @@ export const TableDrop = <T extends BaseDataTable>({
         <CollapseCustom
           activeKey={activeCollap}
           onChange={handleChangeCollap}
+         
           items={[
             {
               key: "1",

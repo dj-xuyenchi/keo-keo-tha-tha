@@ -30,7 +30,7 @@ import debugIcon from "../../../../public/options/ribbon/debug.png";
 import borderIcon from "../../../../public/options/ribbon/border.png";
 import behaviorIcon from "../../../../public/options/ribbon/behavior.png";
 import { getSessionCacheValueByKey } from "../solution/service";
-import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
+import { IS_ALLOW_DEFAULT_BEHAVIOR, IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 import { SESSION_CACHING_JSON } from "@/config/folder-data/fileType";
 import { setSessionCaching } from "@/app/globalSlice";
@@ -48,8 +48,10 @@ export const FileTab = () => {
   );
   const isShowBorder =
     getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
+  const isAllowDefaultBehavior =
+    getSessionCacheValueByKey(sessionCaching, IS_ALLOW_DEFAULT_BEHAVIOR) === "true";
   const messageApi = getMessageInstance();
-  const handlePaste = () => {};
+  const handlePaste = () => { };
   const handleSetMode = (value: string) => {
     setMode(value);
   };
@@ -98,6 +100,21 @@ export const FileTab = () => {
         SESSION_CACHING_JSON,
         JSON.stringify(cacheList),
         !isShowBorder ? "Bật hiển thị phạm vi" : "Tắt hiển thị phạm vi"
+      );
+      dispatch(setSessionCaching(cacheList));
+    }
+  };
+  const handleTurnAllowDefaultBehavior = () => {
+    const cacheList = cloneDeep(sessionCaching) as SessionCaching[];
+    const allow = cacheList.find((item) => {
+      return item.key == IS_ALLOW_DEFAULT_BEHAVIOR;
+    });
+    if (allow) {
+      allow.value = !isAllowDefaultBehavior ? "true" : "false";
+      saveData2File(
+        SESSION_CACHING_JSON,
+        JSON.stringify(cacheList),
+        !isAllowDefaultBehavior ? "Bật cho phép hành vi mặc định của component" : "Tắt cho phép hành vi mặc định của component"
       );
       dispatch(setSessionCaching(cacheList));
     }
@@ -305,13 +322,13 @@ export const FileTab = () => {
               />
             </div>
           </Tooltip>
-          <Tooltip title={`Hành vi mặc định của component`}>
+          <Tooltip title={`${isAllowDefaultBehavior ? "Tắt" : "Bật"} hành vi mặc định của component`}>
             <div
-              onClick={handleTurnShowBorder}
+              onClick={handleTurnAllowDefaultBehavior}
               className={clsx(
                 styles.miniSizeIcon,
                 styles.feature,
-                isShowBorder && styles.iconBtnOn
+                isAllowDefaultBehavior && styles.iconBtnOn
               )}
             >
               <Image
