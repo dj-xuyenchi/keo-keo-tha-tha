@@ -15,6 +15,7 @@ import { FileInfo } from "@/entity/fileHandler/FileInfo";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 import { LAST_OPEN_FILE } from "@/config/folder-data/sessionCachingKey";
 import { setFileClick } from "@/views/main/canvas/canvasSlice";
+import { BottomSystemApp } from "@/views/main/bottom-system/BottomSystemApp";
 const HomePage = () => {
   const [justClick, setJustClick] = useState(false);
 
@@ -24,22 +25,25 @@ const HomePage = () => {
   };
   const initData = async () => {
     const files = await getAllFile();
-    const sessionCaching = await getSessionCachingData()
+    const sessionCaching = await getSessionCachingData();
     dispatch(setFileList(files));
     dispatch(setSessionCaching(sessionCaching));
-    openLastOpenFile(sessionCaching as SessionCaching[], files)
+    openLastOpenFile(sessionCaching as SessionCaching[], files);
   };
-  const openLastOpenFile = (sessionCaching: SessionCaching[], files: FileInfo[]) => {
+  const openLastOpenFile = (
+    sessionCaching: SessionCaching[],
+    files: FileInfo[]
+  ) => {
     const lastOpenFile = sessionCaching.find((item) => {
-      return item.key === LAST_OPEN_FILE
-    })
+      return item.key === LAST_OPEN_FILE;
+    });
     if (lastOpenFile) {
       const file = files.find((item: FileInfo) => {
         return item.key === lastOpenFile.value;
       });
       dispatch(setFileClick(file));
     }
-  }
+  };
   useEffect(() => {
     initData();
   }, []);
@@ -51,6 +55,7 @@ const HomePage = () => {
       <SolutionPanel justClick={justClick} />
       <Canvas />
       <Sidebar />
+      <BottomSystemApp />
       <CustomDragLayer />
     </div>
   );

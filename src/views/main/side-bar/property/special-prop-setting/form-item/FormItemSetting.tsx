@@ -53,7 +53,6 @@ export const FormItemSetting = ({
     // const formProp = componentSelected?.specialProps?.find((prop) => {
     //   return prop.key === FORM_KEY;
     // });
-
     // if (formProp) {
     //   formProp.value = values;
     // } else {
@@ -73,7 +72,7 @@ export const FormItemSetting = ({
       <div
         className="table-column-setting"
         style={{
-          width: "1200px",
+          width: "800px",
         }}
       >
         <Form
@@ -84,8 +83,39 @@ export const FormItemSetting = ({
           layout="vertical"
         >
           <Row gutter={[16, 8]}>
-          
-          
+            <Col span={8}>
+              <Form.Item
+                label="Tiêu đề"
+                name="label"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập tiêu đề ô dữ liệu",
+                  },
+                ]}
+              >
+                <InputCustom placeholder="Tiêu đề" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Tên trường dữ liệu mapping"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập trường dữ liệu",
+                  },
+                ]}
+              >
+                <InputCustom placeholder="Tên trường" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Hiển thị dấu sao requird" name="isRequird">
+                <CheckBoxCustom />
+              </Form.Item>
+            </Col>
           </Row>
         </Form>
         <Row
