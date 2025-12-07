@@ -32,5 +32,5 @@ export interface FormItemValue {
   varName: string;
   label: string;
   requird: boolean;
-  valid: [];
+  valid: string[];
 }

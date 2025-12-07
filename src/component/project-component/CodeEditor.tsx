@@ -3,9 +3,14 @@
 
 import Editor from "@monaco-editor/react";
 export interface CodeEditorProp {
-  language: "html" | "js" | "css";
+  language: "html" | "javascript" | "css";
+  codeContent: string;
 }
-export const CodeEditor = ({ language, ...restProps }: CodeEditorProp) => {
+export const CodeEditor = ({
+  language,
+  codeContent,
+  ...restProps
+}: CodeEditorProp) => {
   const handleEditorMount = (editor, monaco) => {
     // ============================
     // 1) HTML language enhancement
@@ -50,7 +55,7 @@ export const CodeEditor = ({ language, ...restProps }: CodeEditorProp) => {
       {...restProps}
       height="400px"
       language={language}
-      defaultValue={`<div class="box">Hello</div>`}
+      defaultValue={codeContent}
       onMount={handleEditorMount}
     />
   );
