@@ -4,11 +4,18 @@ import { widthGroupStyle } from "./styles/width";
 import { heightGroupStyle } from "./styles/height";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { paddingGroupStyle } from "./styles/padding";
+import { displayGroupStyle } from "./styles/display";
 
-export const styleHTML = [...marginGroupStyle, ...widthGroupStyle, ...heightGroupStyle, ...paddingGroupStyle] as StyleHTML[];
+export const styleHTML = [
+  ...marginGroupStyle,
+  ...widthGroupStyle,
+  ...heightGroupStyle,
+  ...paddingGroupStyle,
+  ...displayGroupStyle,
+] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
-  const styles = component.inlineStyle
+  const styles = component.inlineStyle;
   if (!styles) {
     return {};
   }
@@ -21,7 +28,8 @@ export const buildStyle = (component: ComponentData) => {
     }
     return {
       ...pre,
-      [style?.reactObjectName]: next.value + `${next.isImportant ? ' !important' : ''}`,
+      [style?.reactObjectName]:
+        next.value + `${next.isImportant ? " !important" : ""}`,
     };
   }, {} as React.CSSProperties);
 };
