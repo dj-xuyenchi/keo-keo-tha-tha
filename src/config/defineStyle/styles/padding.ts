@@ -1,7 +1,7 @@
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
-export const paddingKey = "PADDING";
+export const PADDING_KEY = "PADDING";
 export const padding = {
-  key: paddingKey,
+  key: PADDING_KEY,
   name: "padding",
   reactObjectName: "padding",
 } as StyleHTML;

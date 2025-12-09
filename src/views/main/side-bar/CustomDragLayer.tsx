@@ -5,11 +5,11 @@ import { TableDrop } from "@/component/data/TableDrop";
 import { PanelDrop } from "@/component/data/PanelDrop";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { RowDrop } from "@/component/data/RowDrop";
-import { widthKey } from "@/config/defineStyle/styles/width";
-import { heightKey, minHeightKey } from "@/config/defineStyle/styles/height";
 import { ColForRow } from "@/component/data/ColForRow";
 import { TextDrop } from "@/component/data/TextDrop";
 import { ButtonDrop } from "@/component/data/ButtonDrop";
+import { WIDTH_KEY } from "@/config/defineStyle/styles/width";
+import { HEIGHT_KEY, MIN_HEIGHT_KEY } from "@/config/defineStyle/styles/height";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -57,11 +57,11 @@ function renderNodePreview(item: {
               ...(item as unknown as ComponentData),
               inlineStyle: [
                 {
-                  key: widthKey,
+                  key: WIDTH_KEY,
                   value: "400px",
                 },
                 {
-                  styleKey: heightKey,
+                  styleKey: HEIGHT_KEY,
                   value: "100px",
                 },
               ],
@@ -98,7 +98,7 @@ function renderNodePreview(item: {
               componentChildren: item.componentChildren,
               inlineStyle: [
                 {
-                  key: minHeightKey,
+                  key: MIN_HEIGHT_KEY,
                   value: "40px",
                 },
               ],

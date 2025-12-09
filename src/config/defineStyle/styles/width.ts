@@ -1,19 +1,19 @@
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
-export const widthKey = "WIDTH";
-export const minWidthKey = "MIN_WIDTH";
-export const maxWidthKey = "MAX_WIDTH";
+export const WIDTH_KEY = "WIDTH";
+export const MIN_WIDTH_KEY = "MIN_WIDTH";
+export const MAX_WIDTH_KEY = "MAX_WIDTH";
 export const width = {
-  key: widthKey,
+  key: WIDTH_KEY,
   name: "width",
   reactObjectName: "width",
 } as StyleHTML;
 export const minWidth = {
-  key: minWidthKey,
+  key: MIN_WIDTH_KEY,
   name: "min-width",
   reactObjectName: "minWidth",
 } as StyleHTML;
 export const maxWidth = {
-  key: maxWidthKey,
+  key: MAX_WIDTH_KEY,
   name: "max-width",
   reactObjectName: "maxWidth",
 } as StyleHTML;

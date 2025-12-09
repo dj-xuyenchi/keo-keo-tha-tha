@@ -11,7 +11,6 @@ import { getMessageInstance } from "@/config/messageContext";
 import { v4 as uuidv4 } from "uuid";
 import { GenComponent } from "./GenComponent";
 import { DropDragItem } from "@/entity/DropDragItem";
-import { margrinBottomKey } from "@/config/defineStyle/styles/margin";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -22,8 +21,6 @@ import {
 } from "@/views/main/canvas/service";
 import { useDispatch } from "react-redux";
 import { setData2Work } from "@/views/main/canvas/canvasSlice";
-import { widthKey } from "@/config/defineStyle/styles/width";
-import { minHeightKey } from "@/config/defineStyle/styles/height";
 import { useSelectComponent } from "@/hook/useSelectComponent";
 import clsx from "clsx";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
@@ -32,6 +29,9 @@ import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import cloneDeep from "lodash/cloneDeep";
 import { Popconfirm } from "antd";
 import Image from "next/image";
+import { MARGIN_BOTTOM_KEY } from "@/config/defineStyle/styles/margin";
+import { MIN_HEIGHT_KEY } from "@/config/defineStyle/styles/height";
+import { WIDTH_KEY } from "@/config/defineStyle/styles/width";
 export interface PanelDropProps {
   index: number;
   movePanel: (fromIndex: string, toIndex: string) => void;
@@ -183,11 +183,11 @@ export const defaultPanelDropObject = (id: string) => {
     type: GENERAL_TYPE.PANEL,
     inlineStyle: [
       {
-        key: margrinBottomKey,
+        key: MARGIN_BOTTOM_KEY,
         value: "12px",
       },
       {
-        key: minHeightKey,
+        key: MIN_HEIGHT_KEY,
         value: "40px",
       },
     ] as StyleHTML[],
@@ -195,4 +195,4 @@ export const defaultPanelDropObject = (id: string) => {
   } as ComponentData;
 };
 
-export const panelIgnoreStyle = [widthKey];
+export const panelIgnoreStyle = [WIDTH_KEY];
