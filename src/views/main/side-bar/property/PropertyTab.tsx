@@ -84,13 +84,25 @@ export const PropertyTab = () => {
         });
     }
     if (key === STYLE_KEY) {
-      const dataSourceStyle = styleHTML;
+      const inlineComponentStyle = cloneDeep(styleHTML).map(
+        (data: StyleHTML) => {
+          const styleExistCheck = selectedComponent.inlineStyle.find(
+            (style: StyleHTML) => {
+              return style.key === data.key;
+            }
+          );
+          if (styleExistCheck) {
+            data.value = styleExistCheck.value;
+          }
+          return data;
+        }
+      );
       return (
         <Table
           key={selectedComponent?.id}
           className="tbl-expand-setting"
           columns={columnStyle}
-          dataSource={dataSourceStyle}
+          dataSource={inlineComponentStyle}
           pagination={false}
           showHeader={false}
           bordered
