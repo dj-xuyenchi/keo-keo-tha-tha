@@ -5,10 +5,12 @@ import { heightGroupStyle } from "./styles/height";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { paddingGroupStyle } from "./styles/padding";
 import { displayGroupStyle } from "./styles/display";
+import { textAlignGroupStyle } from "./styles/textAlign";
 
 export const styleHTML = [
   ...marginGroupStyle,
   ...widthGroupStyle,
+  ...textAlignGroupStyle,
   ...heightGroupStyle,
   ...paddingGroupStyle,
   ...displayGroupStyle,

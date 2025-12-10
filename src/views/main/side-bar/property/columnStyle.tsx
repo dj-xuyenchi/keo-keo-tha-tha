@@ -1,5 +1,5 @@
 import { InputCustom } from "@/component/componentCustom/InputCustom";
-import { getTooltip } from "@/config/defineSpecialProps/getTooltip";
+import { getTooltipStyle } from "@/config/defineStyle/getTooltipStyle";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
@@ -20,7 +20,7 @@ export const getColumnStyle = ({ handleSetValueStyle }: CallBacks) => [
         }}
       >
         {record.name}
-        <Tooltip placement="top" title={getTooltip(record.key)}>
+        <Tooltip placement="top" title={getTooltipStyle(record.key)}>
           <QuestionCircleOutlined
             style={{
               marginLeft: "4px",
