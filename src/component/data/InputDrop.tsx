@@ -46,7 +46,6 @@ export const InputDrop = ({
           }
           name={(formItemSetting.value as FormItemValue)?.formVarName}
           required={(formItemSetting.value as FormItemValue)?.requird}
-          rules={(formItemSetting.value as FormItemValue)?.valid}
         >
           <InputCustom
             style={{

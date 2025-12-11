@@ -45,7 +45,6 @@ export const ButtonDrop = ({
           }
           name={(formItemSetting.value as FormItemValue)?.formVarName}
           required={(formItemSetting.value as FormItemValue)?.requird}
-          rules={(formItemSetting.value as FormItemValue)?.valid}
         >
           <ButtonCustom
             style={{
