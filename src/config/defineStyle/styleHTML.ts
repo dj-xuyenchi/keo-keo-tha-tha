@@ -6,6 +6,7 @@ import { ComponentData } from "@/entity/canvas/ComponentData";
 import { paddingGroupStyle } from "./styles/padding";
 import { displayGroupStyle } from "./styles/display";
 import { textAlignGroupStyle } from "./styles/textAlign";
+import { fontGroupStyle } from "./styles/font";
 
 export const styleHTML = [
   ...marginGroupStyle,
@@ -14,6 +15,7 @@ export const styleHTML = [
   ...heightGroupStyle,
   ...paddingGroupStyle,
   ...displayGroupStyle,
+  ...fontGroupStyle,
 ] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
