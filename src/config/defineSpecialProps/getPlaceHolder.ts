@@ -19,5 +19,8 @@ export const getPlaceHolder = (type: string) => {
       return formPlaceHolder;
     case FORM_ITEM_KEY:
       return formItemPlaceHolder;
+    default: {
+      return "Nhập dữ liệu cho thuộc tính";
+    }
   }
 };

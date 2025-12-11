@@ -131,14 +131,20 @@ export const PropertyTab = () => {
         workList,
         canvas.selectedComponent?.id as string
       );
-      const specialProp = componentSelected?.specialProps?.find((prop) => {
+      if (!componentSelected) {
+        return;
+      }
+      const specialProp = componentSelected.specialProps?.find((prop) => {
         return prop.key === propAction.key;
       });
 
       if (specialProp) {
         specialProp.value = value;
       } else {
-        componentSelected?.specialProps.push({
+        if (!componentSelected.specialProps) {
+          componentSelected.specialProps = [];
+        }
+        componentSelected.specialProps.push({
           ...propAction,
           value: value,
         });
@@ -154,6 +160,9 @@ export const PropertyTab = () => {
         workList,
         canvas.selectedComponent?.id as string
       );
+      if (!componentSelected) {
+        return;
+      }
       const inlineStyle = componentSelected?.inlineStyle?.find(
         (style: StyleHTML) => {
           return style.key === styleAction.key;
@@ -163,7 +172,10 @@ export const PropertyTab = () => {
       if (inlineStyle) {
         inlineStyle.value = value;
       } else {
-        componentSelected?.inlineStyle.push({
+        if (!componentSelected.inlineStyle) {
+          componentSelected.inlineStyle = [];
+        }
+        componentSelected.inlineStyle.push({
           ...styleAction,
           value: value,
         });

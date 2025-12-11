@@ -1,4 +1,5 @@
 import { FORM_ITEM_KEY, formItemTooltip } from "./define/common/formItem";
+import { LOADING_KEY, loadingTooltip } from "./define/common/loading";
 import { FORM_KEY, formTooltip } from "./define/row/form";
 import {
   QUICK_SEARCH_KEY,
@@ -22,5 +23,10 @@ export const getTooltip = (type: string) => {
       return formTooltip;
     case FORM_ITEM_KEY:
       return formItemTooltip;
+    case LOADING_KEY:
+      return loadingTooltip;
+    default: {
+      return "";
+    }
   }
 };
