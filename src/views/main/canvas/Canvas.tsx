@@ -62,13 +62,14 @@ export const Canvas = () => {
     const toIndex = updated.findIndex((p) => p.id === toId);
 
     // Nếu không tìm thấy thì bỏ qua
-    if (fromIndex === -1 || toIndex === -1) return;
+    if (fromIndex === -1 || toIndex === -1) {
+      return;
+    }
 
     const fromOb = updated[fromIndex];
     const toOb = updated[toIndex];
     updated[fromIndex] = toOb;
     updated[toIndex] = fromOb;
-    console.log("From:", fromIndex, "To:", toIndex);
 
     dispatch(setData2Work(updated));
   };

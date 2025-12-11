@@ -7,8 +7,14 @@ import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { SelectCustom } from "@/component/componentCustom/SelectCustom";
 import { FormCustom } from "@/component/componentCustom/FormCustom";
 import { ButtonCustom } from "@/component/componentCustom/ButtonCustom";
-import { FILE_TYPE_LIST, getSuffixFileType } from "@/config/folder-data/fileType";
+import {
+  FILE_TYPE_LIST,
+  getSuffixFileType,
+} from "@/config/folder-data/fileType";
 import { FieldNamesType } from "antd/es/cascader";
+import { getAllFile } from "@/app/service";
+import { useDispatch } from "react-redux";
+import { setFileList } from "@/app/globalSlice";
 export interface ModalCreateProps {
   isModalOpen: boolean;
   isCreateFolder: boolean;
@@ -30,6 +36,8 @@ export const ModalCreate = ({
     suffix: ".định dạng",
     type: "",
   });
+
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const onFinish: FormProps<FieldNamesType>["onFinish"] = (value) => {
@@ -48,7 +56,7 @@ export const ModalCreate = ({
       type: value,
     });
   };
-  const handleSave = () => {
+  const handleSave = async () => {
     if (isCreateFolder) {
       handleOk(folderName);
       setFolderName("");
@@ -56,6 +64,13 @@ export const ModalCreate = ({
       handleOk(fileName, fileType.type);
       setFileName("");
       setFileType({ suffix: ".định dạng", type: "" });
+      try {
+        const files = await getAllFile();
+        dispatch(setFileList(files));
+      } catch (e) {
+        console.error("Lỗi cập nhật dữ liệu file vào store khi tạo!");
+        console.error(e);
+      }
     }
   };
   const checkValidExist = (value: string): boolean => {
