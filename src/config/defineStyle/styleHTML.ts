@@ -7,6 +7,7 @@ import { paddingGroupStyle } from "./styles/padding";
 import { displayGroupStyle } from "./styles/display";
 import { textAlignGroupStyle } from "./styles/textAlign";
 import { fontGroupStyle } from "./styles/font";
+import { borderGroupStyle } from "./styles/border";
 
 export const styleHTML = [
   ...marginGroupStyle,
@@ -16,6 +17,7 @@ export const styleHTML = [
   ...paddingGroupStyle,
   ...displayGroupStyle,
   ...fontGroupStyle,
+  ...borderGroupStyle,
 ] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
