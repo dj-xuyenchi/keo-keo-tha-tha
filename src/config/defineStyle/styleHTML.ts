@@ -8,6 +8,8 @@ import { displayGroupStyle } from "./styles/display";
 import { textAlignGroupStyle } from "./styles/textAlign";
 import { fontGroupStyle } from "./styles/font";
 import { borderGroupStyle } from "./styles/border";
+import { colorGroupStyle } from "./styles/color";
+import { backgroundGroupStyle } from "./styles/backgroundColor";
 
 export const styleHTML = [
   ...marginGroupStyle,
@@ -18,6 +20,8 @@ export const styleHTML = [
   ...displayGroupStyle,
   ...fontGroupStyle,
   ...borderGroupStyle,
+  ...colorGroupStyle,
+  ...backgroundGroupStyle
 ] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
