@@ -10,6 +10,8 @@ import { fontGroupStyle } from "./styles/font";
 import { borderGroupStyle } from "./styles/border";
 import { colorGroupStyle } from "./styles/color";
 import { backgroundGroupStyle } from "./styles/backgroundColor";
+import { positionGroupStyle } from "./styles/position";
+import { overflowGroupStyle } from "./styles/overflow";
 
 export const styleHTML = [
   ...marginGroupStyle,
@@ -21,7 +23,9 @@ export const styleHTML = [
   ...fontGroupStyle,
   ...borderGroupStyle,
   ...colorGroupStyle,
-  ...backgroundGroupStyle
+  ...backgroundGroupStyle,
+  ...positionGroupStyle,
+  ...overflowGroupStyle,
 ] as StyleHTML[];
 
 export const buildStyle = (component: ComponentData) => {
