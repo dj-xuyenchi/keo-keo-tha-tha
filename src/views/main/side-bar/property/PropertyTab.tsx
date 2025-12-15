@@ -184,7 +184,7 @@ export const PropertyTab = () => {
     }
     const colStyle = getColumnStyle({ handleSetValueStyle });
     setColumnStyle([...colStyle]);
-  }, [selectedComponent?.id]);
+  }, [selectedComponent?.id, canvas.dataWork]);
 
   return (
     <>
