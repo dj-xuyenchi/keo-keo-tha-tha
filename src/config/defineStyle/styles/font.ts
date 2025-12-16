@@ -17,7 +17,7 @@ export const fontSize = {
 
 export const fontWeight = {
   key: FONT_WEIGHT_KEY,
-  name: "fontWeight",
+  name: "font-weight",
   reactObjectName: "fontWeight",
 } as StyleHTML;
 export const fontGroupStyle = [font, fontSize, fontWeight];

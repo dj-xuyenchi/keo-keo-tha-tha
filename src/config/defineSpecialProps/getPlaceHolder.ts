@@ -6,6 +6,7 @@ import {
   tableComlumnPlaceHolder,
 } from "./define/table/tableComlumn";
 import { TABLE_NAME_KEY, tableNamePlaceHolder } from "./define/table/tableName";
+import { TEXT_VALUE_KEY, textValuePlaceHolder } from "./define/text/textValue";
 
 export const getPlaceHolder = (type: string) => {
   switch (type) {
@@ -19,6 +20,8 @@ export const getPlaceHolder = (type: string) => {
       return formPlaceHolder;
     case FORM_ITEM_KEY:
       return formItemPlaceHolder;
+    case TEXT_VALUE_KEY:
+      return textValuePlaceHolder;
     default: {
       return "Nhập dữ liệu cho thuộc tính";
     }

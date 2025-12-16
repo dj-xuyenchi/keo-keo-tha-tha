@@ -7,6 +7,7 @@ import { RowDrop } from "./RowDrop";
 import { ColForRow } from "./ColForRow";
 import { TextDrop } from "./TextDrop";
 import { ButtonDrop } from "./ButtonDrop";
+import { CheckBoxDrop } from "./CheckBoxDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -40,6 +41,13 @@ export const GenComponent = ({
       return (
         <>
           <TextDrop text={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.CHECK_BOX: {
+      return (
+        <>
+          <CheckBoxDrop checkBox={component} key={component.id} />
         </>
       );
     }

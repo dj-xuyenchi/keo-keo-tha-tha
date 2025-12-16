@@ -3,7 +3,10 @@ import { WrapperBase, WrapperDropComponent } from "./WrapperDropComponent";
 import clsx from "clsx";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { getSessionCacheValueByKey } from "@/views/main/solution/service";
-import { IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
+import {
+  IS_ALLOW_DEFAULT_BEHAVIOR,
+  IS_SHOW_BORDER,
+} from "@/config/folder-data/sessionCachingKey";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { DATA_TYPE } from "@/config/sidebar/TypeComponent";
@@ -11,20 +14,21 @@ import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { PropComponent } from "@/entity/sidebar/PropComponent";
 import { TEXT_VALUE_KEY } from "@/config/defineSpecialProps/define/text/textValue";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
-export interface TextDropPropsCustom extends WrapperBase {
-  text: ComponentData;
+import { Checkbox } from "antd";
+export interface CheckBoxDropPropsCustom extends WrapperBase {
+  checkBox: ComponentData;
 }
 
-export const TextDrop = ({
-  text,
+export const CheckBoxDrop = ({
+  checkBox,
   widthDefault,
   heightDefault,
   ...restProps
-}: TextDropPropsCustom) => {
-  const inlineStyle = buildStyle(text);
+}: CheckBoxDropPropsCustom) => {
+  const inlineStyle = buildStyle(checkBox);
   console.error(inlineStyle);
 
-  const textValue = text?.specialProps?.find(
+  const textValue = checkBox?.specialProps?.find(
     (prop) => prop.key === TEXT_VALUE_KEY
   ) as PropComponent;
   const sessionCaching = useSelector(
@@ -32,30 +36,32 @@ export const TextDrop = ({
   );
   const isShowBorder =
     getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
+
   return (
     <WrapperDropComponent
       widthDefault={widthDefault}
       heightDefault={heightDefault}
-      component={text}
+      component={checkBox}
       className={clsx(isShowBorder && "dashUnselect")}
       style={{
         display: "inline-block",
       }}
     >
-      <span
+      <Checkbox
+        checked={false}
         style={{
           ...inlineStyle,
         }}
       >
         {textValue ? (textValue.value as string) : "Text"}
-      </span>
+      </Checkbox>
     </WrapperDropComponent>
   );
 };
-export const defaultTextDropObject = (id: string) => {
+export const defaultCheckBoxDropObject = (id: string) => {
   return {
     id: id,
-    type: DATA_TYPE.TEXT,
+    type: DATA_TYPE.CHECK_BOX,
     inlineStyle: [] as StyleHTML[],
     specialProps: [] as PropComponent[],
   } as ComponentData;

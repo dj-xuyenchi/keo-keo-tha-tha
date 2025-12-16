@@ -41,12 +41,12 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Checkbox",
         icon: checkboxIcon,
-        type: DATA_TYPE.RICH_TEXT,
+        type: DATA_TYPE.CHECK_BOX,
       },
       {
         name: "Radio",
         icon: radioIcon,
-        type: DATA_TYPE.RICH_TEXT,
+        type: DATA_TYPE.RADIO,
       },
       {
         name: "Switch",

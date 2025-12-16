@@ -10,6 +10,7 @@ import { TextDrop } from "@/component/data/TextDrop";
 import { ButtonDrop } from "@/component/data/ButtonDrop";
 import { WIDTH_KEY } from "@/config/defineStyle/styles/width";
 import { HEIGHT_KEY, MIN_HEIGHT_KEY } from "@/config/defineStyle/styles/height";
+import { CheckBoxDrop } from "@/component/data/CheckBoxDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -81,6 +82,16 @@ function renderNodePreview(item: {
           }
         />
       );
+    case DATA_TYPE.CHECK_BOX:
+      return (
+        <CheckBoxDrop
+          checkBox={
+            {
+              ...(item as unknown as ComponentData),
+            } as ComponentData
+          }
+        />
+      );
     case GENERAL_TYPE.COL:
       return (
         <ColForRow
@@ -104,7 +115,7 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => { }}
+          movePanel={() => {}}
           index={0}
         />
       );

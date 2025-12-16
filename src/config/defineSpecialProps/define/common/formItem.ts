@@ -7,7 +7,6 @@ export const formItem = {
   key: FORM_ITEM_KEY,
   valueType: "flex",
   apply: [
-    DATA_TYPE.TEXT,
     DATA_TYPE.INPUT,
     DATA_TYPE.INPUT_NUMBER,
     DATA_TYPE.CHECK_BOX,

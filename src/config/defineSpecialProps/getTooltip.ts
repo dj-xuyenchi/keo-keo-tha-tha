@@ -10,6 +10,7 @@ import {
   tableComlumnTooltip,
 } from "./define/table/tableComlumn";
 import { TABLE_NAME_KEY, tableNameTooltip } from "./define/table/tableName";
+import { TEXT_VALUE_KEY, textValuemTooltip } from "./define/text/textValue";
 
 export const getTooltip = (type: string) => {
   switch (type) {
@@ -25,6 +26,8 @@ export const getTooltip = (type: string) => {
       return formItemTooltip;
     case LOADING_KEY:
       return loadingTooltip;
+    case TEXT_VALUE_KEY:
+      return textValuemTooltip;
     default: {
       return "";
     }

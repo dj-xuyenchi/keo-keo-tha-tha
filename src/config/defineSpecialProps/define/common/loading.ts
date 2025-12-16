@@ -7,7 +7,6 @@ export const loading = {
   key: LOADING_KEY,
   valueType: "string",
   apply: [
-    DATA_TYPE.TEXT,
     DATA_TYPE.INPUT,
     DATA_TYPE.INPUT_NUMBER,
     GENERAL_TYPE.BUTTON,
