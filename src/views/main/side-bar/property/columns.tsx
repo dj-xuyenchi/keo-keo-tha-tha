@@ -1,5 +1,7 @@
 import { InputCustom } from "@/component/componentCustom/InputCustom";
 import { InputNumberCustom } from "@/component/componentCustom/InputNumberCustom";
+import { SelectCustom } from "@/component/componentCustom/SelectCustom";
+import { getOptionSelect } from "@/config/defineSpecialProps/getOptionSelect";
 import { getPlaceHolder } from "@/config/defineSpecialProps/getPlaceHolder";
 import { getTooltip } from "@/config/defineSpecialProps/getTooltip";
 import { getValueFlex } from "@/config/defineSpecialProps/getValueFlex";
@@ -46,6 +48,16 @@ export const getColumns = ({ handleOpenModal, handleSetValue }: CallBacks) => [
           width: "100%",
         }}
       >
+        {record.valueType == "select" && (
+          <SelectCustom
+            defaultValue={record.value}
+            options={getOptionSelect(record.key)}
+            onChange={(value: string) => {
+              handleSetValue(record, value);
+            }}
+            placeholder="Chọn giá trị"
+          />
+        )}
         {record.valueType == "flex" && (
           <InputCustom
             defaultValue={getValueFlex(record)}
