@@ -38,6 +38,10 @@ export const IconTree = ({ type, height, width }: IconTreeCustom) => {
     [DATA_TYPE.TABLE]: tableIcon,
     [DATA_TYPE.TEXT]: textInlineIcon,
     [DATA_TYPE.INPUT]: inputIcon,
+    [DATA_TYPE.CHECK_BOX]: checkboxIcon,
+    [DATA_TYPE.INPUT_NUMBER]: inputNumberIcon,
+    [DATA_TYPE.RADIO]: radioIcon,
+    [GENERAL_TYPE.BUTTON]: buttonIcon,
   };
 
   const iconSrc = iconMap[type];

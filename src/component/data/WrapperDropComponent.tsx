@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 
 export interface WrapperDropComponentProps
   extends React.HTMLAttributes<HTMLDivElement>,
-  WrapperBase {
+    WrapperBase {
   component: ComponentData | null;
   children?: React.ReactNode;
 }
@@ -97,7 +97,7 @@ export const WrapperDropComponent = ({
       )}`}
       style={{
         ...style,
-        // ...(isDragging && { opacity: 0 }),
+        ...(isDragging && { opacity: 0 }),
         ...(widthDefault ? { width: widthDefault + 2 } : {}),
         ...(heightDefault ? { height: heightDefault } : {}),
       }}
