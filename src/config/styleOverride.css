@@ -586,3 +586,12 @@ body {
 .col-for-row .ant-form-item {
     margin-bottom: unset !important;
 }
+
+.delete-btn-component {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    z-index: 1;
+}

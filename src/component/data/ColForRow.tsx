@@ -5,7 +5,7 @@ import {
   findComponentById,
 } from "@/entity/canvas/ComponentData";
 import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
-import { Col, ColProps } from "antd";
+import { Col, ColProps, Popconfirm } from "antd";
 import { GenComponent } from "./GenComponent";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
@@ -34,6 +34,10 @@ import { PropComponent } from "@/entity/sidebar/PropComponent";
 import cloneDeep from "lodash/cloneDeep";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import { buildStyle } from "@/config/defineStyle/styleHTML";
+import Image from "next/image";
+
+import deleteIcon from "../../../public/options/delete.png";
+import { HEIGHT_KEY, MIN_HEIGHT_KEY } from "@/config/defineStyle/styles/height";
 export interface ColForRowProps extends ColProps {
   col: ComponentData;
   isFromSideBar: boolean;
@@ -118,6 +122,14 @@ export const ColForRow = ({
     }),
     [canvas]
   );
+  const handleConfirmDelete = () => {
+    if (col?.id) {
+      let newTree = cloneDeep(canvas.dataWork);
+      newTree = removeComponentById(newTree, col?.id as string);
+      // 4. Cập nhật redux
+      dispatch(setData2Work(newTree));
+    }
+  };
   if (!isFromSideBar) {
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
@@ -152,8 +164,29 @@ export const ColForRow = ({
           border: isActive ? "1px dashed #4caf50" : "",
           backgroundColor: isActive ? "#e8f5e9" : isOver ? "#f0f0f0" : "white",
           transition: "background-color 0.2s",
+          ...(col.componentChildren && col.componentChildren.length > 0
+            ? {}
+            : { minHeight: "10px" }),
         }}
       >
+        <Popconfirm
+          title="Xóa component!"
+          description="Bạn có chắc muốn xóa component này?"
+          okText="Xóa"
+          onConfirm={handleConfirmDelete}
+          cancelText="Không"
+        >
+          <Image
+            src={deleteIcon}
+            width={12}
+            height={12}
+            alt="icon"
+            style={{
+              display: col?.id != selectedComponent?.id ? "none" : undefined,
+            }}
+            className={"delete-btn-component"}
+          />
+        </Popconfirm>
         {col &&
           col.componentChildren &&
           col.componentChildren.map((component) => {

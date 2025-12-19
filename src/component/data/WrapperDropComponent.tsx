@@ -119,7 +119,7 @@ export const WrapperDropComponent = ({
             display:
               component?.id != selectedComponent?.id ? "none" : undefined,
           }}
-          className={styles.deleteBtn}
+          className={"delete-btn-component"}
         />
       </Popconfirm>
       {children}
