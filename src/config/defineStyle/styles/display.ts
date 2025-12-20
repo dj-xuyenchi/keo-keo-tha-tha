@@ -21,6 +21,7 @@ export const justifyContent = {
   name: "justify-content",
   reactObjectName: "justifyContent",
 } as StyleHTML;
+export const flexDirectionTooltip = "CSS này yêu cầu thẻ có display là flex";
 export const flexDirection = {
   key: FLEX_DIRECTION_KEY,
   name: "flex-direction",

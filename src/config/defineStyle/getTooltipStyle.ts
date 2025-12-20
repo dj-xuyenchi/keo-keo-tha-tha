@@ -1,6 +1,8 @@
 import {
   ALIGN_ITEMS_KEY,
   alignItemsTooltip,
+  FLEX_DIRECTION_KEY,
+  flexDirectionTooltip,
   JUSTIFY_CONTENT_KEY,
   justifyContentTooltip,
 } from "./styles/display";
@@ -11,5 +13,10 @@ export const getTooltipStyle = (type: string) => {
       return alignItemsTooltip;
     case JUSTIFY_CONTENT_KEY:
       return justifyContentTooltip;
+    case FLEX_DIRECTION_KEY:
+      return flexDirectionTooltip;
+    default: {
+      return "";
+    }
   }
 };
