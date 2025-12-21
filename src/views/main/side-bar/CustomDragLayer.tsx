@@ -11,6 +11,9 @@ import { ButtonDrop } from "@/component/data/ButtonDrop";
 import { WIDTH_KEY } from "@/config/defineStyle/styles/width";
 import { HEIGHT_KEY, MIN_HEIGHT_KEY } from "@/config/defineStyle/styles/height";
 import { CheckBoxDrop } from "@/component/data/CheckBoxDrop";
+import { RadioDrop } from "@/component/data/RadioDrop";
+import { SwitchDrop } from "@/component/data/SwitchDrop";
+import { InputNumberDrop } from "@/component/data/InputNumberDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -92,6 +95,26 @@ function renderNodePreview(item: {
           }
         />
       );
+    case DATA_TYPE.RADIO:
+      return (
+        <RadioDrop
+          radio={
+            {
+              ...(item as unknown as ComponentData),
+            } as ComponentData
+          }
+        />
+      );
+    case DATA_TYPE.SWITCH:
+      return (
+        <SwitchDrop
+          switchComponent={
+            {
+              ...(item as unknown as ComponentData),
+            } as ComponentData
+          }
+        />
+      );
     case GENERAL_TYPE.COL:
       return (
         <ColForRow
@@ -124,6 +147,13 @@ function renderNodePreview(item: {
         <InputDrop
           widthDefault={240}
           input={item as unknown as ComponentData}
+        />
+      );
+    case DATA_TYPE.INPUT_NUMBER:
+      return (
+        <InputNumberDrop
+          widthDefault={240}
+          inputNumber={item as unknown as ComponentData}
         />
       );
     case DATA_TYPE.TABLE:

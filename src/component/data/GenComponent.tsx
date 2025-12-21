@@ -8,6 +8,9 @@ import { ColForRow } from "./ColForRow";
 import { TextDrop } from "./TextDrop";
 import { ButtonDrop } from "./ButtonDrop";
 import { CheckBoxDrop } from "./CheckBoxDrop";
+import { RadioDrop } from "./RadioDrop";
+import { SwitchDrop } from "./SwitchDrop";
+import { InputNumberDrop } from "./InputNumberDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -37,6 +40,13 @@ export const GenComponent = ({
         </>
       );
     }
+    case DATA_TYPE.INPUT_NUMBER: {
+      return (
+        <>
+          <InputNumberDrop inputNumber={component} key={component.id} />
+        </>
+      );
+    }
     case DATA_TYPE.TEXT: {
       return (
         <>
@@ -48,6 +58,20 @@ export const GenComponent = ({
       return (
         <>
           <CheckBoxDrop checkBox={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.RADIO: {
+      return (
+        <>
+          <RadioDrop radio={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.SWITCH: {
+      return (
+        <>
+          <SwitchDrop switchComponent={component} key={component.id} />
         </>
       );
     }

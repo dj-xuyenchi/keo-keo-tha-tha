@@ -2,7 +2,7 @@ import { defaultCss } from "@/config/defaultCss";
 import { InputNumber, InputNumberProps } from "antd";
 
 export interface InputNumberPropsCustom extends InputNumberProps {
-  height?: number;
+  exempple?: string;
 }
 
 export const InputNumberCustom = ({
@@ -11,7 +11,7 @@ export const InputNumberCustom = ({
 }: InputNumberPropsCustom) => {
   return (
     <InputNumber
-    className="input-number-custom"
+      className="input-number-custom"
       style={{
         ...defaultCss,
         ...style,

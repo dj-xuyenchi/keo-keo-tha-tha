@@ -6,7 +6,7 @@ export const textValue = {
   name: "Text value",
   key: TEXT_VALUE_KEY,
   valueType: "string",
-  apply: [DATA_TYPE.TEXT, DATA_TYPE.CHECK_BOX],
+  apply: [DATA_TYPE.TEXT, DATA_TYPE.CHECK_BOX, DATA_TYPE.RADIO],
   value: "" as string,
 } as PropComponent;
 
