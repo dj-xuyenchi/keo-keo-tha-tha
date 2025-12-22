@@ -14,6 +14,7 @@ import { CheckBoxDrop } from "@/component/data/CheckBoxDrop";
 import { RadioDrop } from "@/component/data/RadioDrop";
 import { SwitchDrop } from "@/component/data/SwitchDrop";
 import { InputNumberDrop } from "@/component/data/InputNumberDrop";
+import { TextAreaDrop } from "@/component/data/TextAreaDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -147,6 +148,13 @@ function renderNodePreview(item: {
         <InputDrop
           widthDefault={240}
           input={item as unknown as ComponentData}
+        />
+      );
+    case DATA_TYPE.RICH_TEXT:
+      return (
+        <TextAreaDrop
+          widthDefault={240}
+          textArea={item as unknown as ComponentData}
         />
       );
     case DATA_TYPE.INPUT_NUMBER:

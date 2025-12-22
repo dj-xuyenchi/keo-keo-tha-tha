@@ -11,6 +11,7 @@ import { CheckBoxDrop } from "./CheckBoxDrop";
 import { RadioDrop } from "./RadioDrop";
 import { SwitchDrop } from "./SwitchDrop";
 import { InputNumberDrop } from "./InputNumberDrop";
+import { TextAreaDrop } from "./TextAreaDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -37,6 +38,13 @@ export const GenComponent = ({
       return (
         <>
           <InputDrop input={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.RICH_TEXT: {
+      return (
+        <>
+          <TextAreaDrop textArea={component} key={component.id} />
         </>
       );
     }

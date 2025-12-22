@@ -7,6 +7,7 @@ import { defaultRadioDropObject } from "@/component/data/RadioDrop";
 import { defaultRowDropObject } from "@/component/data/RowDrop";
 import { defaultSwitchDropObject } from "@/component/data/SwitchDrop";
 import { defaultTableDropObject } from "@/component/data/TableDrop";
+import { defaultTextAreaDropObject } from "@/component/data/TextAreaDrop";
 import { defaultTextDropObject } from "@/component/data/TextDrop";
 import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { ComponentData } from "@/entity/canvas/ComponentData";
@@ -16,6 +17,9 @@ export const buildChildren = (item: DropDragItem) => {
   switch (item.type) {
     case DATA_TYPE.INPUT: {
       return defaultInputDropObject(item.id as string);
+    }
+    case DATA_TYPE.RICH_TEXT: {
+      return defaultTextAreaDropObject(item.id as string);
     }
     case DATA_TYPE.INPUT_NUMBER: {
       return defaultInputNumberDropObject(item.id as string);
