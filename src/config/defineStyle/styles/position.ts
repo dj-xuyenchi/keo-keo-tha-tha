@@ -9,6 +9,8 @@ export const position = {
   name: "position",
   reactObjectName: "position",
 } as StyleHTML;
+
+export const positionTooltip = "Thiết lập cách quyết định vị trí của component";
 export const top = {
   key: TOP_KEY,
   name: "top",
