@@ -16,6 +16,8 @@ export const top = {
   name: "top",
   reactObjectName: "top",
 } as StyleHTML;
+export const topTooltip =
+  "Thiết lập vị trí cách điểm trên cùng với component cha(Thuộc tính này yêu cầu style position abs hoặc fixed)";
 export const bottom = {
   key: BOTTOM_KEY,
   name: "bottom",

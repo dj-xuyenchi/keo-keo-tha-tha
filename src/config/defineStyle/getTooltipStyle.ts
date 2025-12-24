@@ -6,7 +6,12 @@ import {
   JUSTIFY_CONTENT_KEY,
   justifyContentTooltip,
 } from "./styles/display";
-import { POSITION_KEY, positionTooltip } from "./styles/position";
+import {
+  POSITION_KEY,
+  positionTooltip,
+  TOP_KEY,
+  topTooltip,
+} from "./styles/position";
 
 export const getTooltipStyle = (type: string) => {
   switch (type) {
@@ -18,6 +23,8 @@ export const getTooltipStyle = (type: string) => {
       return flexDirectionTooltip;
     case POSITION_KEY:
       return positionTooltip;
+    case TOP_KEY:
+      return topTooltip;
     default: {
       return "";
     }
