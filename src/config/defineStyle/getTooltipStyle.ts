@@ -7,6 +7,8 @@ import {
   justifyContentTooltip,
 } from "./styles/display";
 import {
+  BOTTOM_KEY,
+  bottomTooltip,
   POSITION_KEY,
   positionTooltip,
   TOP_KEY,
@@ -25,6 +27,8 @@ export const getTooltipStyle = (type: string) => {
       return positionTooltip;
     case TOP_KEY:
       return topTooltip;
+    case BOTTOM_KEY:
+      return bottomTooltip;
     default: {
       return "";
     }
