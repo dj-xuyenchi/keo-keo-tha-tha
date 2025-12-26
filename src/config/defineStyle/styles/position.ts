@@ -30,6 +30,8 @@ export const right = {
   name: "right",
   reactObjectName: "right",
 } as StyleHTML;
+export const rightTooltip =
+  "Thiết lập vị trí cách điểm bên phải với component cha(Thuộc tính này yêu cầu style position abs hoặc fixed)";
 export const left = {
   key: LEFT_KEY,
   name: "left",

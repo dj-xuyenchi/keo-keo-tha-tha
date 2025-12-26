@@ -11,6 +11,8 @@ import {
   bottomTooltip,
   POSITION_KEY,
   positionTooltip,
+  RIGHT_KEY,
+  rightTooltip,
   TOP_KEY,
   topTooltip,
 } from "./styles/position";
@@ -29,6 +31,8 @@ export const getTooltipStyle = (type: string) => {
       return topTooltip;
     case BOTTOM_KEY:
       return bottomTooltip;
+    case RIGHT_KEY:
+      return rightTooltip;
     default: {
       return "";
     }
