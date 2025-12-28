@@ -12,6 +12,7 @@ import { RadioDrop } from "./RadioDrop";
 import { SwitchDrop } from "./SwitchDrop";
 import { InputNumberDrop } from "./InputNumberDrop";
 import { TextAreaDrop } from "./TextAreaDrop";
+import { DropdownDrop } from "./DropdownDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -59,6 +60,13 @@ export const GenComponent = ({
       return (
         <>
           <TextDrop text={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.DROP_DOWN: {
+      return (
+        <>
+          <DropdownDrop dropdown={component} key={component.id} />
         </>
       );
     }

@@ -15,6 +15,7 @@ import { RadioDrop } from "@/component/data/RadioDrop";
 import { SwitchDrop } from "@/component/data/SwitchDrop";
 import { InputNumberDrop } from "@/component/data/InputNumberDrop";
 import { TextAreaDrop } from "@/component/data/TextAreaDrop";
+import { DropdownDrop } from "@/component/data/DropdownDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -162,6 +163,13 @@ function renderNodePreview(item: {
         <InputNumberDrop
           widthDefault={240}
           inputNumber={item as unknown as ComponentData}
+        />
+      );
+    case DATA_TYPE.DROP_DOWN:
+      return (
+        <DropdownDrop
+          widthDefault={240}
+          dropdown={item as unknown as ComponentData}
         />
       );
     case DATA_TYPE.TABLE:

@@ -12,6 +12,7 @@ import inputIcon from "../../../public/options/data/input.png";
 import inputNumberIcon from "../../../public/options/data/input-number.png";
 import textIcon from "../../../public/options/data/text.png";
 import dropdownIcon from "../../../public/options/data/dropdown.png";
+import selectIcon from "../../../public/options/data/select.png";
 import treeIcon from "../../../public/options/data/tree.png";
 import datePickerIcon from "../../../public/options/data/date-picker.png";
 import rangePickerIcon from "../../../public/options/data/range-picker.png";
@@ -72,6 +73,11 @@ export const toolBoxOption: Toolbox[] = [
         name: "Dropdown",
         icon: dropdownIcon,
         type: DATA_TYPE.DROP_DOWN,
+      },
+      {
+        name: "Select",
+        icon: selectIcon,
+        type: DATA_TYPE.SELECT,
       },
       {
         name: "Tree",
