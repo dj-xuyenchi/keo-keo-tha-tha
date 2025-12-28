@@ -9,6 +9,8 @@ import {
 import {
   BOTTOM_KEY,
   bottomTooltip,
+  LEFT_KEY,
+  leftTooltip,
   POSITION_KEY,
   positionTooltip,
   RIGHT_KEY,
@@ -33,6 +35,8 @@ export const getTooltipStyle = (type: string) => {
       return bottomTooltip;
     case RIGHT_KEY:
       return rightTooltip;
+    case LEFT_KEY:
+      return leftTooltip;
     default: {
       return "";
     }
