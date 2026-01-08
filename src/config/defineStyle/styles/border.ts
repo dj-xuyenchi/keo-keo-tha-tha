@@ -13,4 +13,5 @@ export const borderRadius = {
   name: "border-radius",
   reactObjectName: "borderRadius",
 } as StyleHTML;
+export const borderRadiusTooltip = "Thiết lập độ tròn đường viền cho component";
 export const borderGroupStyle = [border, borderRadius];

@@ -1,4 +1,9 @@
-import { BORDER_KEY, borderTooltip } from "./styles/border";
+import {
+  BORDER_KEY,
+  BORDER_RADIUS_KEY,
+  borderRadiusTooltip,
+  borderTooltip,
+} from "./styles/border";
 import {
   ALIGN_ITEMS_KEY,
   alignItemsTooltip,
@@ -40,6 +45,8 @@ export const getTooltipStyle = (type: string) => {
       return leftTooltip;
     case BORDER_KEY:
       return borderTooltip;
+    case BORDER_RADIUS_KEY:
+      return borderRadiusTooltip;
     default: {
       return "";
     }
