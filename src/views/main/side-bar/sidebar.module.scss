@@ -1,4 +1,6 @@
 .sideBarContainer {
+
+
     background-color: white;
     height: calc(100vh - 100px);
     display: flex;
@@ -13,7 +15,7 @@
     z-index: 1;
 
     @media (max-width: 1440px) {
-        width: 300px !important; // màn 14 inch đổ xuống
+        width: 260px !important; // màn 14 inch đổ xuống
     }
 
     .toolbox {

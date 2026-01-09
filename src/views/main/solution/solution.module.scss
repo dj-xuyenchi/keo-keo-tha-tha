@@ -1,43 +1,52 @@
 .solutionContainer {
-          width: 300px;
-          background-color: white;
-          height: calc(100vh - 100px);
-          display: flex;
-          flex-direction: column;
-          padding: 4px 4px;
-          border-bottom: 1px solid #d1d9e0;
-          border-right: 1px solid #d1d9e0;
-          position: fixed;
-          left: 0;
-          top: 120px;
-          z-index: 10;
-          padding: 4px;
-          gap: 4px;
-          ::-webkit-scrollbar {
-                    display: none;
-          }
-          .fileTree {
-                    border: 1px solid #d1d9e0;
-                    padding: 4px 10px;
-                    .fileTreeTab {
-                              .treeDataFile {
-                                        height: 40vh;
-                                        overflow-y: scroll;
-                              }
-                    }
-          }
-          .componentList {
-                    border: 1px solid #d1d9e0;
-                    padding: 4px;
-                    .structure {
-                              height: 38vh;
-                              overflow-y: scroll;
-                    }
-          }
+    @media (max-width: 1440px) {
+        width: 240px;
+    }
 
-          .extraBtn {
-                    display: flex;
-                    justify-content: flex-end;
-                    margin-bottom: 4px;
-          }
+    width: 300px;
+    background-color: white;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    padding: 4px 4px;
+    border-bottom: 1px solid #d1d9e0;
+    border-right: 1px solid #d1d9e0;
+    position: fixed;
+    left: 0;
+    top: 120px;
+    z-index: 10;
+    padding: 4px;
+    gap: 4px;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .fileTree {
+        border: 1px solid #d1d9e0;
+        padding: 4px 10px;
+
+        .fileTreeTab {
+            .treeDataFile {
+                height: 40vh;
+                overflow-y: scroll;
+            }
+        }
+    }
+
+    .componentList {
+        border: 1px solid #d1d9e0;
+        padding: 4px;
+
+        .structure {
+            height: 38vh;
+            overflow-y: scroll;
+        }
+    }
+
+    .extraBtn {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 4px;
+    }
 }

@@ -5,11 +5,19 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-top: 130px;
+
     ::-webkit-scrollbar {
         display: none;
     }
 
     .canvasContent {
+
+        // cái cấu hình này nếu sau thay đổi cần chỉnh lại cả cho component vì kéo thả nên mỗi chỗ nó dùng 1 width riêng
+        @media (max-width: 1440px) {
+            width: 800px !important; // màn 14 inch đổ xuống
+            margin-right: 0px;
+        }
+
         background-color: white;
         border: 1px solid #d1d9e0;
         width: 1000px;
@@ -30,6 +38,7 @@
         background-color: #fff;
     }
 }
+
 .canvasContainer {
     width: 100%;
     height: 100%;

@@ -1,4 +1,8 @@
 .pannelContainer {
+    @media (max-width: 1440px) {
+        width: 780px !important;
+    }
+
     width: 980px;
     border: 1px solid rgb(243, 241, 241);
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
@@ -10,6 +14,7 @@
             rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
             rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
+
     .deleteBtn {
         cursor: pointer;
         position: absolute;

@@ -206,6 +206,19 @@ export const TableColumnSetting = ({
       },
     });
   };
+  const handleConfirmSave = () => {
+    modal.confirm({
+      title: "Bạn có chắc lưu những thay đổi vào bảng?",
+      content: "Thao tác này không thể hoàn tác.",
+      okText: "Đồng ý",
+      cancelText: "Xem lại",
+      okType: "primary",
+      centered: true,
+      onOk: () => {
+        handleSave()
+      },
+    });
+  }
   const handleSave = () => {
     const workList = cloneDeep(canvas.dataWork) as ComponentData[];
     const componentSelected = findComponentById(
@@ -227,6 +240,7 @@ export const TableColumnSetting = ({
     dispatch(setData2Work(workList));
     handleClose();
   };
+
 
   const getAllKeys = (nodes: TableColumnValue[]) => {
     let keys: React.Key[] = [];
@@ -474,7 +488,7 @@ export const TableColumnSetting = ({
             }}
             type="primary"
             title="Xác nhận"
-            onClick={handleSave}
+            onClick={handleConfirmSave}
           />
           <ButtonCustom title="Hủy" onClick={handleCancel} />
         </Row>
