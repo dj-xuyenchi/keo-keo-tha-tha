@@ -6,6 +6,7 @@ import { defaultInputDropObject } from "@/component/data/InputDrop";
 import { defaultInputNumberDropObject } from "@/component/data/InputNumberDrop";
 import { defaultRadioDropObject } from "@/component/data/RadioDrop";
 import { defaultRowDropObject } from "@/component/data/RowDrop";
+import { defaultSelectDropObject } from "@/component/data/SelectDrop";
 import { defaultSwitchDropObject } from "@/component/data/SwitchDrop";
 import { defaultTableDropObject } from "@/component/data/TableDrop";
 import { defaultTextAreaDropObject } from "@/component/data/TextAreaDrop";
@@ -30,6 +31,9 @@ export const buildChildren = (item: DropDragItem) => {
     }
     case DATA_TYPE.DROP_DOWN: {
       return defaultDropdownDropObject(item.id as string);
+    }
+    case DATA_TYPE.SELECT: {
+      return defaultSelectDropObject(item.id as string);
     }
     case DATA_TYPE.CHECK_BOX: {
       return defaultCheckBoxDropObject(item.id as string);

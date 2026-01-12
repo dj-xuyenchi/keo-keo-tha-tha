@@ -16,6 +16,7 @@ import { SwitchDrop } from "@/component/data/SwitchDrop";
 import { InputNumberDrop } from "@/component/data/InputNumberDrop";
 import { TextAreaDrop } from "@/component/data/TextAreaDrop";
 import { DropdownDrop } from "@/component/data/DropdownDrop";
+import { SelectDrop } from "@/component/data/SelectDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -42,16 +43,6 @@ function renderNodePreview(item: {
   node: object;
   componentChildren: ComponentData[];
 }) {
-  // if (item) {
-  //   item.source = 'Canvas'
-  // }
-  // const n = item?.node;
-  // if (!n) return null;
-  // if (item.source == "Sidebar") {
-  //   return (
-  //     <Image src={`/options/${item.icon}`} width={24} height={24} alt="icon" />
-  //   );
-  // }
   switch (item.type) {
     case GENERAL_TYPE.ROW:
       return (
@@ -140,7 +131,7 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => {}}
+          movePanel={() => { }}
           index={0}
         />
       );
@@ -170,6 +161,13 @@ function renderNodePreview(item: {
         <DropdownDrop
           widthDefault={240}
           dropdown={item as unknown as ComponentData}
+        />
+      ); 
+      case DATA_TYPE.SELECT:
+      return (
+        <SelectDrop
+          widthDefault={240}
+          select={item as unknown as ComponentData}
         />
       );
     case DATA_TYPE.TABLE:

@@ -69,6 +69,12 @@ export const GenComponent = ({
           <DropdownDrop dropdown={component} key={component.id} />
         </>
       );
+    } case DATA_TYPE.SELECT: {
+      return (
+        <>
+          <SelectDrop select={component} key={component.id} />
+        </>
+      );
     }
     case DATA_TYPE.CHECK_BOX: {
       return (
