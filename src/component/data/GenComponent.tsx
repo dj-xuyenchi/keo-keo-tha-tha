@@ -13,12 +13,12 @@ import { SwitchDrop } from "./SwitchDrop";
 import { InputNumberDrop } from "./InputNumberDrop";
 import { TextAreaDrop } from "./TextAreaDrop";
 import { DropdownDrop } from "./DropdownDrop";
+import { DatetimePickerDrop } from "./DateTimePickerDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
 export const GenComponent = ({
-  component,
-  ...restProps
+  component
 }: GenComponentProps) => {
   switch (component.type) {
     case GENERAL_TYPE.ROW: {
@@ -69,10 +69,18 @@ export const GenComponent = ({
           <DropdownDrop dropdown={component} key={component.id} />
         </>
       );
-    } case DATA_TYPE.SELECT: {
+    }
+    case DATA_TYPE.SELECT: {
       return (
         <>
           <SelectDrop select={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.DATE_PICKER: {
+      return (
+        <>
+          <DatetimePickerDrop datetimePicker={component} key={component.id} />
         </>
       );
     }
@@ -100,7 +108,7 @@ export const GenComponent = ({
     case DATA_TYPE.DROP_DOWN: {
       return (
         <>
-          <SelectDrop key={component.id} />
+          <SelectDrop select={component} key={component.id} />
         </>
       );
     }

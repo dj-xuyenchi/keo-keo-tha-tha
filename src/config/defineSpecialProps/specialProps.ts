@@ -21,5 +21,4 @@ export const specialPropList = [
   textValue,
   size,
   optionSelect
-  
 ] as PropComponent[];

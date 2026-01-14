@@ -17,6 +17,7 @@ import { InputNumberDrop } from "@/component/data/InputNumberDrop";
 import { TextAreaDrop } from "@/component/data/TextAreaDrop";
 import { DropdownDrop } from "@/component/data/DropdownDrop";
 import { SelectDrop } from "@/component/data/SelectDrop";
+import { DatetimePickerDrop } from "@/component/data/DateTimePickerDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -162,12 +163,19 @@ function renderNodePreview(item: {
           widthDefault={240}
           dropdown={item as unknown as ComponentData}
         />
-      ); 
-      case DATA_TYPE.SELECT:
+      );
+    case DATA_TYPE.SELECT:
       return (
         <SelectDrop
           widthDefault={240}
           select={item as unknown as ComponentData}
+        />
+      );
+    case DATA_TYPE.DATE_PICKER:
+      return (
+        <DatetimePickerDrop
+          widthDefault={240}
+          datetimePicker={item as unknown as ComponentData}
         />
       );
     case DATA_TYPE.TABLE:

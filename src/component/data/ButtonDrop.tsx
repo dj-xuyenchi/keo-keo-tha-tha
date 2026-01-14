@@ -6,7 +6,7 @@ import {
   ComponentData,
   findParentRowById,
 } from "@/entity/canvas/ComponentData";
-import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
+import { GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { StyleHTML } from "@/entity/canvas/StyleHTML";
 import {
   FORM_ITEM_KEY,

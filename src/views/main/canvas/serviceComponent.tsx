@@ -1,6 +1,7 @@
 import { defaultButtonDropObject } from "@/component/data/ButtonDrop";
 import { defaultCheckBoxDropObject } from "@/component/data/CheckBoxDrop";
 import { defaultColDropObject } from "@/component/data/ColForRow";
+import { defaultDatetimePickerDropObject } from "@/component/data/DateTimePickerDrop";
 import { defaultDropdownDropObject } from "@/component/data/DropdownDrop";
 import { defaultInputDropObject } from "@/component/data/InputDrop";
 import { defaultInputNumberDropObject } from "@/component/data/InputNumberDrop";
@@ -14,7 +15,7 @@ import { defaultTextDropObject } from "@/component/data/TextDrop";
 import { DATA_TYPE, GENERAL_TYPE } from "@/config/sidebar/TypeComponent";
 import { ComponentData } from "@/entity/canvas/ComponentData";
 import { DropDragItem } from "@/entity/DropDragItem";
-
+// Add build function
 export const buildChildren = (item: DropDragItem) => {
   switch (item.type) {
     case DATA_TYPE.INPUT: {
@@ -34,6 +35,9 @@ export const buildChildren = (item: DropDragItem) => {
     }
     case DATA_TYPE.SELECT: {
       return defaultSelectDropObject(item.id as string);
+    }
+    case DATA_TYPE.DATE_PICKER: {
+      return defaultDatetimePickerDropObject(item.id as string);
     }
     case DATA_TYPE.CHECK_BOX: {
       return defaultCheckBoxDropObject(item.id as string);
