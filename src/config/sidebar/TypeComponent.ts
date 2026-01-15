@@ -17,7 +17,8 @@ export enum DATA_TYPE {
   TREE = "TREE",
   QR = "QR",
   CHART = "CHART",
-  TEXT = "TEXT",
+  TEXT = "TEXT", 
+  LINK = "LINK"
 }
 
 export enum GENERAL_TYPE {

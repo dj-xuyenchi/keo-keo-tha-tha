@@ -23,6 +23,7 @@ import uploadIcon from "../../../public/options/data/upload.png";
 import qrIcon from "../../../public/options/data/qr.png";
 import chartIcon from "../../../public/options/data/chart.png";
 import textLine from "../../../public/options/data/text-line.png";
+import linkIcon from "../../../public/options/data/web.png";
 import colIcon from "../../../public/options/layout/col.png";
 
 export const toolBoxOption: Toolbox[] = [
@@ -38,6 +39,11 @@ export const toolBoxOption: Toolbox[] = [
         name: "Text",
         icon: textLine,
         type: DATA_TYPE.TEXT,
+      },
+      {
+        name: "Link",
+        icon: linkIcon,
+        type: DATA_TYPE.LINK,
       },
       {
         name: "Checkbox",
