@@ -14,12 +14,11 @@ import { InputNumberDrop } from "./InputNumberDrop";
 import { TextAreaDrop } from "./TextAreaDrop";
 import { DropdownDrop } from "./DropdownDrop";
 import { DatetimePickerDrop } from "./DateTimePickerDrop";
+import { LinkDrop } from "./LinkDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
-export const GenComponent = ({
-  component
-}: GenComponentProps) => {
+export const GenComponent = ({ component }: GenComponentProps) => {
   switch (component.type) {
     case GENERAL_TYPE.ROW: {
       return (
@@ -60,6 +59,13 @@ export const GenComponent = ({
       return (
         <>
           <TextDrop text={component} key={component.id} />
+        </>
+      );
+    }
+    case DATA_TYPE.LINK: {
+      return (
+        <>
+          <LinkDrop link={component} key={component.id} />
         </>
       );
     }

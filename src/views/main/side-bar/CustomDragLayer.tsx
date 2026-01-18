@@ -18,6 +18,7 @@ import { TextAreaDrop } from "@/component/data/TextAreaDrop";
 import { DropdownDrop } from "@/component/data/DropdownDrop";
 import { SelectDrop } from "@/component/data/SelectDrop";
 import { DatetimePickerDrop } from "@/component/data/DateTimePickerDrop";
+import { LinkDrop } from "@/component/data/LinkDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -79,6 +80,18 @@ function renderNodePreview(item: {
           }
         />
       );
+    case DATA_TYPE.LINK:
+      return (
+        <LinkDrop
+          widthDefault={40}
+          heightDefault={20}
+          link={
+            {
+              ...(item as unknown as ComponentData),
+            } as ComponentData
+          }
+        />
+      );
     case DATA_TYPE.CHECK_BOX:
       return (
         <CheckBoxDrop
@@ -132,7 +145,7 @@ function renderNodePreview(item: {
               ],
             } as ComponentData
           }
-          movePanel={() => { }}
+          movePanel={() => {}}
           index={0}
         />
       );

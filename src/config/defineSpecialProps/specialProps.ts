@@ -9,6 +9,7 @@ import { loading } from "./define/common/loading";
 import { textValue } from "./define/text/textValue";
 import { size } from "./define/common/size";
 import { optionSelect } from "./define/select/optionSelect";
+import { href } from "./define/link/href";
 
 export const specialPropList = [
   form,
@@ -20,5 +21,6 @@ export const specialPropList = [
   loading,
   textValue,
   size,
-  optionSelect
+  optionSelect,
+  href,
 ] as PropComponent[];

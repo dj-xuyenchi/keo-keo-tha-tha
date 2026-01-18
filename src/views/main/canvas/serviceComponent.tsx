@@ -5,6 +5,7 @@ import { defaultDatetimePickerDropObject } from "@/component/data/DateTimePicker
 import { defaultDropdownDropObject } from "@/component/data/DropdownDrop";
 import { defaultInputDropObject } from "@/component/data/InputDrop";
 import { defaultInputNumberDropObject } from "@/component/data/InputNumberDrop";
+import { defaultLinkDropObject } from "@/component/data/LinkDrop";
 import { defaultRadioDropObject } from "@/component/data/RadioDrop";
 import { defaultRowDropObject } from "@/component/data/RowDrop";
 import { defaultSelectDropObject } from "@/component/data/SelectDrop";
@@ -29,6 +30,9 @@ export const buildChildren = (item: DropDragItem) => {
     }
     case DATA_TYPE.TEXT: {
       return defaultTextDropObject(item.id as string);
+    }
+    case DATA_TYPE.LINK: {
+      return defaultLinkDropObject(item.id as string);
     }
     case DATA_TYPE.DROP_DOWN: {
       return defaultDropdownDropObject(item.id as string);

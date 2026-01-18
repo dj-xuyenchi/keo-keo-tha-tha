@@ -23,7 +23,7 @@ export const getPlaceHolder = (type: string) => {
     case TEXT_VALUE_KEY:
       return textValuePlaceHolder;
     default: {
-      return "Nhập dữ liệu cho thuộc tính";
+      return "Nhập giá trị cho thuộc tính";
     }
   }
 };
