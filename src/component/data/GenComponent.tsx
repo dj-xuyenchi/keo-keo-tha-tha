@@ -15,6 +15,7 @@ import { TextAreaDrop } from "./TextAreaDrop";
 import { DropdownDrop } from "./DropdownDrop";
 import { DatetimePickerDrop } from "./DateTimePickerDrop";
 import { LinkDrop } from "./LinkDrop";
+import { ImageDrop } from "./ImageDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -129,6 +130,13 @@ export const GenComponent = ({ component }: GenComponentProps) => {
       return (
         <>
           <ButtonDrop button={component} />
+        </>
+      );
+    }
+    case DATA_TYPE.IMAGE: {
+      return (
+        <>
+          <ImageDrop image={component} />
         </>
       );
     }

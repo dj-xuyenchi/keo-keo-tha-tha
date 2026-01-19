@@ -10,6 +10,7 @@ import { textValue } from "./define/text/textValue";
 import { size } from "./define/common/size";
 import { optionSelect } from "./define/select/optionSelect";
 import { href } from "./define/link/href";
+import { openNewPage } from "./define/link/openNewPage";
 
 export const specialPropList = [
   form,
@@ -23,4 +24,5 @@ export const specialPropList = [
   size,
   optionSelect,
   href,
+  openNewPage,
 ] as PropComponent[];

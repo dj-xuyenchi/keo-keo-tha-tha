@@ -1,5 +1,10 @@
 import { FORM_ITEM_KEY, formItemTooltip } from "./define/common/formItem";
 import { LOADING_KEY, loadingTooltip } from "./define/common/loading";
+import { HREF_KEY, hrefTooltip } from "./define/link/href";
+import {
+  OPEN_NEW_PAGE_KEY,
+  openNewPageTooltip,
+} from "./define/link/openNewPage";
 import { FORM_KEY, formTooltip } from "./define/row/form";
 import {
   QUICK_SEARCH_KEY,
@@ -28,6 +33,10 @@ export const getTooltip = (type: string) => {
       return loadingTooltip;
     case TEXT_VALUE_KEY:
       return textValuemTooltip;
+    case OPEN_NEW_PAGE_KEY:
+      return openNewPageTooltip;
+    case HREF_KEY:
+      return hrefTooltip;
     default: {
       return "";
     }

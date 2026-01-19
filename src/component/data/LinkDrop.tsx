@@ -23,7 +23,7 @@ export const LinkDrop = ({
 
   return (
     <WrapperDropComponent component={link} widthDefault={widthDefault}>
-      <Link href="/about">About</Link>
+      <span>About</span>
     </WrapperDropComponent>
   );
 };

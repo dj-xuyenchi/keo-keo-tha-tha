@@ -103,7 +103,7 @@ export const toolBoxOption: Toolbox[] = [
       {
         name: "Color picker",
         icon: colorPickerIcon,
-        type: DATA_TYPE.DATE_PICKER,
+        type: DATA_TYPE.COLOR_PICKER,
       },
       {
         name: "Image",
