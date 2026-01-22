@@ -24,6 +24,7 @@ import {
   TOP_KEY,
   topTooltip,
 } from "./styles/position";
+import { WIDTH_KEY, widthTooltip } from "./styles/width";
 
 export const getTooltipStyle = (type: string) => {
   switch (type) {
@@ -47,6 +48,8 @@ export const getTooltipStyle = (type: string) => {
       return borderTooltip;
     case BORDER_RADIUS_KEY:
       return borderRadiusTooltip;
+    case WIDTH_KEY:
+      return widthTooltip;
     default: {
       return "";
     }

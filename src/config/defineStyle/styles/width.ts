@@ -7,6 +7,8 @@ export const width = {
   name: "width",
   reactObjectName: "width",
 } as StyleHTML;
+
+export const widthTooltip = "Thiết lập chiều ngang component";
 export const minWidth = {
   key: MIN_WIDTH_KEY,
   name: "min-width",
