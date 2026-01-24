@@ -24,6 +24,7 @@ import {
   TOP_KEY,
   topTooltip,
 } from "./styles/position";
+import { TEXT_ALIGN_KEY, textAlignTooltip } from "./styles/textAlign";
 import { WIDTH_KEY, widthTooltip } from "./styles/width";
 
 export const getTooltipStyle = (type: string) => {
@@ -50,6 +51,8 @@ export const getTooltipStyle = (type: string) => {
       return borderRadiusTooltip;
     case WIDTH_KEY:
       return widthTooltip;
+    case TEXT_ALIGN_KEY:
+      return textAlignTooltip;
     default: {
       return "";
     }

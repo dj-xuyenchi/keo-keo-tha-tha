@@ -6,4 +6,5 @@ export const textAlign = {
   reactObjectName: "textAlign",
 } as StyleHTML;
 
+export const textAlignTooltip = "Thiết lập vị trí text";
 export const textAlignGroupStyle = [textAlign];
