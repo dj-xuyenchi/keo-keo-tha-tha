@@ -20,6 +20,7 @@ import { SelectDrop } from "@/component/data/SelectDrop";
 import { DatetimePickerDrop } from "@/component/data/DateTimePickerDrop";
 import { LinkDrop } from "@/component/data/LinkDrop";
 import { ImageDrop } from "@/component/data/ImageDrop";
+import { ColorPickerDrop } from "@/component/data/ColorPickerDrop";
 // Preview của layout (nếu muốn nhẹ hơn, render khung đơn giản)
 
 function getItemStyles(clientOffset?: XYCoord | null) {
@@ -201,6 +202,8 @@ function renderNodePreview(item: {
       );
     case DATA_TYPE.IMAGE:
       return <ImageDrop image={item as unknown as ComponentData} />;
+    case DATA_TYPE.COLOR_PICKER:
+      return <ColorPickerDrop colorPicker={item as unknown as ComponentData} />;
     default:
       return (
         <div className="rounded border bg-white px-3 py-2 shadow">

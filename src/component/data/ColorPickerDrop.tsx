@@ -17,24 +17,24 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { ColorPicker, ColorPickerProps, Form } from "antd";
 export interface ColorPickerDropProps extends ColorPickerProps, WrapperBase {
-    datetimePicker: ComponentData | null;
+    colorPicker: ComponentData | null;
 }
 export const ColorPickerDrop = ({
-    datetimePicker,
-    widthDefault,
+    colorPicker,
+    widthDefault = 40,
     ...restProps
 }: ColorPickerDropProps) => {
-    const formItemSetting = datetimePicker?.specialProps?.find(
+    const formItemSetting = colorPicker?.specialProps?.find(
         (prop) => prop.key === FORM_ITEM_KEY
     ) as PropComponent;
     const canvas = useSelector((state: RootState) => state.canvas);
     let formRowSetting;
     if (formItemSetting) {
-        formRowSetting = findParentRowById(canvas.dataWork, datetimePicker?.id as string);
+        formRowSetting = findParentRowById(canvas.dataWork, colorPicker?.id as string);
     }
 
     return (
-        <WrapperDropComponent component={datetimePicker} widthDefault={widthDefault}>
+        <WrapperDropComponent component={colorPicker} widthDefault={widthDefault}>
             {formItemSetting ? (
                 <Form.Item
                     label={

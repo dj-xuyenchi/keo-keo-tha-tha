@@ -1,6 +1,7 @@
 import { defaultButtonDropObject } from "@/component/data/ButtonDrop";
 import { defaultCheckBoxDropObject } from "@/component/data/CheckBoxDrop";
 import { defaultColDropObject } from "@/component/data/ColForRow";
+import { defaultColorPickerDropObject } from "@/component/data/ColorPickerDrop";
 import { defaultDatetimePickerDropObject } from "@/component/data/DateTimePickerDrop";
 import { defaultDropdownDropObject } from "@/component/data/DropdownDrop";
 import { defaultImageDropObject } from "@/component/data/ImageDrop";
@@ -67,6 +68,9 @@ export const buildChildren = (item: DropDragItem) => {
     }
     case DATA_TYPE.IMAGE: {
       return defaultImageDropObject(item.id as string);
+    }
+    case DATA_TYPE.COLOR_PICKER: {
+      return defaultColorPickerDropObject(item.id as string);
     }
     default: {
       return {

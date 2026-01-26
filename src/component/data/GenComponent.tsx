@@ -16,6 +16,7 @@ import { DropdownDrop } from "./DropdownDrop";
 import { DatetimePickerDrop } from "./DateTimePickerDrop";
 import { LinkDrop } from "./LinkDrop";
 import { ImageDrop } from "./ImageDrop";
+import { ColorPickerDrop } from "./ColorPickerDrop";
 export interface GenComponentProps {
   component: ComponentData;
 }
@@ -137,6 +138,13 @@ export const GenComponent = ({ component }: GenComponentProps) => {
       return (
         <>
           <ImageDrop image={component} />
+        </>
+      );
+    }
+    case DATA_TYPE.COLOR_PICKER: {
+      return (
+        <>
+          <ColorPickerDrop colorPicker={component} />
         </>
       );
     }
