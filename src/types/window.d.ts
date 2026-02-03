@@ -9,10 +9,11 @@ declare global {
       readFile: (fileName: string) => Promise<string>;
       writeFile: (
         fileName: string,
-        content: string
+        content: string,
       ) => Promise<boolean | string>;
       onShowExitConfirm: (callback) => boolean;
       confirmExit: () => boolean;
+      debug: () => boolean;
     };
     __REDUX_STORE__?: ReturnType<typeof createStore>;
   }

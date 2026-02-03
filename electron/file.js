@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { ipcMain, app } = require('electron');
+const { spawn } = require('child_process');
+const os = require('os');
+const fsBuild = require('fs');
 const path = require('path');
 const fs = require('fs').promises;
 
@@ -96,4 +99,65 @@ ipcMain.handle('file:delete', async (_, relativePath) => {
                     console.error(err);
                     return false;
           }
+});
+
+function getDotnetPath() {
+          if (process.platform === 'win32') {
+                    const winPath = 'C:\\Program Files\\dotnet\\dotnet.exe';
+                    if (fsBuild.existsSync(winPath)) return winPath;
+          }
+
+          if (process.platform === 'darwin') {
+                    const macPath = '/usr/local/share/dotnet/dotnet';
+                    if (fsBuild.existsSync(macPath)) return macPath;
+
+                    // Apple Silicon
+                    const macArmPath = '/opt/homebrew/bin/dotnet';
+                    if (fsBuild.existsSync(macArmPath)) return macArmPath;
+          }
+
+          throw new Error('Không tìm thấy dotnet runtime');
+} 
+function getDllPath() {
+          if (isDev) {
+                    return path.join(
+                              app.getAppPath(), // => KEO-KEO-THA-THA/electron
+                              'tools',
+                              'HighLand.dll'
+                    );
+          }
+
+          return path.join(
+                    process.resourcesPath,
+                    'tools',
+                    'HighLand.dll'
+          );
+}
+ipcMain.handle('dotnet:run', async (_, args = []) => {
+          return new Promise((resolve, reject) => {
+                    try {
+                              const dotnetPath = getDotnetPath();
+                              const dllPath = getDllPath();
+
+                              console.log('dotnet:', dotnetPath);
+                              console.log('dll:', dllPath);
+
+                              const child = spawn(dotnetPath, [dllPath, ...args], {
+                                        cwd: path.dirname(dllPath),
+                              });
+
+                              let stdout = '';
+                              let stderr = '';
+
+                              child.stdout.on('data', d => stdout += d.toString());
+                              child.stderr.on('data', d => stderr += d.toString());
+
+                              child.on('close', code => {
+                                        resolve({ code, stdout, stderr });
+                              });
+                    } catch (err) {
+                              reject(err.message);
+                    }
+          });
+
 });

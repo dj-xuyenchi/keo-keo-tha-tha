@@ -48,6 +48,7 @@
     "files": [
       "out/**/*",
       "electron/**/*",
+      "!electron/tools/**",
       "data/**/*"
     ],
     "directories": {
@@ -65,6 +66,10 @@
       {
         "from": "data/",
         "to": "data/"
+      },
+      {
+        "from": "electron/tools",
+        "to": "tools"
       }
     ]
   }

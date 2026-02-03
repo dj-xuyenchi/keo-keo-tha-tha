@@ -30,7 +30,10 @@ import debugIcon from "../../../../public/options/ribbon/debug.png";
 import borderIcon from "../../../../public/options/ribbon/border.png";
 import behaviorIcon from "../../../../public/options/ribbon/behavior.png";
 import { getSessionCacheValueByKey } from "../solution/service";
-import { IS_ALLOW_DEFAULT_BEHAVIOR, IS_SHOW_BORDER } from "@/config/folder-data/sessionCachingKey";
+import {
+  IS_ALLOW_DEFAULT_BEHAVIOR,
+  IS_SHOW_BORDER,
+} from "@/config/folder-data/sessionCachingKey";
 import { SessionCaching } from "@/entity/fileHandler/SessionCaching";
 import { SESSION_CACHING_JSON } from "@/config/folder-data/fileType";
 import { setSessionCaching } from "@/app/globalSlice";
@@ -44,14 +47,15 @@ export const FileTab = () => {
 
   const dispatch = useDispatch();
   const sessionCaching = useSelector(
-    (state: RootState) => state.global.sessionCaching
+    (state: RootState) => state.global.sessionCaching,
   );
   const isShowBorder =
     getSessionCacheValueByKey(sessionCaching, IS_SHOW_BORDER) === "true";
   const isAllowDefaultBehavior =
-    getSessionCacheValueByKey(sessionCaching, IS_ALLOW_DEFAULT_BEHAVIOR) === "true";
+    getSessionCacheValueByKey(sessionCaching, IS_ALLOW_DEFAULT_BEHAVIOR) ===
+    "true";
   const messageApi = getMessageInstance();
-  const handlePaste = () => { };
+  const handlePaste = () => {};
   const handleSetMode = (value: string) => {
     setMode(value);
   };
@@ -81,7 +85,7 @@ export const FileTab = () => {
           saveData2File(
             file.folderName + "/" + file.name,
             JSON.stringify(work.data),
-            "Lưu dữ liệu thành công!"
+            "Lưu dữ liệu thành công!",
           );
         }
       } catch (e) {
@@ -99,7 +103,7 @@ export const FileTab = () => {
       saveData2File(
         SESSION_CACHING_JSON,
         JSON.stringify(cacheList),
-        !isShowBorder ? "Bật hiển thị phạm vi" : "Tắt hiển thị phạm vi"
+        !isShowBorder ? "Bật hiển thị phạm vi" : "Tắt hiển thị phạm vi",
       );
       dispatch(setSessionCaching(cacheList));
     }
@@ -114,9 +118,20 @@ export const FileTab = () => {
       saveData2File(
         SESSION_CACHING_JSON,
         JSON.stringify(cacheList),
-        !isAllowDefaultBehavior ? "Bật cho phép hành vi mặc định của component" : "Tắt cho phép hành vi mặc định của component"
+        !isAllowDefaultBehavior
+          ? "Bật cho phép hành vi mặc định của component"
+          : "Tắt cho phép hành vi mặc định của component",
       );
       dispatch(setSessionCaching(cacheList));
+    }
+  };
+  const handleRunDebug = async () => {
+    try {
+      console.error(123);
+      await window.electronAPI.debug();
+      console.error(345);
+    } catch (e) {
+      console.error(e);
     }
   };
   return (
@@ -126,7 +141,7 @@ export const FileTab = () => {
         className={clsx(
           styles.fullSizeIcon,
           styles.feature,
-          !canvas.copyData && styles.disabled
+          !canvas.copyData && styles.disabled,
         )}
       >
         <Image src={pasteIcon} width={fullSize} height={fullSize} alt="icon" />
@@ -261,6 +276,7 @@ export const FileTab = () => {
                 height: "30px",
                 marginLeft: "4px",
               }}
+              onClick={handleRunDebug}
             >
               <Image
                 src={mode === "run" ? runIcon : debugIcon}
@@ -311,7 +327,7 @@ export const FileTab = () => {
               className={clsx(
                 styles.miniSizeIcon,
                 styles.feature,
-                isShowBorder && styles.iconBtnOn
+                isShowBorder && styles.iconBtnOn,
               )}
             >
               <Image
@@ -322,13 +338,15 @@ export const FileTab = () => {
               />
             </div>
           </Tooltip>
-          <Tooltip title={`${isAllowDefaultBehavior ? "Tắt" : "Bật"} hành vi mặc định của component`}>
+          <Tooltip
+            title={`${isAllowDefaultBehavior ? "Tắt" : "Bật"} hành vi mặc định của component`}
+          >
             <div
               onClick={handleTurnAllowDefaultBehavior}
               className={clsx(
                 styles.miniSizeIcon,
                 styles.feature,
-                isAllowDefaultBehavior && styles.iconBtnOn
+                isAllowDefaultBehavior && styles.iconBtnOn,
               )}
             >
               <Image
